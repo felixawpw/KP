@@ -14,3 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('validasi', 'ValidasiController');
+Route::resource('mahasiswa', 'MahasiswaController');
+Route::resource('barangbawaan', 'BarangBawaanController');
+Route::resource('panitia', 'PanitiaController');
+Route::resource('presensi', 'PresensiController');
+Route::resource('pelanggaran', 'PelanggaranController');
+
+Route::post('validasi/check', 'ValidasiController@check')->name('validasi.check');
