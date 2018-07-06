@@ -37,7 +37,7 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //        
+        return "successstore";
         $mahasiswa = new Mahasiswa;
         $mahasiswa->nrp = $request->nrp;
         $mahasiswa->enkripsi = $request->enkripsi;
@@ -45,7 +45,7 @@ class MahasiswaController extends Controller
         $mahasiswa->id_jurusan = $request->id_jurusan;
         $mahasiswa->angkatan = $request->angkatan;
         $mahasiswa->save();
-        return redirect()->back
+        return redirect()->back();
     }
 
     /**
@@ -57,7 +57,7 @@ class MahasiswaController extends Controller
     public function show($id)
     {
         //
-        $mahasiswa = Mahasiswa::find($id);
+        //$mahasiswa = Mahasiswa::find($id);
         return view('mahasiswa.show', compact('mahasiswa'));
     }
 
@@ -70,8 +70,7 @@ class MahasiswaController extends Controller
     public function edit($id)
     {
         //
-        $mahasiswa = Mahasiswa::find($id);
-        return view('mahasiswa.edit', compact('mahasiswa'));
+        return view('mahasiswa.edit');
     }
 
     /**
@@ -84,7 +83,7 @@ class MahasiswaController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $mahasiswa = Mahasiswa::find($id);
+        return "success";
 
     }
 

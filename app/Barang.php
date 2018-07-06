@@ -9,5 +9,4 @@ class Barang extends Model
     //
     protected $table = 'Barang';
     protected $timestamps = false;
-
 }

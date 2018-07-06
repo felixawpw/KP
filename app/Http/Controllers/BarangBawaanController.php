@@ -14,6 +14,7 @@ class BarangBawaanController extends Controller
     public function index()
     {
         //
+        return view('barangbawaan.index');
     }
 
     /**
@@ -24,6 +25,8 @@ class BarangBawaanController extends Controller
     public function create()
     {
         //
+        return view('barangbawaan.create');
+
     }
 
     /**
@@ -57,6 +60,8 @@ class BarangBawaanController extends Controller
     public function edit($id)
     {
         //
+        return view('barangbawaan.edit');
+
     }
 
     /**

@@ -14,6 +14,7 @@ class PresensiController extends Controller
     public function index()
     {
         //
+        return view('presensi.index');
     }
 
     /**
@@ -24,6 +25,8 @@ class PresensiController extends Controller
     public function create()
     {
         //
+        return view('presensi.create');
+
     }
 
     /**
@@ -46,6 +49,8 @@ class PresensiController extends Controller
     public function show($id)
     {
         //
+        return view('presensi.show');
+
     }
 
     /**
@@ -57,6 +62,8 @@ class PresensiController extends Controller
     public function edit($id)
     {
         //
+        return view('presensi.edit');
+
     }
 
     /**

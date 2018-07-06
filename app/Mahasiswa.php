@@ -8,7 +8,7 @@ class Mahasiswa extends Model
 {
     //
     protected $table = 'Mahasiswa';
-    protected $timestamps = false;
+    public $timestamps = false;
 
     protected $primaryKey = "NRP";
 

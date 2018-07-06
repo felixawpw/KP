@@ -14,6 +14,7 @@ class PanitiaController extends Controller
     public function index()
     {
         //
+        return view('panitia.index');
     }
 
     /**
@@ -24,6 +25,8 @@ class PanitiaController extends Controller
     public function create()
     {
         //
+        return view('panitia.create');
+
     }
 
     /**
@@ -46,6 +49,8 @@ class PanitiaController extends Controller
     public function show($id)
     {
         //
+        return view('panitia.show');
+
     }
 
     /**
@@ -57,6 +62,8 @@ class PanitiaController extends Controller
     public function edit($id)
     {
         //
+        return view('panitia.edit');
+
     }
 
     /**

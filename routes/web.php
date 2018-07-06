@@ -25,5 +25,12 @@ Route::resource('barangbawaan', 'BarangBawaanController');
 Route::resource('panitia', 'PanitiaController');
 Route::resource('presensi', 'PresensiController');
 Route::resource('pelanggaran', 'PelanggaranController');
+Route::resource('kelompok', 'KelompokController');
+Route::resource('jadwal', 'JadwalController');
+Route::resource('maping', 'MapingController');
+Route::resource('pelanggar', 'PelanggarController');
+Route::resource('barang', 'BarangController');
 
 Route::post('validasi/check', 'ValidasiController@check')->name('validasi.check');
+
+Route::get('test', function(){ return view('layouts.master'); });

@@ -14,6 +14,7 @@ class PelanggaranController extends Controller
     public function index()
     {
         //
+        return view('pelanggaran.index');
     }
 
     /**
@@ -24,6 +25,8 @@ class PelanggaranController extends Controller
     public function create()
     {
         //
+        return view('pelanggaran.create');
+
     }
 
     /**
@@ -46,6 +49,7 @@ class PelanggaranController extends Controller
     public function show($id)
     {
         //
+        return view('pelanggaran.show');
     }
 
     /**
@@ -57,6 +61,7 @@ class PelanggaranController extends Controller
     public function edit($id)
     {
         //
+        return view('pelanggaran.edit');
     }
 
     /**
