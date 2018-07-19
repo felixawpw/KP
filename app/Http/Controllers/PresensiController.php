@@ -38,6 +38,7 @@ class PresensiController extends Controller
     public function store(Request $request)
     {
         //
+        return redirect()->action('PresensiController@index');
     }
 
     /**
@@ -76,6 +77,7 @@ class PresensiController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return redirect()->action('PresensiController@index');
     }
 
     /**
@@ -87,5 +89,6 @@ class PresensiController extends Controller
     public function destroy($id)
     {
         //
+        return redirect()->back();
     }
 }

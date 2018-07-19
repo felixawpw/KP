@@ -32,7 +32,7 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Nama Barang</label>
-  	                          <input type="text" class="form-control" name="nama_barang">
+  	                          <input type="text" class="form-control" name="nama_barang" value="Laptop">
 	                        </div>
 	                      </div>
 		        		</div>
@@ -40,7 +40,7 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Poin</label>
-	                          <input type="number" class="form-control" name="poin">
+	                          <input type="number" class="form-control" name="poin" value="1">
 	                        </div>
 	                      </div>
 		        		</div>

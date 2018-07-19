@@ -23,7 +23,7 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Nama Lengkap</label>
-	                          <input type="text" class="form-control" name="nama_lengkap" value="Nama Lengkap">
+	                          <input type="text" class="form-control" name="nama_lengkap" value="Felix Aditya Wijaya Pujo Wibowo">
 	                        </div>
 	                      </div>
 		        		</div>
@@ -31,7 +31,7 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">NRP</label>
-	                          <input type="text" class="form-control" name="nrp" value="NRP">
+	                          <input type="text" class="form-control" name="nrp" value="160415052">
 	                        </div>
 	                      </div>
 		        		</div>
@@ -40,7 +40,9 @@
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Jurusan</label>
 	                          <select class="form-control" name="jurusan" id="comboJurusan">
-	                          	<option>Teknik Informatika</option>
+	                          	<option>Kimia</option>
+	                          	<option>Elektro</option>
+	                          	<option selected>Informatika</option>
 	                          </select>
 	                        </div>
 	                      </div>
@@ -49,13 +51,13 @@
 	                      <div class="col-md-6">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Kelompok Alfa</label>
-	                          <input type="number" name="kelompok_alfa" class="form-control" value="1">
+	                          <input type="number" name="kelompok_alfa" class="form-control" value="10">
 	                        </div>
 	                      </div>
 	                      <div class="col-md-6">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Kelompok Beta</label>
-	                          <input type="number" name="kelompok_beta" class="form-control" value="2">
+	                          <input type="number" name="kelompok_beta" class="form-control" value="21">
 	                        </div>
 	                      </div>
 		        		</div>

@@ -19,6 +19,16 @@
   font-size: .875rem;
 }
 
+/*-- delete button --*/
+.button_delete {
+  background: none !important;
+  color: #9c27b0;
+  border: none;
+  padding: 0 !important;
+  font: inherit;
+  cursor: pointer;
+}
+
 *,
 *::before,
 *::after {

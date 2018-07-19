@@ -33,7 +33,7 @@
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Barang</label>
 	                          <select class="form-control" name="barang">
-	                          	<option>Barang 1</option>
+	                          	<option>Buku</option>
 	                          </select>
 	                        </div>
 	                      </div>
@@ -43,7 +43,7 @@
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Sesi</label>
 	                          <select class="form-control" name="sesi">
-	                          	<option>Sesi 1</option>
+	                          	<option>1</option>
 	                          </select>
 	                        </div>
 	                      </div>

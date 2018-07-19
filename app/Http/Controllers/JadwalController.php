@@ -35,6 +35,7 @@ class JadwalController extends Controller
     public function store(Request $request)
     {
         //
+        return redirect()->action('JadwalController@index');
     }
 
     /**
@@ -69,6 +70,7 @@ class JadwalController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return redirect()->action('JadwalController@index');
     }
 
     /**
@@ -80,5 +82,6 @@ class JadwalController extends Controller
     public function destroy($id)
     {
         //
+        return redirect()->back();
     }
 }

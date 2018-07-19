@@ -26,7 +26,7 @@
 	        	<form method="get" action="#">
 		        	<div class="row">
 		        		<div class="col-md-10">
-		        			<input type="text" name="search" class="form-control" placeholder="NRP/Nama/Jurusan. Ex: 160415052 . ATAU . Felix Aditya Wijaya . ATAU . Teknik Informatika">
+		        			<input type="text" name="search" class="form-control" placeholder="NRP/Nama/Jurusan. Ex: 160415052 . ATAU . Felix Aditya Wijaya . ATAU . Informatika">
 		        		</div>
 		        		<div class="col-md-2">
 		        			<a href="#" id="search"><i class="material-icons">search</i></a>
@@ -53,8 +53,29 @@
 		                    		<td class="text-center">Informatika</td>
 		                    		<td class="text-center">10</td>
 		                    		<td class="text-center">21</td>
-		                    		<td class="text-center"><a href="#">Edit</a></td>
-		                    		<td class="text-center">Delete</td>
+		                    		<td class="text-center"><a href="{{ route('mahasiswa.edit', 1) }}">Edit</a></td>
+		                    		<td class="text-center">
+		                    			<form method="post" action="{{ route('mahasiswa.destroy', 1) }}">
+		                    				{{csrf_field()}}
+		                    				@method('DELETE')
+		               						<button type="submit" class="button_delete">Delete</button>
+		                    			</form>
+		                    		</td>
+		                    	</tr>
+		                    	<tr>
+		                    		<td>160415060</td>
+		                    		<td>Filipus Imannuel</td>
+		                    		<td class="text-center">Informatika</td>
+		                    		<td class="text-center">10</td>
+		                    		<td class="text-center">21</td>
+		                    		<td class="text-center"><a href="{{ route('mahasiswa.edit', 1) }}">Edit</a></td>
+		                    		<td class="text-center">
+		                    			<form method="post" action="{{ route('mahasiswa.destroy', 1) }}">
+		                    				{{csrf_field()}}
+		                    				@method('DELETE')
+		               						<button type="submit" class="button_delete">Delete</button>
+		                    			</form>
+		                    		</td>
 		                    	</tr>
 		                    </tbody>
 		              	</table>

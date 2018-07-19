@@ -36,6 +36,7 @@ class ValidasiController extends Controller
     public function store(Request $request)
     {
         //
+        return redirect()->action('ValidasiController@index');
     }
 
     public function check(Request $request)
@@ -82,6 +83,7 @@ class ValidasiController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return redirect()->action('ValidasiController@index');
     }
 
     /**
@@ -93,5 +95,6 @@ class ValidasiController extends Controller
     public function destroy($id)
     {
         //
+        return redirect()->back();
     }
 }

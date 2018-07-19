@@ -38,6 +38,7 @@ class PanitiaController extends Controller
     public function store(Request $request)
     {
         //
+        return redirect()->action('PanitiaController@index');
     }
 
     /**
@@ -76,6 +77,7 @@ class PanitiaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return redirect()->action('PanitiaController@index');
     }
 
     /**
@@ -87,5 +89,6 @@ class PanitiaController extends Controller
     public function destroy($id)
     {
         //
+        return redirect()->back();
     }
 }

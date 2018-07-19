@@ -83,8 +83,7 @@ class MahasiswaController extends Controller
     public function update(Request $request, $id)
     {
         //
-        return "success";
-
+        return redirect()->action('MahasiswaController@index');
     }
 
     /**
@@ -96,5 +95,6 @@ class MahasiswaController extends Controller
     public function destroy($id)
     {
         //
+        return redirect()->back();
     }
 }

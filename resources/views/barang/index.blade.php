@@ -48,11 +48,17 @@
 		                    <tbody>
 		                    	<tr>
 		                    		<td>1</td>
-		                    		<td>12-12-2018</td>
+		                    		<td>07-20-2018</td>
 		                    		<td class="text-center">Laptop</td>
 		                    		<td class="text-center">1</td>
-		                    		<td class="text-center"><a href="#">Edit</a></td>
-		                    		<td class="text-center">Delete</td>
+		                    		<td class="text-center"><a href="{{ route('barang.edit', 1) }}">Edit</a></td>
+		                    		<td class="text-center">
+		                    			<form method="post" action="{{ route('barang.destroy', 1) }}">
+		                    				{{csrf_field()}}
+		                    				@method('DELETE')
+		               						<button type="submit" class="button_delete">Delete</button>
+		                    			</form>
+		                    		</td>
 		                    	</tr>
 		                    </tbody>
 		              	</table>

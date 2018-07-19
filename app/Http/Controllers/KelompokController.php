@@ -37,6 +37,7 @@ class KelompokController extends Controller
     public function store(Request $request)
     {
         //
+        return redirect()->action('KelompokController@index');
     }
 
     /**
@@ -72,6 +73,7 @@ class KelompokController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return redirect()->action('KelompokController@index');
     }
 
     /**
@@ -83,5 +85,6 @@ class KelompokController extends Controller
     public function destroy($id)
     {
         //
+        return redirect()->back();
     }
 }

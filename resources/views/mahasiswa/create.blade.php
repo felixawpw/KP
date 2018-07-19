@@ -39,7 +39,9 @@
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Jurusan</label>
 	                          <select class="form-control" name="jurusan" id="comboJurusan">
-	                          	<option>Teknik Informatika</option>
+	                          	<option>Kimia</option>
+	                          	<option>Elektro</option>
+	                          	<option selected>Informatika</option>
 	                          </select>
 	                        </div>
 	                      </div>

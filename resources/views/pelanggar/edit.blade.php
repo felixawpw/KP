@@ -24,7 +24,7 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">NRP Pelanggar</label>
-	                          <input type="text" class="form-control" name="nama_lengkap">
+	                          <input type="text" class="form-control" name="nama_lengkap" value="160415052">
 	                        </div>
 	                      </div>
 		        		</div>

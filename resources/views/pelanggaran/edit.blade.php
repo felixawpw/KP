@@ -23,7 +23,7 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Nama Pelanggaran</label>
-	                          <input type="text" class="form-control" name="nama_lengkap" value="Nama Pelanggaran">
+	                          <input type="text" class="form-control" name="nama_lengkap" value="Merokok">
 	                        </div>
 	                      </div>
 		        		</div>
@@ -33,6 +33,7 @@
 	                          <label class="bmd-label-floating">Kategori Pelanggaran</label>
 	                          <select class="form-control" name="kategori">
 	                          	<option>Ringan</option>
+	                          	<option selected>Berat</option>
 	                          </select>
 	                        </div>
 	                      </div>

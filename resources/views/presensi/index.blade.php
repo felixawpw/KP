@@ -59,8 +59,14 @@
 		                    		<td class="text-center">H</td>
 		                    		<td class="text-center">H</td>
 		                    		<td class="text-center">H</td>
-		                    		<td class="text-center"><a href="#">Edit</a></td>
-		                    		<td class="text-center">Delete</td>
+		                    		<td class="text-center"><a href="{{ route('presensi.edit', 1) }}">Edit</a></td>
+		                    		<td class="text-center">
+		                    			<form method="post" action="{{ route('presensi.destroy', 1) }}">
+		                    				{{csrf_field()}}
+		                    				@method('DELETE')
+		               						<button type="submit" class="button_delete">Delete</button>
+		                    			</form>
+		                    		</td>
 		                    	</tr>
 		                    </tbody>
 		              	</table>

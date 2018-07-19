@@ -221,6 +221,12 @@
       local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
       return local.toJSON().slice(0,10);
   });
+
+    $(document).ready(function(){
+      $('.button_delete').click(function(){
+        confirm('Apakah anda yakin?');
+      });
+    });
   </script>
 
   @yield('scripts')

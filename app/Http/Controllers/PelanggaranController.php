@@ -38,6 +38,7 @@ class PelanggaranController extends Controller
     public function store(Request $request)
     {
         //
+        return redirect()->action('PelanggaranController@index');
     }
 
     /**
@@ -74,6 +75,7 @@ class PelanggaranController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return redirect()->action('PelanggaranController@index');
     }
 
     /**
@@ -85,5 +87,6 @@ class PelanggaranController extends Controller
     public function destroy($id)
     {
         //
+        return redirect()->back();
     }
 }
