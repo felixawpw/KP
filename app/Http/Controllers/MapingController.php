@@ -14,6 +14,7 @@ class MapingController extends Controller
     public function index()
     {
         //
+        return view('maping.index');
     }
 
     /**
@@ -24,6 +25,7 @@ class MapingController extends Controller
     public function create()
     {
         //
+        return view('maping.create');
     }
 
     /**
@@ -58,6 +60,7 @@ class MapingController extends Controller
     public function edit($id)
     {
         //
+        return view('maping.edit');
     }
 
     /**

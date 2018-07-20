@@ -38,6 +38,7 @@
               <p>Dashboard</p>
             </a>
           </li>
+          @if (Auth::check())
           <li class="nav-item " id="list">
               <a class="nav-link " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="material-icons">content_paste</i>
@@ -92,6 +93,7 @@
               <p>Jadwal Rektor Cup</p>
             </a>
           </li>
+          @endif
           <!-- <li class="nav-item active-pro ">
                 <a class="nav-link" href="./upgrade.html">
                     <i class="material-icons">unarchive</i>
@@ -106,7 +108,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">MOB FT</a>
+            <a class="navbar-brand" href="#pablo">Icons</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -142,6 +144,30 @@
       </div>
       <footer class="footer">
         <div class="container-fluid">
+          <nav class="float-left">
+            <ul>
+              <li>
+                <a href="https://www.creative-tim.com">
+                  Creative Tim
+                </a>
+              </li>
+              <li>
+                <a href="https://creative-tim.com/presentation">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="http://blog.creative-tim.com">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="https://www.creative-tim.com/license">
+                  Licenses
+                </a>
+              </li>
+            </ul>
+          </nav>
           <div class="copyright float-right">
             &copy;
             <script>
