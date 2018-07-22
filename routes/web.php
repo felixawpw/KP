@@ -11,6 +11,9 @@
 |
 */
 
+use App\Barang;
+use App\Http\Resources\Barangs as BarangCollection;
+
 Route::get('/', 'HomeController@index');
 
 Auth::routes();
@@ -32,3 +35,4 @@ Route::resource('barang', 'BarangController');
 Route::post('validasi/check', 'ValidasiController@check')->name('validasi.check');
 
 Route::get('test', function(){ return view('layouts.master'); });
+Route::get('json', 'BarangController@test');

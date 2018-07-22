@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Barang, DB;
 class BarangController extends Controller
 {
+
+    public function test()
+    {
+        return Barang::all()[0]->Id;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,8 @@ class BarangController extends Controller
     public function index()
     {
         //
-        return view('barang.index');
+        $barangs = Barang::getAll();
+        return view('barang.index', compact('barangs'));
     }
 
     /**
@@ -37,7 +43,11 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         //
-        return redirect()->action('BarangController@index');
+        $tanggal = $request->tanggal;
+        $nama = $request->nama_barang;
+        $poin = $request->poin;
+        $status = DB::update("exec spCreateBarang '$tanggal', '$nama', $poin");
+        return redirect()->action('BarangController@index')->with($status);
     }
 
     /**
@@ -49,6 +59,8 @@ class BarangController extends Controller
     public function show($id)
     {
         //
+        $barang = Barang::getById($id);
+        return $barang;
     }
 
     /**
@@ -60,7 +72,8 @@ class BarangController extends Controller
     public function edit($id)
     {
         //
-        return view('barang.edit');
+        $barang = Barang::getById($id);
+        return view('barang.edit', compact('barang'));
     }
 
     /**
@@ -73,7 +86,11 @@ class BarangController extends Controller
     public function update(Request $request, $id)
     {
         //
-        return redirect()->action('BarangController@index');
+        $tanggal = $request->tanggal;
+        $nama = $request->nama_barang;
+        $poin = $request->poin;
+        $status = DB::update("exec spUpdateBarang $id,'$tanggal', '$nama', $poin");
+        return redirect()->action('BarangController@index')->with('status');
     }
 
     /**
@@ -85,6 +102,7 @@ class BarangController extends Controller
     public function destroy($id)
     {
         //
+        $status = DB::update("exec spDeleteBarang $id");
         return redirect()->back();
     }
 }

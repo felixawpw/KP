@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Fakultas extends Model
 {
     //
-    protected $table = 'Fakultas';
-    protected $timestamps = false;
+    // protected $table = 'Fakultas';
+    // protected $timestamps = false;
 
 }
