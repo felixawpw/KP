@@ -36,7 +36,14 @@ class MapingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nrp = $request->nrp;
+        $nama = $request->nama;
+        $jurusan = $request->jurusan;
+        $angkatan = $request->angkatan;
+        $alfa = $request->kelompok_alfa;
+        $beta = $request->kelompok_beta;
+        $status = DB::update("exec spCreateMaping $nrp, $nama, $jurusan, $angkatan, $alfa, $beta"); //Buat SPnya
+
         return redirect()->action('MapingController@index');
     }
 

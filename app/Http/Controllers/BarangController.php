@@ -9,7 +9,7 @@ class BarangController extends Controller
 
     public function test()
     {
-        return Barang::all()[0]->Id;
+        return Barang::getAll();
     }
     /**
      * Display a listing of the resource.

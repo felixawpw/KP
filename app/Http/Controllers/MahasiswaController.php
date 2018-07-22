@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mahasiswa;
+use App\Http\Resources\Mahasiswa as Resource;
+use DB;
 
 class MahasiswaController extends Controller
 {
@@ -15,7 +17,8 @@ class MahasiswaController extends Controller
     public function index()
     {
         //
-        return view('mahasiswa.index');
+        $mahasiswas = "";//Resource::collection(DB::select('exec spGetAllMahasiswa'));
+        return view('mahasiswa.index', compact('mahasiswas'));
     }
 
     /**
@@ -37,15 +40,14 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        return "successstore";
-        $mahasiswa = new Mahasiswa;
-        $mahasiswa->nrp = $request->nrp;
-        $mahasiswa->enkripsi = $request->enkripsi;
-        $mahasiswa->nama = $request->nama;
-        $mahasiswa->id_jurusan = $request->id_jurusan;
-        $mahasiswa->angkatan = $request->angkatan;
-        $mahasiswa->save();
-        return redirect()->back();
+        $nrp = $request->nrp;
+        $nama = $request->nama;
+        $jurusan = $request->jurusan;
+        $angkatan = $request->angkatan;
+        $alfa = $request->kelompok_alfa;
+        $beta = $request->kelompok_beta;
+        $status = DB::update("exec spCreateMahasiswa $nrp, $nama, $jurusan, $angkatan, $alfa, $beta"); //Buat SPnya
+        return redirect()->action('MahasiswaController@index');
     }
 
     /**
@@ -57,7 +59,7 @@ class MahasiswaController extends Controller
     public function show($id)
     {
         //
-        //$mahasiswa = Mahasiswa::find($id);
+        $mahasiswa = new Resource(DB::select("exec spGetMahasiswaByNRP $id")); //Buat SPnya
         return view('mahasiswa.show', compact('mahasiswa'));
     }
 
@@ -70,6 +72,7 @@ class MahasiswaController extends Controller
     public function edit($id)
     {
         //
+        $mahasiswa = new Resource(DB::select("exec spGetMahasiswaByNRP $id")); //Buat SPnya
         return view('mahasiswa.edit');
     }
 
@@ -83,6 +86,13 @@ class MahasiswaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $nrp = $request->nrp;
+        $nama = $request->nama;
+        $jurusan = $request->jurusan;
+        $angkatan = $request->angkatan;
+        $alfa = $request->kelompok_alfa;
+        $beta = $request->kelompok_beta;
+        $status = DB::update("exec spUpdateMahasiswa $nrp, $nama, $jurusan, $angkatan, $alfa, $beta"); //Buat SPnya
         return redirect()->action('MahasiswaController@index');
     }
 
@@ -94,7 +104,7 @@ class MahasiswaController extends Controller
      */
     public function destroy($id)
     {
-        //
-        return redirect()->back();
+        $status = DB::update("exec spDeleteMahasiswa $id");
+        return redirect()->back()->with($status);
     }
 }

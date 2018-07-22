@@ -39,9 +39,9 @@
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Jurusan</label>
 	                          <select class="form-control" name="jurusan" id="comboJurusan">
-	                          	<option>Kimia</option>
-	                          	<option>Elektro</option>
-	                          	<option selected>Informatika</option>
+	                          	@foreach($jurusans as $j)
+	                          		<option value="{{$j->Id}}">{{$j->Nama}}</option>
+	                          	@endforeach
 	                          </select>
 	                        </div>
 	                      </div>
@@ -50,8 +50,10 @@
 	                      <div class="col-md-6">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Divisi</label>
-	                          <select class="form-control">
-	                          	<option>Divisi 1</option>
+	                          <select class="form-control" name="divisi" id="comboDivisi">
+	                          	@foreach($divisis as $d)
+	                          		<option value="{{$d->Id}}">{{$d->Nama}}</option>
+	                          	@endforeach
 	                          </select>
 	                        </div>
 	                      </div>

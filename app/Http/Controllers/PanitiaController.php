@@ -14,6 +14,7 @@ class PanitiaController extends Controller
     public function index()
     {
         //
+
         return view('panitia.index');
     }
 
@@ -25,7 +26,8 @@ class PanitiaController extends Controller
     public function create()
     {
         //
-        return view('panitia.create');
+        $divisis = \App\Divisi::all();
+        return view('panitia.create', compact('divisis'));
 
     }
 
@@ -38,6 +40,12 @@ class PanitiaController extends Controller
     public function store(Request $request)
     {
         //
+        $nama = $request->nama_lengkap;
+        $nrp = $request->nrp;
+        $jurusan = $request->jurusan;
+        $divisi = $request->divisi;
+
+        $status = DB::update('');
         return redirect()->action('PanitiaController@index');
     }
 
@@ -63,7 +71,8 @@ class PanitiaController extends Controller
     public function edit($id)
     {
         //
-        return view('panitia.edit');
+        $divisis = \App\Divisi::all();
+        return view('panitia.edit', compact('divisis'));
 
     }
 
