@@ -72,7 +72,7 @@
 	}
 
 	function DeleteFormatter(value, row, index) {
-		return '<a href="/pelanggar/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'">Edit</a>'
+		return '<a href="/pelanggar/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'">Delete</a>'
 	}
 
 

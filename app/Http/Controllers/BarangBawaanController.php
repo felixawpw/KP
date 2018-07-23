@@ -3,9 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\BarangBawaan;
+use App\Http\Resources\BarangBawaan as Resource;
+use DB;
+
 
 class BarangBawaanController extends Controller
 {
+    public function editOwn($nrp, $panitia, $sesi)
+    {
+        $barangs = \App\Barang::orderBy('Nama')->get();
+        $p = BarangBawaan::where('NRP_Panitia', '=', $panitia)->
+                    where('NRP_Mhs', '=', $nrp)->
+                    where('Id_Sesi', '=', $sesi)->first();
+        return view('barangbawaan.edit', compact('barangs', 'p'));
+
+    }
+
+    public function json()
+    {
+        return Resource::collection(BarangBawaan::all());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +45,8 @@ class BarangBawaanController extends Controller
         //
         $barangs = \App\Barang::all();
         $sesis = \App\Sesi::orderBy('Nama')->get();
-        return view('barangbawaan.create', compact('barangs', 'sesis'));
+        $panitias = \App\Panitia::orderBy('Nama')->get();
+        return view('barangbawaan.create', compact('barangs', 'sesis', 'panitias'));
     }
 
     /**
@@ -39,6 +58,12 @@ class BarangBawaanController extends Controller
     public function store(Request $request)
     {
         //
+        $sesi = $request->sesi;
+        $panitia = $request->panitia;
+        $nrp = $request->nrp;
+        $barang = $request->barang;
+        $status = DB::update("exec sp_BarangBawaan $sesi, $panitia, $nrp, $barang");
+
         return redirect()->action('BarangBawaanController@index');
     }
 
@@ -61,11 +86,9 @@ class BarangBawaanController extends Controller
      */
     public function edit($id)
     {
-        //
         $barangs = \App\Barang::orderBy('Nama')->get();
         $sesis = \App\Sesi::orderBy('Nama')->get();
         return view('barangbawaan.edit', compact('barangs', 'sesis'));
-
     }
 
     /**
@@ -90,6 +113,11 @@ class BarangBawaanController extends Controller
     public function destroy($id)
     {
         //
+        $nrp = $request->nrp;
+        $panitia = $request->panitia;
+        $sesi = $request->waktu;
+        $barang = $request->barang;
+        $status = DB::update("exec sp_DeleteBarangBawaan $sesi, $panitia, $nrp, $barang");
         return redirect()->back();
     }
 }

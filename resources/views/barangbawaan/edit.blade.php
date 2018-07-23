@@ -24,16 +24,16 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">NRP Mahasiswa</label>
-	                          <input type="text" class="form-control" name="nrp" value="160415052">
+	                          <input type="text" class="form-control" name="nrp" value="{{$p->NRP_Mhs}}">
 	                        </div>
 	                      </div>
 		        		</div>
-		        		<div class="row">
+	        			<div class="row">
 	                      <div class="col-md-12">
 	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Barang</label>
-	                          <select class="form-control" name="barang">
-	                          	<option>Buku</option>
+	                          <label class="bmd-label-floating">Panitia</label>
+	                          <select class="form-control" name="panitia">
+                          		<option value="{{$p->panitia->NRP}}">{{$p->panitia->Nama}}</option>
 	                          </select>
 	                        </div>
 	                      </div>
@@ -43,7 +43,19 @@
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Sesi</label>
 	                          <select class="form-control" name="sesi">
-	                          	<option>1</option>
+	                          	<option value="{{$p->sesi->Id}}">{{$p->sesi->Nama}}</option>
+	                          </select>
+	                        </div>
+	                      </div>
+		        		</div>
+		        		<div class="row">
+	                      <div class="col-md-12">
+	                        <div class="form-group">
+	                          <label class="bmd-label-floating">Barang</label>
+	                          <select class="form-control" name="barang">
+	                          	@foreach($barangs as $b)
+	                          	<option value="{{$b->Id}}" @if($b->Id == $p->barang->Id) selected @endif>{{$b->Nama}}</option>
+	                          	@endforeach
 	                          </select>
 	                        </div>
 	                      </div>

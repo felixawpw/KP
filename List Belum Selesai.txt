@@ -13,11 +13,12 @@ Pelanggar: (V)
 - Edit
 - Delete 
 
-Barang Bawaan: (X)
+Barang Bawaan: (V)
 - Sesi diganti tanggal
 - Create
 - Edit
 - Delete
+
 
 Absensi belum coba, ngga ada data, ngga bisa tambah juga
 

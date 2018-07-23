@@ -15,11 +15,14 @@ class BarangBawaan extends JsonResource
     public function toArray($request)
     {
         return [
-            'nrp_mhs' => $this->NRP_mhs,
-            'nama_mahasiswa' => $this->Nama_Mahasiswa,
-            'nama_barang' => $this->Nama_Barang,
-            'nama_sesi' => $this->Nama_Sesi,
-            'nama_panitia' => $this->Nama_Panitia
+            'nrp' => $this->NRP_Mhs,
+            'sesi' => $this->sesi->Nama,
+            'panitia' => $this->panitia->NRP,
+            'barang' => $this->barang->Nama,
+
+            'id_sesi' => $this->sesi->Id,
+            'id_panitia' => $this->panitia->NRP,
+
         ];
     }
 }

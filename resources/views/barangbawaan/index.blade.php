@@ -23,45 +23,22 @@
 	      		</div>
 	        </div>
 	        <div class="card-body">
-	        	<form method="get" action="#">
-		        	<div class="row">
-		        		<div class="col-md-10">
-		        			<input type="date" name="search" class="form-control">
-		        		</div>
-		        		<div class="col-md-2">
-		        			<a href="#" id="search"><i class="material-icons">search</i></a>
-		        		</div>
-		        	</div>
-	        	</form>
         		<div class="row">
 		          	<div class="table-responsive col-md-12">
-		                <table class="table">
-		                  	<thead class=" text-primary">
-		                  		<tr>
-			                  		<th>NRP Mahasiswa</th>
-			                  		<th>Nama Barang</th>
-			                  		<th class="text-center">Sesi</th>
-			                  		<th class="text-center">Panitia</th>
-			                  		<th class="text-center" colspan="2">Aksi</th>
-			                  	</tr>
-		                  	</thead>
-		                    <tbody>
-		                    	<tr>
-		                    		<td>160415052</td>
-		                    		<td>Buku</td>
-		                    		<td class="text-center">1</td>
-		                    		<td class="text-center">Felix Aditya</td>
-		                    		<td class="text-center"><a href="{{ route('barangbawaan.edit', 1) }}">Edit</a></td>
-		                    		<td class="text-center">
-		                    			<form method="post" action="{{ route('barangbawaan.destroy', 1) }}">
-		                    				{{csrf_field()}}
-		                    				@method('DELETE')
-		               						<button type="submit" class="button_delete">Delete</button>
-		                    			</form>
-		                    		</td>
-		                    	</tr>
-		                    </tbody>
-		              	</table>
+          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="/table/json/barangbawaan">
+							<thead>
+								<tr class="warning">
+									<th data-sortable="true" data-field="nrp">NRP</th>
+									<th data-sortable="true" data-field="sesi">Sesi</th>
+									<th data-sortable="true" data-field="panitia">Panitia</th>
+									<th data-sortable="true" data-field="barang">Nama Barang</th>
+									<th data-field="id_sesi" data-formatter="DeleteFormatter">Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
 					</div>
 	        	</div>
 		    </div>
@@ -75,6 +52,11 @@
 
 @section('scripts')
 <script type="text/javascript">
+	function DeleteFormatter(value, row, index) {
+		return '<a href="/barangbawaan/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'">Delete</a>'
+	}
+
+
 	$('#barangbawaan').addClass('active');
 </script>
 @endsection

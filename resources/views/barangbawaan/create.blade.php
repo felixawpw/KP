@@ -29,14 +29,22 @@
 		        		<div class="row">
 	                      <div class="col-md-12">
 	                        <div class="form-group">
-	                          <label class="">Tanggal</label>
-	                          <input type="date" name="tanggal" class="form-control">
-	                        </div>
-	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Barang</label>
 	                          <select class="form-control" name="barang" id="">
 	                          	@foreach($barangs as $b)
 	                          		<option value="{{$b->Id}}">{{$b->Nama}}</option>
+	                          	@endforeach
+	                          </select>
+	                        </div>
+	                      </div>
+		        		</div>
+	        			<div class="row">
+	                      <div class="col-md-12">
+	                        <div class="form-group">
+	                          <label class="bmd-label-floating">Panitia</label>
+	                          <select class="form-control" name="panitia">
+	                          	@foreach($panitias as $p)
+	                          		<option value="{{$p->NRP}}">{{$p->Nama}}</option>
 	                          	@endforeach
 	                          </select>
 	                        </div>
