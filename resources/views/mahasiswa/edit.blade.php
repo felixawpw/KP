@@ -23,7 +23,7 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Nama Lengkap</label>
-	                          <input type="text" class="form-control" name="nama_lengkap" value="{{$mahasiswa->Nama}}">
+	                          <input type="text" class="form-control" name="nama" value="{{$mahasiswa->Nama}}">
 	                        </div>
 	                      </div>
 		        		</div>
@@ -49,6 +49,15 @@
 	                        </div>
 	                      </div>
 		        		</div>
+	        			<div class="row">
+	                      <div class="col-md-12">
+	                        <div class="form-group">
+	                          <label class="bmd-label-floating">Angkatan</label>
+	                          <input type="text" class="form-control" name="angkatan" value="{{$mahasiswa->Angkatan}}">
+	                        </div>
+	                      </div>
+		        		</div>
+
 	        			<div class="row">
 	                      <div class="col-md-6">
 	                        <div class="form-group">

@@ -9,6 +9,15 @@ use DB;
 
 class PelanggarController extends Controller
 {
+    public function editOwn($nrp, $panitia, $sesi)
+    {
+        $pelanggarans = \App\Pelanggaran::orderBy('Nama')->get();
+        $p = Pelanggar::where('NRP_Panitia', '=', $panitia)->
+                    where('NRP_Mhs', '=', $nrp)->
+                    where('Id_Sesi', '=', $sesi)->first();
+        return view('pelanggar.edit', compact('pelanggarans', 'p'));
+    }
+
     public function json()
     {
         return Resource::collection(Pelanggar::all());
@@ -33,7 +42,9 @@ class PelanggarController extends Controller
     {
         //
         $pelanggarans = \App\Pelanggaran::orderBy('Nama')->get();
-        return view('pelanggar.create', compact('pelanggarans'));
+        $panitias = \App\Panitia::orderBy('Nama')->get();
+        $sesis = \App\Sesi::orderBy('Nama')->get();
+        return view('pelanggar.create', compact('pelanggarans', 'panitias', 'sesis'));
     }
 
     /**
@@ -44,7 +55,12 @@ class PelanggarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 
+        $sesi = $request->sesi;
+        $panitia = $request->panitia;
+        $nrp = $request->nrp;
+        $pelanggaran = $request->pelanggaran;
+        $status = DB::update("exec sp_Pelanggaran $sesi, $panitia, $nrp, $pelanggaran");
         return redirect()->action('PelanggarController@index');
     }
 
@@ -70,9 +86,6 @@ class PelanggarController extends Controller
     public function edit($id)
     {
         //
-        $pelanggarans = \App\Pelanggaran::orderBy('Nama')->get();
-        return view('pelanggar.edit', compact('pelanggarans'));
-
     }
 
     /**
@@ -85,7 +98,12 @@ class PelanggarController extends Controller
     public function update(Request $request, $id)
     {
         //
-        return redirect()->action('PelanggarController@index');
+        $nrp = $request->nrp;
+        $panitia = $request->panitia;
+        $sesi = $request->waktu;
+        $pelanggaran = $request->pelanggaran;
+        $status = DB::update("exec sp_UpdatePelanggaran $sesi, $panitia, $nrp, $pelanggaran");
+        return redirect()->action('PelanggarController@index')->with('status');
     }
 
     /**
@@ -97,6 +115,7 @@ class PelanggarController extends Controller
     public function destroy($id)
     {
         //
-        return redirect()->back();
+        $status = DB::update("exec sp_DeletePelanggaran $sesi, $panitia, $nrp");
+        return redirect()->back()->with($status);
     }
 }

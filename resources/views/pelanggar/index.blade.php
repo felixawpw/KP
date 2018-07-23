@@ -45,8 +45,8 @@
 									<th data-sortable="true" data-field="waktu">Waktu</th>
 									<th data-sortable="true" data-field="panitia">Panitia</th>
 									<th data-sortable="true" data-field="pelanggaran">Nama Pelanggaran</th>
-									<th data-field="id" data-formatter="EditFormatter">Edit</th>
-									<th data-field="id" data-formatter="DeleteFormatter">Delete</th>
+									<th data-field="id_panitia" data-formatter="EditFormatter">Edit</th>
+									<th data-field="id_sesi" data-formatter="DeleteFormatter">Delete</th>
 								</tr>
 							</thead>
 
@@ -68,15 +68,11 @@
 @section('scripts')
 <script type="text/javascript">
 	function EditFormatter(value, row, index){
-		return '<a href="/pelanggar/'+ row['id']+ '/edit">Edit</a>'
+		return '<a href="/pelanggar/edit/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'">Edit</a>'
 	}
 
 	function DeleteFormatter(value, row, index) {
-		return '<form method="post" action="/pelanggar/'+ row['id'] + '">' +
-				'{{csrf_field()}}' +
-				'@method("DELETE")' +
-					'<button type="submit" class="button_delete" onclick="confirm(' + "'Apakah anda yakin?'" +');">Delete</button>'+
-			'</form>';
+		return '<a href="/pelanggar/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'">Edit</a>'
 	}
 
 

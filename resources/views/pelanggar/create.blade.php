@@ -22,7 +22,7 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">NRP Pelanggar</label>
-	                          <input type="text" class="form-control" name="nama_lengkap">
+	                          <input type="text" class="form-control" name="nrp">
 	                        </div>
 	                      </div>
 		        		</div>
@@ -41,9 +41,23 @@
 		        		<div class="row">
 	                      <div class="col-md-12">
 	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Waktu</label>
-	                          <select class="form-control" name="waktu">
-	                          	<option>Sesi 1</option>
+	                          <label class="bmd-label-floating">Panitia</label>
+	                          <select class="form-control" name="panitia">
+	                          	@foreach($panitias as $p)
+	                          		<option value="{{$p->NRP}}">{{$p->Nama}}</option>
+	                          	@endforeach
+	                          </select>
+	                        </div>
+	                      </div>
+		        		</div>
+		        		<div class="row">
+	                      <div class="col-md-12">
+	                        <div class="form-group">
+	                          <label class="bmd-label-floating">Sesi</label>
+	                          <select class="form-control" name="sesi">
+	                          	@foreach($sesis as $p)
+	                          		<option value="{{$p->Id}}">{{$p->Nama}}</option>
+	                          	@endforeach
 	                          </select>
 	                        </div>
 	                      </div>

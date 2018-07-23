@@ -1,25 +1,25 @@
-List Maharu:
+List Maharu: (V)
 - Create
 - Edit
 - Delete
 
-Pelanggar:
+List Panitia: (V)
 - Create
 - Edit
 - Delete
 
-Absensi belum coba, ngga ada data, ngga bisa tambah juga
+Pelanggar: (V)
+- Create
+- Edit
+- Delete 
 
-Barang Bawaan:
+Barang Bawaan: (X)
 - Sesi diganti tanggal
 - Create
 - Edit
 - Delete
 
-List Panitia:
-- Create
-- Edit
-- Delete
+Absensi belum coba, ngga ada data, ngga bisa tambah juga
 
 List Maping:
 - Create

@@ -31,7 +31,6 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
         return view('barang.create');
     }
 
@@ -43,7 +42,6 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $tanggal = $request->tanggal;
         $nama = $request->nama_barang;
         $poin = $request->poin;
