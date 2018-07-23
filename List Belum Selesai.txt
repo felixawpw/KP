@@ -1,0 +1,33 @@
+List Maharu:
+- Create
+- Edit
+- Delete
+
+Pelanggar:
+- Create
+- Edit
+- Delete
+
+Absensi belum coba, ngga ada data, ngga bisa tambah juga
+
+Barang Bawaan:
+- Sesi diganti tanggal
+- Create
+- Edit
+- Delete
+
+List Panitia:
+- Create
+- Edit
+- Delete
+
+List Maping:
+- Create
+- Edit Delete (Ngga bisa coba)
+
+Kelompok:
+- Create
+- Edit
+- Delete
+
+Jadwal Masih Kosong
