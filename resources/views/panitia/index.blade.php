@@ -23,16 +23,6 @@
 	      		</div>
 	        </div>
 	        <div class="card-body">
-	        	<form method="get" action="#">
-		        	<div class="row">
-		        		<div class="col-md-10">
-		        			<input type="text" name="search" class="form-control" placeholder="NRP/Nama/Jurusan. Ex: 160415052 . ATAU . Felix Aditya Wijaya . ATAU . Informatika">
-		        		</div>
-		        		<div class="col-md-2">
-		        			<a href="#" id="search"><i class="material-icons">search</i></a>
-		        		</div>
-		        	</div>
-	        	</form>
         		<div class="row">
 		          	<div class="table-responsive col-md-12">
           				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="/table/json/panitia">
@@ -42,13 +32,10 @@
 									<th data-sortable="true" data-field="nama">Nama Lengkap</th>
 									<th data-sortable="true" data-field="jurusan">Jurusan</th>
 									<th data-sortable="true" data-field="divisi">Divisi</th>
-									<th data-sortable="true" data-field="alfa">Alfa</th>
-									<th data-sortable="true" data-field="beta">Beta</th>
 									<th data-field="nrp" data-formatter="EditFormatter">Edit</th>
 									<th data-field="nrp" data-formatter="DeleteFormatter">Delete</th>
 								</tr>
 							</thead>
-
 							<tbody>
 
 							</tbody>

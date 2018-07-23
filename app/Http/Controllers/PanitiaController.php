@@ -21,8 +21,7 @@ class PanitiaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    { 
         return view('panitia.index');
     }
 
@@ -54,7 +53,9 @@ class PanitiaController extends Controller
         $jurusan = $request->jurusan;
         $divisi = $request->divisi;
 
-        $status = DB::update('');
+        $password = "";
+
+        $status = DB::update("exec spCreatePanitia '$nrp', '$password', '$nama', $divisi, null, $jurusan, 2018, null, null,null,null,null");
         return redirect()->action('PanitiaController@index');
     }
 
@@ -97,6 +98,13 @@ class PanitiaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $nama = $request->nama_lengkap;
+        $jurusan = $request->jurusan;
+        $divisi = $request->divisi;
+
+        $password = "";
+        
+        $status = DB::update("exec spUpdatePanitia '$id', '$password', '$nama', $divisi, null, $jurusan, 2018, null, null,null,null,null");
         return redirect()->action('PanitiaController@index');
     }
 
@@ -109,6 +117,7 @@ class PanitiaController extends Controller
     public function destroy($id)
     {
         //
+        $status = DB::update("exec spDeletePanitia $id");
         return redirect()->back();
     }
 }

@@ -23,16 +23,6 @@
 	      		</div>
 	        </div>
 	        <div class="card-body">
-	        	<form method="get" action="#">
-		        	<div class="row">
-		        		<div class="col-md-10">
-		        			<input type="date" name="search" class="form-control">
-		        		</div>
-		        		<div class="col-md-2">
-		        			<a href="#" id="search"><i class="material-icons">search</i></a>
-		        		</div>
-		        	</div>
-	        	</form>
         		<div class="row">
 		          	<div class="table-responsive col-md-12">
           				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="/table/json/barang">

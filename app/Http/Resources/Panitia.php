@@ -17,10 +17,8 @@ class Panitia extends JsonResource
         return [
             'nrp' => $this->NRP,
             'nama' => $this->Nama,
-            'jurusan' => isset($this->jurusan->Nama) ? "" : "-",
+            'jurusan' => isset($this->jurusan->Nama) ? $this->jurusan->Nama : "-",
             'divisi' => $this->divisi->Nama,
-            'alfa' => 'alfa',
-            'beta' => 'beta',
         ];
 
     }
