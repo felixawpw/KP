@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Sesi extends Model
 {
     //
-    // protected $table = 'Sesi';
+    protected $table = 'Sesi';
+    protected $primaryKey = 'Id';
     // protected $timestamps = false;
 
     // public function pelanggarans()

@@ -9,6 +9,10 @@ use DB;
 
 class MahasiswaController extends Controller
 {
+    public function json()
+    {
+        return Resource::collection(Mahasiswa::all());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +21,7 @@ class MahasiswaController extends Controller
     public function index()
     {
         //
-        $mahasiswas = "";//Resource::collection(DB::select('exec spGetAllMahasiswa'));
+        $mahasiswas = Resource::collection(Mahasiswa::all());
         return view('mahasiswa.index', compact('mahasiswas'));
     }
 
@@ -29,7 +33,8 @@ class MahasiswaController extends Controller
     public function create()
     {
         //
-        return view('mahasiswa.create');
+        $jurusans = \App\Jurusan::all();
+        return view('mahasiswa.create', compact('jurusans'));
     }
 
     /**
@@ -41,12 +46,12 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         $nrp = $request->nrp;
-        $nama = $request->nama;
+        $nama = $request->nama_lengkap;
         $jurusan = $request->jurusan;
         $angkatan = $request->angkatan;
         $alfa = $request->kelompok_alfa;
         $beta = $request->kelompok_beta;
-        $status = DB::update("exec spCreateMahasiswa $nrp, $nama, $jurusan, $angkatan, $alfa, $beta"); //Buat SPnya
+        $status = DB::update("exec spCreateMahasiswa '$nrp','$nama', $jurusan, $angkatan"); //Buat SPnya
         return redirect()->action('MahasiswaController@index');
     }
 
@@ -59,7 +64,7 @@ class MahasiswaController extends Controller
     public function show($id)
     {
         //
-        $mahasiswa = new Resource(DB::select("exec spGetMahasiswaByNRP $id")); //Buat SPnya
+        $mahasiswa = new Resource(Mahasiswa::find($id));
         return view('mahasiswa.show', compact('mahasiswa'));
     }
 
@@ -71,9 +76,9 @@ class MahasiswaController extends Controller
      */
     public function edit($id)
     {
-        //
-        $mahasiswa = new Resource(DB::select("exec spGetMahasiswaByNRP $id")); //Buat SPnya
-        return view('mahasiswa.edit');
+        $jurusans = \App\Jurusan::all();
+        $mahasiswa = new Resource(Mahasiswa::find($id));
+        return view('mahasiswa.edit', compact('jurusans', 'mahasiswa'));
     }
 
     /**

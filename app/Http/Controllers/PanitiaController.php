@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Panitia;
+use App\Http\Resources\Panitia as Resource;
+use DB;
+
 
 class PanitiaController extends Controller
 {
+
+    public function json()
+    {
+        return Resource::collection(Panitia::all());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,6 @@ class PanitiaController extends Controller
     public function index()
     {
         //
-
         return view('panitia.index');
     }
 
@@ -27,7 +35,8 @@ class PanitiaController extends Controller
     {
         //
         $divisis = \App\Divisi::all();
-        return view('panitia.create', compact('divisis'));
+        $jurusans = \App\Jurusan::all();
+        return view('panitia.create', compact('divisis', 'jurusans'));
 
     }
 
@@ -72,7 +81,9 @@ class PanitiaController extends Controller
     {
         //
         $divisis = \App\Divisi::all();
-        return view('panitia.edit', compact('divisis'));
+        $jurusans = \App\Jurusan::all();
+        $panitia = \App\Panitia::find($id);
+        return view('panitia.edit', compact('divisis', 'jurusans', 'panitia'));
 
     }
 

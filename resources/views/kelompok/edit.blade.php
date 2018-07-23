@@ -10,7 +10,7 @@
 	        	<div class="row">
 	        		<div class="col-md-10">
 			          <h4 class="card-title ">Kelompok Mahasiswa</h4>
-			          <p class="card-category">Tambah kelompok mahasiswa</p>
+			          <p class="card-category">Edit kelompok mahasiswa</p>
 	        		</div>
 	      		</div>
 	        </div>
@@ -39,6 +39,16 @@
 	                        </div>
 	                      </div>
 		        		</div>
+		        		<div class="row">
+	                      <div class="col-md-12">
+	                        <div class="form-group">
+	                          <label class="bmd-label-floating">Mahasiswa Pendamping</label>
+	                          <select name="maping">
+	                          	
+	                          </select>
+	                        </div>
+	                      </div>
+		        		</div>
 	                    <button type="submit" class="btn btn-primary pull-right col-md-4">Submit</button>
 	                    <div class="clearfix"></div>
 		        	</form>
@@ -53,7 +63,6 @@
 
 @section('scripts')
 <script type="text/javascript">
-	$('#barang').addClass('active');
-	document.getElementById('tanggal').value = new Date().toDateInputValue();
+	$('#kelompok').addClass('active');
 </script>
 @endsection

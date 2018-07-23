@@ -17,14 +17,14 @@
 	        <div class="card-body row">
 	        	<div class="col-md-2"></div>
 	        	<div class="col-md-8">
-		        	<form method="post" action="{{route('barang.update', $id)}}" class="">
+		        	<form method="post" action="{{route('barang.update', $barang->Id)}}" class="">
 		        		@method('PUT')
 		        		{{csrf_field()}}
 		        		<div class="row">
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Tanggal</label>
-	                          <input type="date" class="form-control" name="tanggal" id="tanggal">
+	                          <input type="date" class="form-control" name="tanggal" id="tanggal" value="{{$barang->Tanggal}}">
 	                        </div>
 	                      </div>
 		        		</div>
@@ -32,7 +32,7 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Nama Barang</label>
-  	                          <input type="text" class="form-control" name="nama_barang" value="Laptop">
+  	                          <input type="text" class="form-control" name="nama_barang" value="{{$barang->Nama}}">
 	                        </div>
 	                      </div>
 		        		</div>
@@ -40,7 +40,7 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Poin</label>
-	                          <input type="number" class="form-control" name="poin" value="1">
+	                          <input type="number" class="form-control" name="poin" value="{{$barang->Poin}}">
 	                        </div>
 	                      </div>
 		        		</div>
@@ -59,7 +59,5 @@
 @section('scripts')
 <script type="text/javascript">
 	$('#barang').addClass('active');
-	document.getElementById('tanggal').value = new Date().toDateInputValue();
-
 </script>
 @endsection

@@ -22,7 +22,7 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Nama Pelanggaran</label>
-	                          <input type="text" class="form-control" name="nama_lengkap">
+	                          <input type="text" class="form-control" name="nama">
 	                        </div>
 	                      </div>
 		        		</div>
@@ -31,7 +31,9 @@
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Kategori Pelanggaran</label>
 	                          <select class="form-control" name="kategori">
-	                          	<option>Ringan</option>
+	                          	@foreach($kategories as $k)
+	                          		<option value="{{$k->Id}}">{{$k->Nama}}</option>
+	                          	@endforeach
 	                          </select>
 	                        </div>
 	                      </div>

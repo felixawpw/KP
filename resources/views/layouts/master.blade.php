@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-table.css')}}">
+
   <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/apple-icon.png')}}">
   <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -166,6 +168,10 @@
   <script src="{{asset('assets/js/plugins/bootstrap-notify.js')}}"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{asset('assets/js/material-dashboard.min.js?v=2.1.0')}}" type="text/javascript"></script>
+  <!-- BOOTSTRAP TABLE --> 
+  <script src="{{asset('js/bootstrap.min.js')}}"></script>
+  <script src="{{asset('js/bootstrap-table.js')}}"></script>
+
   <script type="text/javascript">
     Date.prototype.toDateInputValue = (function() {
       var local = new Date(this);

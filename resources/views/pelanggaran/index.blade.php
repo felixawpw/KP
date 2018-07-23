@@ -23,45 +23,22 @@
 	      		</div>
 	        </div>
 	        <div class="card-body">
-	        	<form method="get" action="#">
-		        	<div class="row">
-		        		<div class="col-md-10">
-		        			<input type="text" name="search" class="form-control" placeholder="Search berdasarkan : Nama/Kategori. Ex: Merokok . ATAU . Berat">
-		        		</div>
-		        		<div class="col-md-2">
-		        			<a href="#" id="search"><i class="material-icons">search</i></a>
-		        		</div>
-		        	</div>
-	        	</form>
         		<div class="row">
 		          	<div class="table-responsive col-md-12">
-		                <table class="table">
-		                  	<thead class=" text-primary">
-		                  		<tr>
-			                  		<th>No</th>
-			                  		<th>Nama Pelanggaran</th>
-			                  		<th class="text-center">Kategori</th>
-			                  		<th class="text-center">Poin</th>
-			                  		<th class="text-center" colspan="2">Aksi</th>
-			                  	</tr>
-		                  	</thead>
-		                    <tbody>
-		                    	<tr>
-		                    		<td>1</td>
-		                    		<td>Merokok</td>
-		                    		<td class="text-center">Berat</td>
-		                    		<td class="text-center">10</td>
-		                    		<td class="text-center"><a href="{{ route('pelanggaran.edit', 1) }}">Edit</a></td>
-		                    		<td class="text-center">
-		                    			<form method="post" action="{{ route('pelanggaran.destroy', 1) }}">
-		                    				{{csrf_field()}}
-		                    				@method('DELETE')
-		               						<button type="submit" class="button_delete">Delete</button>
-		                    			</form>
-		                    		</td>
-		                    	</tr>
-		                    </tbody>
-		              	</table>
+          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="/table/json/pelanggaran">
+							<thead>
+								<tr class="warning">
+									<th data-sortable="true" data-field="nama">Nama Pelaggaran</th>
+									<th data-sortable="true" data-field="kategori">Kategori</th>
+									<th data-sortable="true" data-field="poin">Poin</th>
+									<th data-field="id" data-formatter="EditFormatter">Edit</th>
+									<th data-field="id" data-formatter="DeleteFormatter">Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
 					</div>
 	        	</div>
 		    </div>
@@ -75,6 +52,17 @@
 
 @section('scripts')
 <script type="text/javascript">
+	function EditFormatter(value, row, index){
+		return '<a href="/pelanggaran/'+ row['id']+ '/edit">Edit</a>'
+	}
+
+	function DeleteFormatter(value, row, index) {
+		return '<form method="post" action="/pelanggaran/'+ row['id'] + '">' +
+				'{{csrf_field()}}' +
+				'@method("DELETE")' +
+					'<button type="submit" class="button_delete" onclick="confirm(' + "'Apakah anda yakin?'" +');">Delete</button>'+
+			'</form>';
+	}
 
 	$('#pelanggaran').addClass('active');
 </script>

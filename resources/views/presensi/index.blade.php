@@ -41,35 +41,22 @@
 	        	</form>
         		<div class="row">
 		          	<div class="table-responsive col-md-12">
-		                <table class="table">
-		                  	<thead class=" text-primary">
-		                  		<tr>
-			                  		<th>NRP</th>
-			                  		<th>Nama Lengkap</th>
-			                  		<th class="text-center">Sesi 1</th>
-			                  		<th class="text-center">Sesi 2</th>
-			                  		<th class="text-center">Sesi 3</th>
-			                  		<th class="text-center" colspan="2">Aksi</th>
-			                  	</tr>
-		                  	</thead>
-		                    <tbody>
-		                    	<tr>
-		                    		<td>160415052</td>
-		                    		<td>Felix Aditya Wijaya Pujo Wibowo</td>
-		                    		<td class="text-center">H</td>
-		                    		<td class="text-center">H</td>
-		                    		<td class="text-center">H</td>
-		                    		<td class="text-center"><a href="{{ route('presensi.edit', 1) }}">Edit</a></td>
-		                    		<td class="text-center">
-		                    			<form method="post" action="{{ route('presensi.destroy', 1) }}">
-		                    				{{csrf_field()}}
-		                    				@method('DELETE')
-		               						<button type="submit" class="button_delete">Delete</button>
-		                    			</form>
-		                    		</td>
-		                    	</tr>
-		                    </tbody>
-		              	</table>
+          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="/table/json/absensi">
+							<thead>
+								<tr class="warning">
+									<th data-sortable="true" data-field="nrp">NRP</th>
+									<th data-sortable="true" data-field="nama">Nama Lengkap</th>
+									<th data-sortable="true" data-field="sesi_1">Sesi 1</th>
+									<th data-sortable="true" data-field="sesi_2">Sesi 2</th>
+									<th data-sortable="true" data-field="sesi_3">Sesi 3</th>
+									<th data-field="id" data-formatter="LinkFormatter">Aksi</th>
+								</tr>
+							</thead>
+
+							<tbody>
+
+							</tbody>
+						</table>
 					</div>
 	        	</div>
 		    </div>

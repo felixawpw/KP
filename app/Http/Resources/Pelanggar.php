@@ -15,10 +15,13 @@ class Pelanggar extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->Id,
-            'nama_pelanggaran' => $this->Nama_Pelanggaran,
-            'nama_kategori' => $this->Nama_Kategori,
-            'poin' => $this->Poin
+            'nrp' => $this->NRP_Mhs,
+            'mhs' => $this->mahasiswa->Nama,
+            'panitia' => $this->panitia->Nama,
+            'jurusan' => $this->mahasiswa->jurusan->Nama,
+            'sesi' => $this->sesi->Nama,
+            'waktu' => explode(".", $this->Waktu)[0],
+            'pelanggaran' => $this->pelanggaran->Nama
         ];
     }
 }

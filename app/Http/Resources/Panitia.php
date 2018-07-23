@@ -15,10 +15,12 @@ class Panitia extends JsonResource
     public function toArray($request)
     {
         return [
-            'nrp_panitia' => $this->NRP,
+            'nrp' => $this->NRP,
             'nama' => $this->Nama,
-            'nama_jurusan' => $this->Nama_Jurusan,
-            'nama_divisi' => $this->Nama_Divisi,
+            'jurusan' => isset($this->jurusan->Nama) ? "" : "-",
+            'divisi' => $this->divisi->Nama,
+            'alfa' => 'alfa',
+            'beta' => 'beta',
         ];
 
     }

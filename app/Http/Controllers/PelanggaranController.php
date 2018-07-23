@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pelanggaran;
+use App\Http\Resources\Pelanggaran as Resource;
+use DB;
 
 class PelanggaranController extends Controller
 {
+    public function json()
+    {
+        return Resource::collection(Pelanggaran::all());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +32,8 @@ class PelanggaranController extends Controller
     public function create()
     {
         //
-        return view('pelanggaran.create');
+        $kategories = \App\Kategori_Pelanggaran::all();
+        return view('pelanggaran.create', compact('kategories'));
 
     }
 
@@ -38,6 +46,9 @@ class PelanggaranController extends Controller
     public function store(Request $request)
     {
         //
+        $kat = $request->kategori;
+        $nama = $request->nama;
+        $status = DB::update("exec spCreatePelanggaran $kat, '$nama', 0");
         return redirect()->action('PelanggaranController@index');
     }
 
@@ -62,7 +73,9 @@ class PelanggaranController extends Controller
     public function edit($id)
     {
         //
-        return view('pelanggaran.edit');
+        $pelanggaran = \App\Pelanggaran::find($id);
+        $kategories = \App\Kategori_Pelanggaran::all();
+        return view('pelanggaran.edit', compact('kategories', 'pelanggaran'));
     }
 
     /**
@@ -75,7 +88,12 @@ class PelanggaranController extends Controller
     public function update(Request $request, $id)
     {
         //
-        return redirect()->action('PelanggaranController@index');
+
+        $kat = $request->kategori;
+        $nama = $request->nama;
+        $poin = $request->poin;
+        $status = DB::update("exec spUpdatePelanggaran $id, $kat, '$nama', $poin");
+        return redirect()->action('PelanggaranController@index')->with($status);
     }
 
     /**
@@ -87,6 +105,7 @@ class PelanggaranController extends Controller
     public function destroy($id)
     {
         //
-        return redirect()->back();
+        $status = DB::update("exec spDeletePelanggaran $id");
+        return redirect()->back()->with($status);
     }
 }

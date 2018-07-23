@@ -25,8 +25,9 @@ class BarangBawaanController extends Controller
     public function create()
     {
         //
-        return view('barangbawaan.create');
-
+        $barangs = \App\Barang::all();
+        $sesis = \App\Sesi::orderBy('Nama')->get();
+        return view('barangbawaan.create', compact('barangs', 'sesis'));
     }
 
     /**
@@ -61,7 +62,9 @@ class BarangBawaanController extends Controller
     public function edit($id)
     {
         //
-        return view('barangbawaan.edit');
+        $barangs = \App\Barang::orderBy('Nama')->get();
+        $sesis = \App\Sesi::orderBy('Nama')->get();
+        return view('barangbawaan.edit', compact('barangs', 'sesis'));
 
     }
 

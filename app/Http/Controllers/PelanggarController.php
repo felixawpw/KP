@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pelanggar;
+use App\Http\Resources\Pelanggar as Resource;
+use DB;
 
 class PelanggarController extends Controller
 {
+    public function json()
+    {
+        return Resource::collection(Pelanggar::all());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,8 +32,8 @@ class PelanggarController extends Controller
     public function create()
     {
         //
-        return view('pelanggar.create');
-
+        $pelanggarans = \App\Pelanggaran::orderBy('Nama')->get();
+        return view('pelanggar.create', compact('pelanggarans'));
     }
 
     /**
@@ -63,7 +70,8 @@ class PelanggarController extends Controller
     public function edit($id)
     {
         //
-        return view('pelanggar.edit');
+        $pelanggarans = \App\Pelanggaran::orderBy('Nama')->get();
+        return view('pelanggar.edit', compact('pelanggarans'));
 
     }
 

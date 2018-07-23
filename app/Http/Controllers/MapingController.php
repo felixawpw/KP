@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class MapingController extends Controller
 {
+    public function json()
+    {
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +29,8 @@ class MapingController extends Controller
     public function create()
     {
         //
-        return view('maping.create');
+        $jurusans = \App\Jurusan::all();
+        return view('maping.create', compact('jurusans'));
     }
 
     /**
@@ -67,7 +72,8 @@ class MapingController extends Controller
     public function edit($id)
     {
         //
-        return view('maping.edit');
+        $jurusans = \App\Jurusan::all();
+        return view('maping.edit', compact('jurusans'));
     }
 
     /**

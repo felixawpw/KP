@@ -31,7 +31,9 @@
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Pelanggaran</label>
 	                          <select class="form-control" name="pelanggaran">
-	                          	<option>Merokok</option>
+	                          	@foreach($pelanggarans as $p)
+	                          		<option value="{{$p->Id}}">{{$p->Nama}}</option>
+	                          	@endforeach
 	                          </select>
 	                        </div>
 	                      </div>

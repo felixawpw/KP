@@ -36,3 +36,11 @@ Route::post('validasi/check', 'ValidasiController@check')->name('validasi.check'
 
 Route::get('test', function(){ return view('layouts.master'); });
 Route::get('json', 'BarangController@test');
+
+Route::get('table/json/mahasiswa', 'MahasiswaController@json');
+Route::get('table/json/maping', 'MapingController@json');
+Route::get('table/json/panitia', 'PanitiaController@json');
+Route::get('table/json/pelanggaran', 'PelanggaranController@json');
+Route::get('table/json/pelanggar', 'PelanggarController@json');
+Route::get('table/json/absensi', 'PresensiController@json');
+Route::get('table/json/barang', 'BarangController@json');

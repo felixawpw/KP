@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Barang, DB;
+use App\Http\Resources\Barang as Resource;
+
 class BarangController extends Controller
 {
 
-    public function test()
+    public function json()
     {
-        return Barang::getAll();
+        return Resource::collection(Barang::all());
     }
     /**
      * Display a listing of the resource.
@@ -19,7 +21,6 @@ class BarangController extends Controller
     public function index()
     {
         //
-        $barangs = Barang::getAll();
         return view('barang.index', compact('barangs'));
     }
 
@@ -71,8 +72,7 @@ class BarangController extends Controller
      */
     public function edit($id)
     {
-        //
-        $barang = Barang::getById($id);
+        $barang = Barang::find($id);
         return view('barang.edit', compact('barang'));
     }
 
@@ -85,7 +85,6 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $tanggal = $request->tanggal;
         $nama = $request->nama_barang;
         $poin = $request->poin;

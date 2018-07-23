@@ -1,0 +1,19 @@
+Barang Bawaan -> ComboBox tambahkan selectize, supaya bisa lihat berdasarkan tanggal
+
+
+Yang masih diskip :
+	1. Pelanggar
+	2. Absensi
+	3. Barang
+	4. Barang Bawaan Peserta
+	5. Kelompok
+	6. Jadwal Rektor Cup
+
+
+
+1. Mahasiswa :
+	Kelompok alfa beta di fixkan dulu bagaimana
+2. 
+
+
+Fix : Barang, Pelanggaran

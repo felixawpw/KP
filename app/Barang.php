@@ -11,11 +11,6 @@ class Barang extends Model
 	protected $table='Barang';
 	protected $primaryKey = 'Id';
 
-	public static function getAll()
-	{
-    	return BarangResource::collection(Barang::hydrate(DB::select('exec spGetAllBarang')));
-	}
-
 	public static function getById($id)
 	{
 		return new BarangResource(Barang::find($id));

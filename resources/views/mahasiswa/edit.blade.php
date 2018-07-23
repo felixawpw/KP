@@ -16,14 +16,14 @@
 	        <div class="card-body row">
 	        	<div class="col-md-2"></div>
 	        	<div class="col-md-8">
-		        	<form method="post" action="{{route('mahasiswa.update', 1)}}" class="">
+		        	<form method="post" action="{{route('mahasiswa.update', $mahasiswa->NRP)}}" class="">
 		        		@method('PUT')
 		        		{{csrf_field()}}
 		        		<div class="row">
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Nama Lengkap</label>
-	                          <input type="text" class="form-control" name="nama_lengkap" value="Felix Aditya Wijaya Pujo Wibowo">
+	                          <input type="text" class="form-control" name="nama_lengkap" value="{{$mahasiswa->Nama}}">
 	                        </div>
 	                      </div>
 		        		</div>
@@ -31,7 +31,7 @@
 	                      <div class="col-md-12">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">NRP</label>
-	                          <input type="text" class="form-control" name="nrp" value="160415052">
+	                          <input type="text" class="form-control" name="nrp" value="{{$mahasiswa->NRP}}">
 	                        </div>
 	                      </div>
 		        		</div>
@@ -40,9 +40,11 @@
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Jurusan</label>
 	                          <select class="form-control" name="jurusan" id="comboJurusan">
-	                          	<option>Kimia</option>
-	                          	<option>Elektro</option>
-	                          	<option selected>Informatika</option>
+	                          	@foreach($jurusans as $j)
+	                          		<option value="{{$j->Id}}" @if($j->Nama == $mahasiswa->jurusan->Nama) selected @endif>
+	                          			{{$j->Nama}}
+	                          		</option>
+	                          	@endforeach
 	                          </select>
 	                        </div>
 	                      </div>
@@ -75,7 +77,7 @@
 
 @section('scripts')
 <script type="text/javascript">
-
+	console.log({!! json_encode($mahasiswa) !!});
 	$('#list').addClass('active');
 </script>
 @endsection
