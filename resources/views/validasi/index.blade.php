@@ -5,31 +5,44 @@ Validasi Data
 @endsection
 
 @section('content')
-	<div class="row justify-content-md-center">
-		<div class="col-md-auto">
-			<h1 class="text-center">Data Kelengkapan Mahasiswa Baru</h1>
+	<div class="container">
+		<div class="row justify-content-md-center">
+			<div class="col-md-8">
+				<h1 class="text-center">Data Kelengkapan Mahasiswa Baru</h1>
+			</div>
 		</div>
-		<div class="col-md-auto">
-			<h1 class="text-center">Masa Orientasi Bersama Fakultas Teknik 2018</h1>
+		<div class="row justify-content-md-center">
+			<div class="col-md-8">
+				<h1 class="text-center">Masa Orientasi Bersama Fakultas Teknik 2018</h1>
+			</div>
 		</div>
-	</div>
-	<div class="row justify-content-md-center">
-		<div class="col-md-2"></div>
-		<div class="col-md-8">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<form method="post" action="{{route('validasi.check')}}">
-						{{csrf_field()}}
-						<div class="form-group">
-							<label for="nrp">NRP :</label>
-							<input type="text" class="form-control" id="nrp" name="nrp" placeholder="160118999" onkeypress="return isNumber(event)" required>
-						    <small id="nrpHelp" class="form-text text-muted">Contoh NRP adalah 160118999 (Digit 1 & 2 adalah kode fakultas, digit 3 & 4 adalah kode jurusan, digit 5 & 6 adalah angkatan, digit 7&8&9 adalah kode unik mahasiswa).</small>
-						</div>
-						<div class="form-group">
-							<label>Recaptcha here</label>
-						</div>
-						<button class="btn btn-primary">Submit</button>
-					</form>
+		<div class="row justify-content-md-center">
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form method="post" action="{{route('validasi.check')}}">
+							{{csrf_field()}}
+							<div class="form-group">
+								<label for="nrp">NRP :</label>
+								<input type="text" class="form-control" id="nrp" name="nrp" placeholder="160118999" onkeypress="return isNumber(event)" required>
+							    <small id="nrpHelp" class="form-text text-muted">
+							    	Contoh NRP adalah 160118999 (Digit 1 & 2 adalah kode fakultas, digit 3 & 4 adalah kode jurusan, digit 5 & 6 adalah angkatan, digit 7&8&9 adalah kode unik mahasiswa).
+							    </small>
+							</div>
+							<div class="form-group">
+								<label for="password">Password :</label>
+								<input type="text" class="form-control" id="password" name="password" onkeypress="return isNumber(event)" required>
+							    <small id="nrpHelp" class="form-text text-muted">
+							    	Password yang digunakan adalah password default dari akun sNRP mahasiswa.
+							    </small>
+							</div>
+
+							<div class="form-group">
+								<label>Recaptcha here</label>
+							</div>
+							<button class="btn btn-primary col-md-12">Submit</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

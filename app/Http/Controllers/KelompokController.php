@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Kelompok, DB;
+use App\Http\Resources\Kelompok as Resource;
 
 class KelompokController extends Controller
 {
+    public function json()
+    {
+        return Resource::collection(Kelompok::orderBy('Kelompok')->get());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,8 +31,8 @@ class KelompokController extends Controller
     public function create()
     {
         //
-        
-        return view('kelompok.create');
+        $panitias = \App\Panitia::orderBy('Nama')->get();
+        return view('kelompok.create', compact('panitias'));
     }
 
     /**
@@ -38,6 +44,10 @@ class KelompokController extends Controller
     public function store(Request $request)
     {
         //
+        $k = $request->kelompok;
+        $m = $request->maping;
+        //$status = DB::update("sp_InsertKelompok $k, $m"); //Uncomment
+
         return redirect()->action('KelompokController@index');
     }
 
@@ -60,8 +70,10 @@ class KelompokController extends Controller
      */
     public function edit($id)
     {
-        //
-        return view('kelompok.edit');
+        $kelompok = Kelompok::where('Kelompok', '=', $id)->first();
+        $panitias = \App\Panitia::orderBy('Nama')->get();
+
+        return view('kelompok.edit', compact('kelompok', 'panitias'));
     }
 
     /**
@@ -73,7 +85,9 @@ class KelompokController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $k = $request->kelompok;
+        $m = $request->maping;
+        //$status = DB::update("sp_UpdateKelompok $k, $m"); //Uncomment
         return redirect()->action('KelompokController@index');
     }
 
@@ -83,9 +97,9 @@ class KelompokController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($kelompok)
     {
-        //
+        //$status = DB::update("exec sp_DeleteKelompok $kelompok"); //Uncomment
         return redirect()->back();
     }
 }

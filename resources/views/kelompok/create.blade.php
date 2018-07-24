@@ -21,19 +21,20 @@
 		        		<div class="row">
 	                      <div class="col-md-12">
 	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Kelompok</label>
-	                          <select class="form-control">
-	                          	<option value="alfa">Alfa</option>
-	                          	<option value="beta">Beta</option>
-	                          </select>
+	                          <label class="bmd-label-floating">Nomor Kelompok</label>
+  	                          <input type="text" class="form-control" name="kelompok">
 	                        </div>
 	                      </div>
 		        		</div>
 		        		<div class="row">
 	                      <div class="col-md-12">
 	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Nomor Kelompok</label>
-  	                          <input type="number" class="form-control" name="nama_barang">
+	                          <label class="bmd-label-floating">Nama Maping</label>
+	                          <select class="form-control" name="maping">
+	                          	@foreach($panitias as $p)
+	                          		<option value="{{$p->NRP}}">{{$p->Nama}}</option>
+	                          	@endforeach
+	                          </select>
 	                        </div>
 	                      </div>
 		        		</div>

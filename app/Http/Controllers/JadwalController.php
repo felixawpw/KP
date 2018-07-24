@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Sesi, DB;
+use App\Http\Resources\Sesi as Resource;
 
 class JadwalController extends Controller
 {
+    public function json()
+    {
+        return Resource::collection(Sesi::all());
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,6 +21,7 @@ class JadwalController extends Controller
     public function index()
     {
         //
+        return view('jadwal.index');
     }
 
     /**
@@ -24,6 +32,7 @@ class JadwalController extends Controller
     public function create()
     {
         //
+        return view('jadwal.create');
     }
 
     /**
@@ -35,7 +44,13 @@ class JadwalController extends Controller
     public function store(Request $request)
     {
         //
-        return redirect()->action('JadwalController@index');
+        $nama = $request->nama;
+        $mulai = $request->mulai;
+        $akhir = $request->akhir;
+        $kelompok = $request->kelompok;
+
+        //$status = DB::update("sp_InsertSesi $nama, $mulai, $akhir, $kelompok"); //Uncomment
+        return redirect()->action('JadwalController@index')->with('status');
     }
 
     /**
@@ -57,7 +72,8 @@ class JadwalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sesi = Sesi::find($id);
+        return view('jadwal.edit', compact('sesi'));
     }
 
     /**
@@ -69,7 +85,11 @@ class JadwalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $nama = $request->nama;
+        $mulai = $request->mulai;
+        $akhir = $request->akhir;
+        $kelompok = $request->kelompok;
+        //$status = DB::update("sp_UpdateSesi $id, $nama, $mulai, $akhir, $kelompok"); //Uncomment
         return redirect()->action('JadwalController@index');
     }
 
@@ -81,7 +101,7 @@ class JadwalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //$status = DB::update("sp_DeleteSesi $id"); //Uncomment
         return redirect()->back();
     }
 }

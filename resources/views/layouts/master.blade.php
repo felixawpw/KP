@@ -91,7 +91,7 @@
           <li class="nav-item " id="jadwal">
             <a class="nav-link" href="{{route('jadwal.index')}}">
               <i class="material-icons">calendar_today</i>
-              <p>Jadwal Rektor Cup</p>
+              <p>Sesi</p>
             </a>
           </li>
           <!-- <li class="nav-item active-pro ">

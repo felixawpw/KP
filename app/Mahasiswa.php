@@ -14,4 +14,9 @@ class Mahasiswa extends Model
     {
     	return $this->belongsTo('App\Jurusan' ,'Id_Jurusan');
     }
+
+    public function kelompoks()
+    {
+    	return $this->hasMany('App\Mhs_Maping', 'NRP_Mhs');
+    }
 }

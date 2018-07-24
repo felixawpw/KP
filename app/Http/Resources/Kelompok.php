@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Panitia as Resource;
 
 class Kelompok extends JsonResource
 {
@@ -15,9 +16,11 @@ class Kelompok extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->Id,
-            'nama_kelompok' => $this->Nama_Kelompok,
-            'nama_mahasiswa' => $this->Nama_Mahasiswa,
+            'id_maping' => $this->NRP,
+            'kelompok' => $this->Kelompok,
+            'maping' => $this->panitia->Nama,
+            'nama_jurusan' => $this->panitia->jurusan != null ? $this->panitia->jurusan->Nama : '-',
+            'nrp' => $this->panitia->NRP,
         ];
     }
 }

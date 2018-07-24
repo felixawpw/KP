@@ -13,7 +13,6 @@
 	        		<div class="col-md-10">
 			          <h4 class="card-title ">Tabel Jenis Pelanggaran</h4>
 			          <p class="card-category">Jenis dan nama pelanggaran serta poin tiap pelanggaran</p>
-
 	        		</div>
 	        		<div class="col-md-2">
 		            	<a href="{{route('pelanggaran.create')}}">

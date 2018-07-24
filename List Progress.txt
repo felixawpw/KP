@@ -1,0 +1,39 @@
+List Barang (V)
+List Barang Bawaan (V)
+List Jadwal/Sesi (V)
+List Kelompok (V)
+List Mahasiswa (V)
+List Maping (V)
+List Panitia (V)
+List Pelanggar (V)
+	- Sesi diganti tanggal (X)
+List Pelanggaran (V)
+List Presensi/Absensi (V)
+
+Absensi
+	-create edit delete
+	-search berdasarkan sesi cbox (V)
+
+Validasi Data Mahasiswa (2/3)
+	1. Front end minus captcha, test dan perbaiki ux (Kata ambigu, notification)
+	2. Backend cuma sp insert saja
+
+//Sampai sini sudah selesai
+
+//Belum Selesai
+1.	Authentication -> masih mau baca dokumentasi untuk custom auth di laravel
+2.	Stored Procedure (6 SP) :
+	a. sp_InsertSesi
+	b. sp_UpdateSesi
+	c. sp_DeleteSesi
+	d. sp_InsertKelompok
+	e. sp_UpdateKelompok
+	f. sp_DeleteKelompok
+	g. sp_InsertValidasiMahasiswa
+3.	Validasi 
+4.	Connect DB Ubaya
+
+//Estimasi waktu penyelesaian website (Worst case) : 
+	1. Nomor 1 - 3 -> Tanggal 25 pk 24.00
+	2. Uji coba software : 1 hari (?) 26
+	3. Revisi (Worst case) : 2 hari 27 - 28

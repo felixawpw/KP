@@ -45,9 +45,14 @@ Route::get('table/json/pelanggar', 'PelanggarController@json');
 Route::get('table/json/absensi', 'PresensiController@json');
 Route::get('table/json/barang', 'BarangController@json');
 Route::get('table/json/barangbawaan', 'BarangBawaanController@json');
+Route::get('table/json/kelompok', 'KelompokController@json');
+Route::get('table/json/sesi', 'JadwalController@json');
+
 
 Route::get('pelanggar/edit/{nrp}/{panitia}/{sesi}', 'PelanggarController@editOwn');
 Route::get('pelanggar/delete/{nrp}/{panitia}/{sesi}', 'PelanggarController@destroy');
 
 Route::get('barangbawaan/edit/{nrp}/{panitia}/{sesi}', 'BarangBawaanController@editOwn');
 Route::get('barangbawaan/delete/{nrp}/{panitia}/{sesi}/{barang}', 'BarangBawaanController@destroy');
+
+Route::get('kelompok/delete/{kelompok}/{maping}', 'KelompokController@destroy');

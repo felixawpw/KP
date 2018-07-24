@@ -24,7 +24,9 @@ class ValidasiController extends Controller
      */
     public function create()
     {
-        //
+        //Read Auth
+        $mhs = \App\Mahasiswa::find("160415052");
+        return view('validasi.create', compact('mhs'));
     }
 
     /**
@@ -41,14 +43,26 @@ class ValidasiController extends Controller
 
     public function check(Request $request)
     {
-        $mahasiswa = Mahasisa::find($request->nrp);
+        $mahasiswa = Mahasiswa::find($request->nrp);
+        $password = $request->password;
+        $message = "";
         //Check nrp ada atau tidak
         if ($mahasiswa == null)
-            return Redirect::route('validasi.index')->with('message', 'Data NRP tidak ada');
+            $message = 'BEWARE;Merasa data Anda seharusnya ada? Segera kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2017 melalui sosial media yang ada dengan memberitahukan bahwa Anda tidak dapat mengisi data kelengkapan MOB FT 2017 dengan mencantumkan: NAMA LENGKAP, NRP, JURUSAN. Kami juga merekomendasikan Anda melakukan screenshot sebagai lampiran. Informasi mengenai Official Account dapat dilihat pada Website MOB Ubaya.';
         
-        //Check sudah pernah isi validasi atau tidak
+        //Check autentikasi mahasiswa
+        else if ($mahasiswa->NRP != $password)
+            $message = 'Login Gagal. NRP atau password yang Anda masukkan salah.';
 
-        return $request->nrp;
+        //Check sudah pernah isi validasi atau tidak
+        else if ($mahasiswa->Penyakit != null)
+            $message = "WARNING;Merasa tidak pernah mengisi data kelengkapan? Segera kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2017 melalui sosial media yang ada dengan memberitahukan bahwa Anda tidak dapat mengisi data kelengkapan MOB FT 2017 dengan mencantumkan: NAMA LENGKAP, NRP, JURUSAN. Kami juga merekomendasikan Anda melakukan screenshot sebagai lampiran. Informasi mengenai Official Account dapat dilihat pada Website MOB Ubaya .";
+        
+        //Kalau berhasil, masukkan ke Auth
+        else
+            return redirect()->route('validasi.create')->with('');
+
+        return redirect()->route('validasi.index')->with('message', 'Data NRP tidak ada');
     }
 
     /**

@@ -22,6 +22,10 @@ class Panitia extends Model
         return $this->belongsTo('App\Jurusan' ,'Id_Jurusan');
     }
 
+    public function kelompok()
+    {
+        return $this->hasMany('App\Kelompok', 'NRP', 'NRP');
+    }
     // public function mhs_barang()
     // {
     // 	return 

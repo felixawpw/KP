@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Maping, DB;
+use App\Http\Resources\Maping as Resource;
 
 class MapingController extends Controller
 {
     public function json()
     {
-        
+        return Resource::collection(\App\Panitia::has('kelompok')->get());
     }
     /**
      * Display a listing of the resource.
