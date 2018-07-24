@@ -33,6 +33,8 @@
 									<th data-sortable="true" data-field="panitia">Panitia</th>
 									<th data-sortable="true" data-field="barang">Nama Barang</th>
 									<th data-field="id_sesi" data-formatter="DeleteFormatter">Delete</th>
+									<th data-field="id_barang" data-visible="false">Id Barang</th>
+									<th data-field="id_panitia" data-visible="false">Id Panitia</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -53,9 +55,9 @@
 @section('scripts')
 <script type="text/javascript">
 	function DeleteFormatter(value, row, index) {
-		return '<a href="/barangbawaan/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'">Delete</a>'
+		return '<a href="/barangbawaan/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'/' + row['id_barang'] +
+			'">Delete</a>'
 	}
-
 
 	$('#barangbawaan').addClass('active');
 </script>

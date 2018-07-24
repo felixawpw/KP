@@ -16,8 +16,8 @@ Pelanggar: (V)
 Barang Bawaan: (V)
 - Sesi diganti tanggal
 - Create
-- Edit
 - Delete
+
 
 
 Absensi belum coba, ngga ada data, ngga bisa tambah juga

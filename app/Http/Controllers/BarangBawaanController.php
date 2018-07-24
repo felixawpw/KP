@@ -110,14 +110,9 @@ class BarangBawaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($nrp, $panitia, $sesi, $barang)
     {
-        //
-        $nrp = $request->nrp;
-        $panitia = $request->panitia;
-        $sesi = $request->waktu;
-        $barang = $request->barang;
-        $status = DB::update("exec sp_DeleteBarangBawaan $sesi, $panitia, $nrp, $barang");
+        $status = DB::update("exec sp_BarangBawaanHapus $sesi, $panitia, $nrp, $barang");
         return redirect()->back();
     }
 }

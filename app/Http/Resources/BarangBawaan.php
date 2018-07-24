@@ -17,12 +17,12 @@ class BarangBawaan extends JsonResource
         return [
             'nrp' => $this->NRP_Mhs,
             'sesi' => $this->sesi->Nama,
-            'panitia' => $this->panitia->NRP,
+            'panitia' => $this->panitia->Nama,
             'barang' => $this->barang->Nama,
 
             'id_sesi' => $this->sesi->Id,
             'id_panitia' => $this->panitia->NRP,
-
+            'id_barang' => $this->barang->Id,
         ];
     }
 }
