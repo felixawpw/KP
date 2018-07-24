@@ -51,7 +51,7 @@ class MahasiswaController extends Controller
         $angkatan = $request->angkatan;
         $alfa = $request->kelompok_alfa;
         $beta = $request->kelompok_beta;
-        $status = DB::update("exec spCreateMahasiswa '$nrp', null,'$nama', $jurusan, $angkatan, 0, 0, null, null, null, null, null, null"); //Buat SPnya
+        $status = DB::update("exec spCreateMahasiswa '$nrp', null,'$nama', $jurusan, $angkatan, 0, 0, null"); //Buat SPnya
         return redirect()->action('MahasiswaController@index');
     }
 
@@ -96,7 +96,7 @@ class MahasiswaController extends Controller
         $angkatan = $request->angkatan;
         $alfa = $request->kelompok_alfa;
         $beta = $request->kelompok_beta;
-        $status = DB::update("exec spUpdateMahasiswa '$id', null,'$nama', $jurusan, $angkatan, 0, 0, null, null, null, null, null, null"); //Buat SPnya
+        $status = DB::update("exec spUpdateMahasiswa '$id', null,'$nama', $jurusan, $angkatan, 0, 0, null"); //Buat SPnya
         return redirect()->action('MahasiswaController@index');
     }
 

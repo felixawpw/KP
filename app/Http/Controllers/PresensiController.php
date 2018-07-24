@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Presensi, DB;
+use App\Http\Resources\Presensi as Resource;
 
 class PresensiController extends Controller
 {
+    public function json()
+    {
+        return Resource::collection(Presensi::all());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class PresensiController extends Controller
     public function index()
     {
         //
-        return view('presensi.index');
+        $sesis = \App\Sesi::all();
+        return view('presensi.index', compact('sesis'));
     }
 
     /**
@@ -25,8 +32,9 @@ class PresensiController extends Controller
     public function create()
     {
         //
-        return view('presensi.create');
-
+        $panitias = \App\Panitia::orderBy('Nama')->get();
+        $sesis = \App\Sesi::orderBy('Mulai')->get();
+        return view('presensi.create', compact('panitias', 'sesis'));
     }
 
     /**
@@ -38,7 +46,11 @@ class PresensiController extends Controller
     public function store(Request $request)
     {
         //
-        return redirect()->action('PresensiController@index');
+        $sesi = $request->sesi;
+        $panitia = $request->panitia;
+        $nrp = $request->nrp;
+        $status = DB::update("exec sp_Presensi $sesi, $panitia, $nrp");
+        return redirect()->action('PresensiController@index')->with($status);
     }
 
     /**
@@ -86,9 +98,10 @@ class PresensiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($nrp, $sesi)
     {
         //
-        return redirect()->back();
+        $status = DB::update("exec sp_DeletePresensi $nrp, $sesi"); //uncomment
+        return redirect()->back()->with($status);
     }
 }

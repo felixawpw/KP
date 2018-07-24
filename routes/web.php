@@ -56,3 +56,4 @@ Route::get('barangbawaan/edit/{nrp}/{panitia}/{sesi}', 'BarangBawaanController@e
 Route::get('barangbawaan/delete/{nrp}/{panitia}/{sesi}/{barang}', 'BarangBawaanController@destroy');
 
 Route::get('kelompok/delete/{kelompok}/{maping}', 'KelompokController@destroy');
+Route::get('presensi/delete/{nrp}/{sesi}', 'PresensiController@destroy');

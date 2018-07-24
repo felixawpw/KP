@@ -55,7 +55,7 @@ class PanitiaController extends Controller
 
         $password = "";
 
-        $status = DB::update("exec spCreatePanitia '$nrp', '$password', '$nama', $divisi, null, $jurusan, 2018, null, null,null,null,null");
+        $status = DB::update("exec spCreatePanitia '$nrp', '$password', '$nama', $divisi, null, $jurusan, 2018");
         return redirect()->action('PanitiaController@index');
     }
 
@@ -104,7 +104,7 @@ class PanitiaController extends Controller
 
         $password = "";
         
-        $status = DB::update("exec spUpdatePanitia '$id', '$password', '$nama', $divisi, null, $jurusan, 2018, null, null,null,null,null");
+        $status = DB::update("exec spUpdatePanitia '$id', '$password', '$nama', $divisi, null, $jurusan, 2018");
         return redirect()->action('PanitiaController@index');
     }
 

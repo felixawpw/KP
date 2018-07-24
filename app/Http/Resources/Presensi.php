@@ -15,11 +15,11 @@ class Presensi extends JsonResource
     public function toArray($request)
     {
         return [
-            'nrp_mhs' => $this->NRP_mhs,
-            'nama_mhs' => $this->Nama_Mahasiswa,
-            'sesi_1' => $this->Sesi_1 == null ? 'A' : 'H',
-            'sesi_2' => $this->Sesi_2 == null ? 'A' : 'H',
-            'sesi_3' => $this->Sesi_3 == null ? 'A' : 'H',
+            'nrp' => $this->NRP_Mhs,
+            'nama' => $this->mahasiswa->Nama,
+            'panitia' => $this->panitia->Nama,
+            'id_sesi' => $this->sesi->Id,
+            'sesi' => $this->sesi->Nama,
         ];
     }
 }

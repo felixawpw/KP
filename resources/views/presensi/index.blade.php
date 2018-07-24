@@ -14,45 +14,43 @@
 			          <h4 class="card-title ">Presensi Mahasiswa</h4>
 			          <p class="card-category">Mahasiswa Baru Universitas Surabaya Fakultas Teknik 2018</p>
 	        		</div>
+	        		<div class="col-md-2">
+		            	<a href="{{route('presensi.create')}}">
+		            		<i class="material-icons" style="font-size: 48px; color: lightblue;">add_circle</i>
+		            	</a>
+	        		</div>
 	      		</div>
 	        </div>
 	        <div class="card-body">
-	        	<form method="get" action="#">
 		        	<div class="row">
-		        		<div class="col-md-3"></div>
-		        		<div class="col-md-2">
-		        			<input type="date" name="tanggal" class="form-control">
-		        		</div>
-		        		<div class="col-md-1">
-		        			<select class="form-control" name="kelompok">
-		        				<option value="1">Alfa</option>
-		        				<option value="2">Beta</option>
-		        			</select>
-		        		</div>
-		        		<div class="col-md-1">
-		        			<select class="form-control" name="nomor">
-		        				<option value="1">1</option>
+		        		<div class="col-md-4"></div>
+		        		<div class="col-md-4">	                          
+		        			<select class="form-control" id="comboSesi">
+		        				@foreach($sesis as $sesi)
+		        				<option value="{{$sesi->Nama}}">{{$sesi->Nama}}</option>
+		        				@endforeach
 		        			</select>
 		        		</div>
 		        		<div class="col-md-2">
-		        			<a href="#" id="search"><i class="material-icons">search</i></a>
+		        			<button class="btn btn-primary col-md-12" onclick="search()">Search</button>
+		        		</div>
+		        		<div class="col-md-2">
+		        			<button class="btn btn-primary col-md-12" onclick="showAll()">Show All</button>
 		        		</div>
 		        	</div>
 	        	</form>
         		<div class="row">
 		          	<div class="table-responsive col-md-12">
-          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="/table/json/absensi">
+          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="/table/json/absensi" id="tableAbsensi">
 							<thead>
 								<tr class="warning">
 									<th data-sortable="true" data-field="nrp">NRP</th>
 									<th data-sortable="true" data-field="nama">Nama Lengkap</th>
-									<th data-sortable="true" data-field="sesi_1">Sesi 1</th>
-									<th data-sortable="true" data-field="sesi_2">Sesi 2</th>
-									<th data-sortable="true" data-field="sesi_3">Sesi 3</th>
-									<th data-field="id" data-formatter="LinkFormatter">Aksi</th>
+									<th data-sortable="true" data-field="panitia">Nama Panitia</th>
+									<th data-sortable="true" data-field="sesi">Sesi</th>
+									<th data-field="id_sesi" data-formatter="DeleteFormatter">Aksi</th>
 								</tr>
 							</thead>
-
 							<tbody>
 
 							</tbody>
@@ -70,6 +68,21 @@
 
 @section('scripts')
 <script type="text/javascript">
+	function DeleteFormatter(value, row, index) {
+		return '<a href="/presensi/delete/' + row["nrp"] +'/' + row['id_sesi'] + '">Delete</a>';
+	}
+
+	function search()
+	{
+		var text = $('#comboSesi').val();
+		$('#tableAbsensi').bootstrapTable('resetSearch', text);
+	}
+
+	function showAll()
+	{
+		var text = $('#comboSesi').val();
+		$('#tableAbsensi').bootstrapTable('resetSearch', "");
+	}
 
 	$('#absensi').addClass('active');
 </script>
