@@ -1,3 +1,8 @@
+Notes :
+	1. Versi DB : Download Drive MOBFT18
+	2. SQL semua di sql-files drive
+	3. 
+
 List Barang (V)
 List Barang Bawaan (V)
 List Jadwal/Sesi (V)
@@ -22,7 +27,7 @@ Validasi Data Mahasiswa (2/3)
 
 //Belum Selesai
 1.	Authentication -> masih mau baca dokumentasi untuk custom auth di laravel
-2.	Stored Procedure (Program sudah selesai, tinggal execute sql sp) :
+2.	Stored Procedure (Program sudah selesai, tinggal execute sql sp seharusnya semua fungsi master sudah bisa) :
 	a. sp_InsertSesi
 		-deskripsi 	: insert tabel Sesi
 		-input		: nama, mulai, akhir, kelompok
@@ -64,4 +69,4 @@ Validasi Data Mahasiswa (2/3)
 //Estimasi waktu penyelesaian website (Worst case) : 
 	-	Nomor 1 - 3 -> Tanggal 25 pk 24.00
 	-	Uji coba software : 1 hari (?) 26
-	-	Revisi (Worst case) : 2 hari 27 - 28
+	-	Revisi : 2 hari 27 - 28
