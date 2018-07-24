@@ -16,12 +16,12 @@ List Pelanggaran (V)
 List Presensi/Absensi (V)
 
 Absensi
-	-create edit delete (V) (tanpa edit, kupikir karna pilihan cuma H/A, jd bisa create/delete aja)
+	-create edit delete (V) (tanpa edit, karna pilihan cuma H/A, create/delete sudah cukup)
 	-search berdasarkan sesi cbox (V)
 
 Validasi Data Mahasiswa (2/3)
 	1. Front end minus captcha, test dan perbaiki ux (Kata ambigu, notification)
-	2. Backend cuma sp insert saja
+	2. Backend cuma sp insert saja & validasi
 
 //Sampai sini sudah selesai
 
