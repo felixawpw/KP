@@ -8,22 +8,26 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+    protected $table="Pengguna";
+    protected $primaryKey = "NRP";
+    public $timestamps = false;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    public function mahasiswa()
+    {
+        return $this->hasOne('App\Mahasiswa', 'NRP_Pengguna');
+    }
+    public function panitia()
+    {
+        return $this->hasOne('App\Panitia', 'NRP_Pengguna');
+    }
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function jurusan()
+    {
+        return $this->belongsTo('App\Jurusan' ,'Id_Jurusan');
+    }
+
+    public function recups()
+    {
+        return $this->belongsToMany('App\Recup', 'Mhs_Recup', 'NRP_Mhs', 'Id_Recup')->withPivot('Prioritas', 'Bukti', 'Diterima');
+    }
 }

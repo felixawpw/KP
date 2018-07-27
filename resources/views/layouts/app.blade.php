@@ -18,7 +18,35 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}">
     <!-- Styles -->
 </head>
-<body>
+<body>  
+    <div class="modal fade" id="modalWarning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header" 
+            @if (\Session::has('message') && explode(';', \Session::get('message'))[0] == "0")
+              style="background-color: #ff0033;"
+            @else
+              style="background-color: green;"
+
+            @endif>
+            <h3 class="modal-title" id="exampleModalLabel">PERHATIAN</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="warning_desc">
+            @if (\Session::has('message'))
+               <p class="text-justify">{!! explode(';', \Session::get('message'))[1] !!}</p>
+            @endif
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="app">
         <main class="py-4">
             @yield('content')
@@ -29,3 +57,21 @@
 <script src="{{asset('assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 @yield('scripts')
+@if (\Session::has('message'))
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#modalWarning').modal({
+            show: true
+        });
+    });
+</script>
+@endif
+
+
+@if ($errors->any())
+    <script type="text/javascript">
+    $(document).ready(function(){
+        alert("Pastikan anda mengisi semua data dengan benar");
+    });
+    </script>
+@endif

@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Recup extends Model
 {
     //
-    // protected $table = 'Recup';
+    protected $table = 'Recup';
+    protected $primaryKey = 'Id';
     // protected $timestamps = false;
 
     // public function mahasiswas()

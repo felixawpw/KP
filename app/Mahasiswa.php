@@ -8,7 +8,7 @@ class Mahasiswa extends Model
 {
     //
     protected $table = 'Mahasiswa';
-    protected $primaryKey = "NRP";
+    protected $primaryKey = "NRP_Pengguna";
 
     public function jurusan()
     {
@@ -19,4 +19,5 @@ class Mahasiswa extends Model
     {
     	return $this->hasMany('App\Mhs_Maping', 'NRP_Mhs');
     }
+    
 }

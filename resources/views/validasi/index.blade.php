@@ -31,7 +31,7 @@ Validasi Data
 							</div>
 							<div class="form-group">
 								<label for="password">Password :</label>
-								<input type="text" class="form-control" id="password" name="password" onkeypress="return isNumber(event)" required>
+								<input type="password" class="form-control" id="password" name="password" onkeypress="return isNumber(event)" required>
 							    <small id="nrpHelp" class="form-text text-muted">
 							    	Password yang digunakan adalah password default dari akun sNRP mahasiswa.
 							    </small>

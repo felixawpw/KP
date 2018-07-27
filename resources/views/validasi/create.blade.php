@@ -6,7 +6,8 @@ Validasi Data
 
 @section('content')
     <div class="container">
-        <form action="validasi.php" method="post" enctype="multipart/form-data" name="data" role="form">
+        <form action="{{route('validasi.store')}}" method="post" enctype="multipart/form-data" name="data" role="form">
+            {{csrf_field()}}
             <div class="row justify-content-md-center">   
                 <div class="col-md-8">          
                     <div class="panel panel-default">
@@ -21,25 +22,23 @@ Validasi Data
                                         <br>
                                         <div class="form-group">
                                             <label>NRP</label>
-                                            <input type="text" class="form-control" disabled value="{{$mhs->NRP}}">
+                                            <input type="text" class="form-control" disabled value="{!! Auth::user()->NRP !!}">
                                         </div>
                                         <div class="form-group">
                                             <label>Nama</label>
-                                            <input type="text" class="form-control" disabled value="{{$mhs->Nama}}">
+                                            <input type="text" class="form-control" disabled value="{!! Auth::user()->Nama !!}">
                                         </div>
                                         <div class="form-group">
                                             <label>Jurusan</label>
-                                            <input type="text" class="form-control" disabled value="{{$mhs->jurusan->Nama}}">
+                                            <input type="text" class="form-control" disabled value="{!! Auth::user()->jurusan->Nama!!}">
                                         </div>
                                         <div class="form-group">
                                             <label>Tahun</label>
-                                            <input type="text" class="form-control" disabled value="{{$mhs->Angkatan}}">
+                                            <input type="text" class="form-control" disabled value="{!! Auth::user()->Angkatan !!}">
                                         </div>
                                         <div class="form-group">
                                             <label>Kelompok (Alfa / Beta)</label>
-                                            <?php $kel = $mhs->kelompoks()->orderBy('Kelompok')->get(); ?>
-                                            <input type="text" class="form-control" disabled 
-                                            value="{{isset($kel[0])?'$kel[0]->Kelompok':'-'}} / {{isset($kel[1])?'$kel[1]->Kelompok':'-'}}">
+                                            <input type="text" class="form-control" disabled value="{!! $a.' / '.$b!!}">
                                         </div>
                                     </div>
                                 </div>
@@ -63,50 +62,24 @@ Validasi Data
                                         <p id="descr" class="help-block" hidden style="color: red;">* Deskripsi penyakit khusus wajib di-isi apabila Anda memilih memiliki penyakit khusus.</p>
                                     </div>    
                                     <div class="form-group" id="formPenyakit">
-                                        <textarea name="penyakit_" class="form-control" rows="3" maxlength="500" id="fillPenyakit" disabled></textarea>                               
+                                        <textarea name="penyakit_detail" class="form-control" rows="3" maxlength="500" id="fillPenyakit" disabled></textarea>                               
                                     </div>
                                     <div class="form-group">
                                         <label>Pilihan Bakat dan Minat prioritas pertama :</label>
                                         <select id="minat1" name="minat1" class="form-control" required style="height:4rem;">
-                                            <option value="1">Basket</option>
-                                            <option value="2" hidden>Futsal</option>
-                                            <option value="3">Voli</option>
-                                            <option value="4">Tenis Meja</option>
-                                            <option value="5">Bulutangkis</option>
-                                            <option value="6">Catur</option>
-                                            <option value="7">MC</option>
-                                            <option value="8">Jurnalistik</option>
-                                            <option value="9">Band</option>
-                                            <option value="10">Paduan Suara</option>
-                                            <option value="11">Penyanyi Solo</option>
-                                            <option value="12">Dance</option>
-                                            <option value="13">Karya Tulis Ilmiah (KTI)</option>
-                                            <option value="14">Debat Bahasa Indonesia</option>
-                                            <option value="15">Debat Bahasa Inggris</option>
-                                            <option value="16">Tarik Tambang</option>
-                                            <option value="17">Desain Logo 50 tahun Ubaya</option>
+                                                <option disabled selected value="">Pilih salah satu!</option>
+                                            @foreach($recups as $r)
+                                                <option value="{!! $r->Id !!}">{!! $r->Nama !!}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Pilihan Bakat dan Minat prioritas kedua :</label>
                                         <select id="minat2" name="minat2" class="form-control" required style="height: 4rem;">
-                                            <option value="1" hidden>Basket</option>
-                                            <option value="2" selected>Futsal</option>
-                                            <option value="3">Voli</option>
-                                            <option value="4">Tenis Meja</option>
-                                            <option value="5">Bulutangkis</option>
-                                            <option value="6">Catur</option>
-                                            <option value="7">MC</option>
-                                            <option value="8">Jurnalistik</option>
-                                            <option value="9">Band</option>
-                                            <option value="10">Paduan Suara</option>
-                                            <option value="11">Penyanyi Solo</option>
-                                            <option value="12">Dance</option>
-                                            <option value="13">Karya Tulis Ilmiah (KTI)</option>
-                                            <option value="14">Debat Bahasa Indonesia</option>
-                                            <option value="15">Debat Bahasa Inggris</option>
-                                            <option value="16">Tarik Tambang</option>
-                                            <option value="17">Desain Logo 50 tahun Ubaya</option>
+                                            <option disabled selected value="">Pilih salah satu!</option>
+                                            @foreach($recups as $r)
+                                                <option value="{!! $r->Id !!}">{!! $r->Nama !!}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -136,8 +109,13 @@ Validasi Data
 
 @section('scripts')
 <script type="text/javascript">
-    var prevMinat1 = 1;
-    var prevMinat2 = 2;
+    var prevMinat1 = 9;
+    var prevMinat2 = 1;
+    $('#reset').click(function(){
+        $('#fillPenyakit').attr('disabled', true);                
+        $('#descr').attr('hidden', true);
+
+    });
     $(document).ready(function(){
         $('input[name="penyakit"]').change(function(){
             if($('#opt-y').prop('checked')){
@@ -164,7 +142,5 @@ Validasi Data
             $("#minat1 option[value='" + this.value + "']").attr("hidden", true);
         });
     });
-
-
 </script>
 @endsection
