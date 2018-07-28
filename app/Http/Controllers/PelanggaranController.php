@@ -133,16 +133,16 @@ class PelanggaranController extends Controller
     public function destroy($id)
     {
         //  
-        $status = "1;Hapus Pelanggaran berhasil.";
 
         $p = Pelanggaran::find($id);
+        $status = "1;Delete Pelanggaran berhasil.";
         try
         {
             $p->delete();
         }
         catch(\Exception $e)
         {            
-            $status = "0;Hapus Pelanggaran gagal. Hubungi ITD.";
+            $status = "0;Delete Pelanggaran gagal. Hubungi ITD.";
             \App\Log::insertLog("Error", Auth::id(), null, null, "Delete Pelanggaran ($id) :".$e->getMessage());
         }
         return redirect()->back()->with('status',$status);

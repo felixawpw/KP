@@ -28,39 +28,40 @@ Route::get('check', function(){
 	return Auth::check() ? "true" : "f";
 });
 
+Route::middleware(['auth'])->group(function () {
+	Route::resource('mahasiswa', 'MahasiswaController'); //X
+	Route::resource('barangbawaan', 'BarangBawaanController');
+	Route::resource('panitia', 'PanitiaController');
+	Route::resource('presensi', 'PresensiController');
+	Route::resource('pelanggaran', 'PelanggaranController');
+	Route::resource('kelompok', 'KelompokController');
+	Route::resource('jadwal', 'JadwalController');
+	Route::resource('maping', 'MapingController');
+	Route::resource('pelanggar', 'PelanggarController');
+	Route::resource('barang', 'BarangController');
 
-Route::resource('mahasiswa', 'MahasiswaController'); //X
-Route::resource('barangbawaan', 'BarangBawaanController');
-Route::resource('panitia', 'PanitiaController');
-Route::resource('presensi', 'PresensiController');
-Route::resource('pelanggaran', 'PelanggaranController');
-Route::resource('kelompok', 'KelompokController');
-Route::resource('jadwal', 'JadwalController');
-Route::resource('maping', 'MapingController');
-Route::resource('pelanggar', 'PelanggarController');
-Route::resource('barang', 'BarangController');
+	// Route::get('test', function(){ return view('layouts.master'); });
+	// Route::get('json', 'BarangController@test');
 
-// Route::get('test', function(){ return view('layouts.master'); });
-// Route::get('json', 'BarangController@test');
-
-Route::get('table/json/mahasiswa', 'MahasiswaController@json');
-Route::get('table/json/maping', 'MapingController@json');
-Route::get('table/json/panitia', 'PanitiaController@json');
-Route::get('table/json/pelanggaran', 'PelanggaranController@json');
-Route::get('table/json/pelanggar', 'PelanggarController@json');
-Route::get('table/json/absensi', 'PresensiController@json');
-Route::get('table/json/barang', 'BarangController@json');
-Route::get('table/json/barangbawaan', 'BarangBawaanController@json');
-Route::get('table/json/kelompok', 'KelompokController@json');
-Route::get('table/json/sesi', 'JadwalController@json');
+	Route::get('table/json/mahasiswa', 'MahasiswaController@json');
+	Route::get('table/json/maping', 'MapingController@json');
+	Route::get('table/json/panitia', 'PanitiaController@json');
+	Route::get('table/json/pelanggaran', 'PelanggaranController@json');
+	Route::get('table/json/pelanggar', 'PelanggarController@json');
+	Route::get('table/json/absensi', 'PresensiController@json');
+	Route::get('table/json/barang', 'BarangController@json');
+	Route::get('table/json/barangbawaan', 'BarangBawaanController@json');
+	Route::get('table/json/kelompok', 'KelompokController@json');
+	Route::get('table/json/sesi', 'JadwalController@json');
 
 
-Route::get('pelanggar/edit/{nrp}/{panitia}/{sesi}', 'PelanggarController@editOwn');
-Route::get('pelanggar/delete/{nrp}/{panitia}/{sesi}', 'PelanggarController@destroy');
+	Route::get('pelanggar/edit/{nrp}/{panitia}/{sesi}/{pelanggaran}', 'PelanggarController@editOwn');
+	Route::get('pelanggar/delete/{nrp}/{panitia}/{sesi}/{pelanggaran}', 'PelanggarController@destroy');
+	Route::post('pelanggar/update/{nrp}/{panitia}/{sesi}/{pelanggaran}', 'PelanggarController@update')->name('updatepelanggar');
 
-Route::get('barangbawaan/edit/{nrp}/{panitia}/{sesi}', 'BarangBawaanController@editOwn');
-Route::get('barangbawaan/delete/{nrp}/{panitia}/{sesi}/{barang}', 'BarangBawaanController@destroy');
+	Route::get('barangbawaan/edit/{nrp}/{panitia}/{sesi}', 'BarangBawaanController@editOwn');
+	Route::get('barangbawaan/delete/{nrp}/{panitia}/{sesi}/{barang}', 'BarangBawaanController@destroy');
 
-Route::get('kelompok/delete/{kelompok}/{maping}', 'KelompokController@destroy');
-Route::get('presensi/delete/{nrp}/{sesi}', 'PresensiController@destroy');
-
+	Route::get('kelompok/delete/{kelompok}/{maping}', 'KelompokController@destroy');
+	Route::get('presensi/delete/{nrp}/{sesi}', 'PresensiController@destroy');
+});

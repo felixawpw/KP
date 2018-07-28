@@ -8,8 +8,8 @@
 	        <div class="card-header card-header-primary">
 	        	<div class="row">
 	        		<div class="col-md-10">
-			          <h4 class="card-title ">Tambah Barang</h4>
-			          <p class="card-category">Tambah barang yang harus dibawa oleh peserta</p>
+			          <h4 class="card-title ">Tambah Barang Bawaan</h4>
+			          <p class="card-category">Tambah peserta MOB yang tidak bawa barang</p>
 	        		</div>
 	      		</div>
 	        </div>

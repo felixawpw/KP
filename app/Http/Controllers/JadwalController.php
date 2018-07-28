@@ -51,6 +51,7 @@ class JadwalController extends Controller
         $s->Akhir = $request->akhir;
         $s->Kelompok = $request->kelompok;
 
+        return $s->Mulai;
         $status = "1;Tambah sesi berhasil.";
         try
         {
@@ -98,11 +99,13 @@ class JadwalController extends Controller
     public function update(Request $request, $id)
     {
         $s = Sesi::find($id);
-        $s->Nama = $request->nama;
-        $s->Mulai = $request->mulai;
-        $s->Akhir = $request->akhir;
-        $s->Kelompok = $request->kelompok;
+        $m = explode('T', $request->mulai);
+        $a = explode('T', $request->akhir);
 
+        $s->Nama = $request->nama;
+        $s->Mulai = "$m[0] $m[1]";
+        $s->Akhir = "$a[0] $a[1]";
+        $s->Kelompok = $request->kelompok;
         $status = "1;Edit sesi berhasil.";
         try
         {
@@ -115,7 +118,7 @@ class JadwalController extends Controller
             \App\Log::insertLog("Error", Auth::id(), null, null, "Edit Sesi ($id): ".$e->getMessage());
         }
         //$status = DB::update("sp_UpdateSesi $id, $nama, $mulai, $akhir, $kelompok"); //Uncomment
-        return redirect()->action('JadwalController@index');
+        return redirect()->action('JadwalController@index')->with('status', $status);
     }
 
     /**
@@ -138,6 +141,6 @@ class JadwalController extends Controller
             $status = "0;Delete sesi gagal.";
             \App\Log::insertLog("Error", Auth::id(), null, null, "Delete Sesi ($id): ".$e->getMessage());
         }
-        return redirect()->back();
+        return redirect()->back()->with('status', $status);
     }
 }

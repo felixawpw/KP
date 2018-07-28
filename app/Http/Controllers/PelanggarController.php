@@ -9,12 +9,14 @@ use DB;
 
 class PelanggarController extends Controller
 {
-    public function editOwn($nrp, $panitia, $sesi)
+    public function editOwn($nrp, $panitia, $sesi, $pelanggaran)
     {
         $pelanggarans = \App\Pelanggaran::orderBy('Nama')->get();
-        $p = Pelanggar::where('NRP_Panitia', '=', $panitia)->
+        $p = new Resource(Pelanggar::where('NRP_Panitia', '=', $panitia)->
                     where('NRP_Mhs', '=', $nrp)->
-                    where('Id_Sesi', '=', $sesi)->first();
+                    where('Id_Sesi', '=', $sesi)->
+                    where('Id_Pelanggaran', '=', $pelanggaran)->first());
+        $p = $p->toArray($this);
         return view('pelanggar.edit', compact('pelanggarans', 'p'));
     }
 
@@ -42,7 +44,7 @@ class PelanggarController extends Controller
     {
         //
         $pelanggarans = \App\Pelanggaran::orderBy('Nama')->get();
-        $panitias = \App\Panitia::orderBy('Nama')->get();
+        $panitias = \App\User::whereHas('panitia')->orderBy('Nama')->get();
         $sesis = \App\Sesi::orderBy('Nama')->get();
         return view('pelanggar.create', compact('pelanggarans', 'panitias', 'sesis'));
     }
@@ -56,11 +58,25 @@ class PelanggarController extends Controller
     public function store(Request $request)
     {
         // 
-        $sesi = $request->sesi;
-        $panitia = $request->panitia;
-        $nrp = $request->nrp;
-        $pelanggaran = $request->pelanggaran;
-        $status = DB::update("exec sp_Pelanggaran $sesi, $panitia, $nrp, $pelanggaran");
+        $p = new Pelanggar;
+        $p->Id_Sesi = $request->sesi;
+        $p->NRP_Panitia = $request->panitia;
+        $p->NRP_Mhs = $request->nrp;
+        $p->Id_Pelanggaran = $request->pelanggaran;
+        $p->Waktu = \Carbon\Carbon::now();
+        $p->save();
+        
+        $status = "1;Tambah Pelanggar berhasil.";
+        try
+        {
+            $p->save();
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Tambah Pelanggar gagal. Hubungi ITD.";
+            \App\Log::insertLog("Error", Auth::id(), $nrp, $sesi, "Tambah Pelanggar (P:$p->NRP_Panitia, M:$p->NRP_Mhs) :".$e->getMessage());
+        }
+
         return redirect()->action('PelanggarController@index');
     }
 
@@ -95,15 +111,27 @@ class PelanggarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $nrp, $panitia, $sesi, $pelanggaran)
     {
         //
-        $nrp = $request->nrp;
-        $panitia = $request->panitia;
-        $sesi = $request->waktu;
-        $pelanggaran = $request->pelanggaran;
-        $status = DB::update("exec sp_UpdatePelanggaran $sesi, $panitia, $nrp, $pelanggaran");
-        return redirect()->action('PelanggarController@index')->with('status');
+        $p = Pelanggar::where('NRP_Mhs', '=', $nrp)->
+                where('NRP_Panitia', '=', $panitia)->
+                where('Id_Sesi', '=', $sesi)->
+                where('Id_Pelanggaran', '=', $pelanggaran)->first();
+        $p->id_P = $pelanggaran;
+        $p->Id_Pelanggaran = $request->pelanggaran;
+        $status = "1;Edit Pelanggar berhasil.";
+        try
+        {
+            $p->save();
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Edit Pelanggar gagal. Hubungi ITD.";
+            \App\Log::insertLog("Error", Auth::id(), $nrp, $sesi, "Edit Pelanggar (P:$panitia, M:$nrp) :".$e->getMessage());
+        }
+
+        return redirect()->action('PelanggarController@index')->with('status', $status);
     }
 
     /**
@@ -112,10 +140,25 @@ class PelanggarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($nrp, $panitia, $sesi, $pelanggaran)
     {
         //
-        $status = DB::update("exec sp_DeletePelanggaran $sesi, $panitia, $nrp");
-        return redirect()->back()->with($status);
+        $p = Pelanggar::where('NRP_Mhs', '=', $nrp)->
+            where('NRP_Panitia', '=', $panitia)->
+            where('Id_Sesi', '=', $sesi)->
+            where('Id_Pelanggaran', '=', $pelanggaran)->first();
+        $p->id_P = $p->Id_Pelanggaran;
+
+        $status = "1;Delete Pelanggar berhasil.";
+        try
+        {
+            $p->delete();
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Delete Pelanggar gagal. Hubungi ITD.";
+            \App\Log::insertLog("Error", Auth::id(), $nrp, $sesi, "Delete Pelanggar (P:$panitia, M:$nrp) :".$e->getMessage());
+        }
+        return redirect()->back()->with('status',$status);
     }
 }

@@ -57,7 +57,7 @@
 	}
 
 	function DeleteFormatter(value, row, index) {
-		return '<form method="post" action="/mahasiswa/'+ row['id'] + '">' +
+		return '<form method="post" action="/jadwal/'+ row['id'] + '">' +
 				'{{csrf_field()}}' +
 				'@method("DELETE")' +
 					'<button type="submit" class="button_delete" onclick="confirm(' + "'Apakah anda yakin?'" +');">Delete</button>'+

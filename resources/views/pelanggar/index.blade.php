@@ -39,17 +39,17 @@
 							<thead>
 								<tr class="warning">
 									<th data-sortable="true" data-field="nrp">NRP</th>
-									<th data-sortable="true" data-field="mhs">Nama Lengkap</th>
+									<th data-sortable="true" data-field="mhs">Nama Lengkap</th>						
+									<th data-sortable="true" data-field="panitia">Panitia</th>
+									<th data-sortable="true" data-field="pelanggaran">Nama Pelanggaran</th>
 									<!--<th data-sortable="true" data-field="jurusan">Jurusan</th>-->
 									<th data-sortable="true" data-field="sesi">Sesi</th>
 									<th data-sortable="true" data-field="waktu">Waktu</th>
-									<th data-sortable="true" data-field="panitia">Panitia</th>
-									<th data-sortable="true" data-field="pelanggaran">Nama Pelanggaran</th>
 									<th data-field="id_panitia" data-formatter="EditFormatter">Edit</th>
 									<th data-field="id_sesi" data-formatter="DeleteFormatter">Delete</th>
+									<th data-field="id_pelanggaran" data-visible=false>Pelanggaran</th>
 								</tr>
 							</thead>
-
 							<tbody>
 
 							</tbody>
@@ -68,11 +68,11 @@
 @section('scripts')
 <script type="text/javascript">
 	function EditFormatter(value, row, index){
-		return '<a href="/pelanggar/edit/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'">Edit</a>'
+		return '<a href="/pelanggar/edit/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'/'+ row['id_pelanggaran']+'">Edit</a>'
 	}
 
 	function DeleteFormatter(value, row, index) {
-		return '<a href="/pelanggar/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'">Delete</a>'
+		return '<a href="/pelanggar/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'/'+row['id_pelanggaran']+'">Delete</a>'
 	}
 
 
