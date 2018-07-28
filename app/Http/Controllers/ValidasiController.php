@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use App\Mahasiswa, App\Pengguna;
 use Illuminate\Support\Facades\Auth;
 use App\User, Storage;
+use Illuminate\Support\Facades\Input;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
+use Illuminate\Http\File;
+
+
 class ValidasiController extends Controller
 {
     public function showLogin()
@@ -52,17 +58,21 @@ class ValidasiController extends Controller
             'minat1' => 'required',
             'minat2' => 'required',
             'penyangkalan' => 'required',
+            'prestasi' => 'mimes:jpeg,png,jpg'
         ]);
 
         $pengguna = User::find(Auth::id());
         $pengguna->Penyakit = $request->penyakit == "Y" ? $request->penyakit_detail : "";
         
-        $link = "";
+        $link = null;
         if ($request->prestasi != null)
-            $link = Storage::put("bukti", $request->prestasi);
+        {            
+            $custom_file_name = Auth::id().".".\File::extension($request->file('prestasi')->getClientOriginalName());
+            $link = $request->file('prestasi')->storeAs('bukti',$custom_file_name);
+        }
 
         $pengguna->recups()->attach($request->minat1, ['Prioritas'=>"True", 'Bukti'=>$link, 'Diterima'=>"False"]);
-        $pengguna->recups()->attach($request->minat2, ['Prioritas'=>"False", 'Bukti'=>"", 'Diterima'=>"False"]);
+        $pengguna->recups()->attach($request->minat2, ['Prioritas'=>"False", 'Bukti'=>null, 'Diterima'=>"False"]);
         $pengguna->save();
 
         Auth::logout();
@@ -74,6 +84,26 @@ class ValidasiController extends Controller
 
     public function check(Request $request)
     {
+        $recaptcha = Input::get('g-recaptcha-response');
+        // if ($recaptcha == null)
+        //     return redirect()->back()->with('message', "0;Untuk memastikan Anda bukan robot, Anda harus klik kotak I'm not a robot!");
+
+        // $client = new Client([
+        //     'base_uri' => 'https://google.com/recaptcha/api/'
+        //     ]);
+
+        // $response = $client->post(
+        //     'https://www.google.com/recaptcha/api/siteverify',
+        //     ['form_params'=>
+        //         [
+        //             'secret'=>env('6LcQ4GYUAAAAAHnY0mNrBsKAMAGu996OhqoY1F2t'),
+        //             'response'=>$recaptcha
+        //          ]
+        //     ]
+        // );
+        // $body = json_decode((string)$response->getBody());
+        // return json_encode($body);
+
         $pengguna = Pengguna::find($request->nrp);
         $password = $request->password;
         $message = "";

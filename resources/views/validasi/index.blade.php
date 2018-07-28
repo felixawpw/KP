@@ -36,9 +36,8 @@ Validasi Data
 							    	Password yang digunakan adalah password default dari akun sNRP mahasiswa.
 							    </small>
 							</div>
-
 							<div class="form-group">
-								<label>Recaptcha here</label>
+      							<div class="g-recaptcha" data-sitekey="6LcQ4GYUAAAAADLvcAlcvkhdCuIOy1c03WKYDFL-"></div>
 							</div>
 							<button class="btn btn-primary col-md-12">Submit</button>
 						</form>

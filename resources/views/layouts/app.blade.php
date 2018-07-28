@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}">
     <!-- Styles -->
+   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>  
     <div class="modal fade" id="modalWarning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -32,13 +33,12 @@
             <h3 class="modal-title" id="exampleModalLabel">PERHATIAN</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </button>a
           </div>
           <div class="modal-body" id="warning_desc">
             @if (\Session::has('message'))
                <p class="text-justify">{!! explode(';', \Session::get('message'))[1] !!}</p>
             @endif
-
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
