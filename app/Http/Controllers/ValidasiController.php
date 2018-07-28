@@ -62,7 +62,7 @@ class ValidasiController extends Controller
         ]);
 
         $pengguna = User::find(Auth::id());
-        $pengguna->Penyakit = $request->penyakit == "Y" ? $request->penyakit_detail : "";
+        $pengguna->Penyakit = $request->penyakit == "Y" ? $request->penyakit_detail : null;
         
         $link = null;
         if ($request->prestasi != null)
@@ -104,7 +104,7 @@ class ValidasiController extends Controller
         // $body = json_decode((string)$response->getBody());
         // return json_encode($body);
 
-        $pengguna = Pengguna::find($request->nrp);
+        $pengguna = User::find($request->nrp);
         $password = $request->password;
         $message = "";
 
@@ -116,7 +116,7 @@ class ValidasiController extends Controller
             $message = '0;Login Gagal. NRP atau password yang Anda masukkan salah.';
 
         //Check sudah pernah isi validasi atau tidak
-        else if ($pengguna->Penyakit != null)
+        else if ($pengguna->recups()->get()->count() != 0)
             $message = "0;Merasa tidak pernah mengisi data kelengkapan? Segera kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2017 melalui sosial media yang ada dengan memberitahukan bahwa Anda tidak dapat mengisi data kelengkapan MOB FT 2017 dengan mencantumkan: NAMA LENGKAP, NRP, JURUSAN. Kami juga merekomendasikan Anda melakukan screenshot sebagai lampiran. Informasi mengenai Official Account dapat dilihat pada Website MOB Ubaya .";
         else if ($pengguna->mahasiswa == null)
             $message = "0;Anda bukan mahasiswa! Pada sistem, anda terdaftar sebagai panitia MOB FT 2018!";

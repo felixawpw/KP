@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Mahasiswa;
+use App\User;
 use App\Http\Resources\Mahasiswa as Resource;
 use DB;
 
@@ -11,7 +11,7 @@ class MahasiswaController extends Controller
 {
     public function json()
     {
-        return Resource::collection(Mahasiswa::all());
+        return Resource::collection(User::whereHas('mahasiswa')->get());
     }
     /**
      * Display a listing of the resource.
@@ -20,9 +20,7 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        //
-        $mahasiswas = Resource::collection(Mahasiswa::all());
-        return view('mahasiswa.index', compact('mahasiswas'));
+        return view('mahasiswa.index');
     }
 
     /**

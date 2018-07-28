@@ -22,4 +22,8 @@ class Pengguna extends Authenticatable
     {
     	return $this->hasOne('App\Panitia', 'NRP_Pengguna');
     }
+    public function jurusan()
+    {
+        return $this->belongsTo('App\Jurusan' ,'Id_Jurusan');
+    }
 }

@@ -33,6 +33,10 @@
 									<th data-sortable="true" data-field="nama_jurusan">Jurusan</th>
 									<th data-sortable="true" data-field="alfa">Alfa</th>
 									<th data-sortable="true" data-field="beta">Beta</th>
+									<th data-sortable="true" data-field="validasi">Validasi</th>
+									<th data-sortable="true" data-field="penyakit">Penyakit</th>
+									<th data-sortable="true" data-field="recup_1">Recup 1</th>
+									<th data-sortable="true" data-field="recup_2">Recup 2</th>
 									<th data-field="nrp" data-formatter="EditFormatter">Edit</th>
 									<th data-field="nrp" data-formatter="DeleteFormatter">Delete</th>
 								</tr>
