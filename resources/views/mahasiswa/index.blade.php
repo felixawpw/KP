@@ -31,6 +31,7 @@
 									<th data-sortable="true" data-field="nrp">NRP</th>
 									<th data-sortable="true" data-field="nama">Nama Lengkap</th>
 									<th data-sortable="true" data-field="nama_jurusan">Jurusan</th>
+									<th data-sortable="true" data-field="angkatan">Angkatan</th>
 									<th data-sortable="true" data-field="alfa">Alfa</th>
 									<th data-sortable="true" data-field="beta">Beta</th>
 									<th data-sortable="true" data-field="validasi">Validasi</th>

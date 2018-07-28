@@ -58,13 +58,13 @@
 	                      <div class="col-md-6">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Kelompok Alfa</label>
-	                          <input type="number" name="kelompok_alfa" class="form-control">
+	                          <input type="text" name="kelompok_alfa" class="form-control">
 	                        </div>
 	                      </div>
 	                      <div class="col-md-6">
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Kelompok Beta</label>
-	                          <input type="number" name="kelompok_beta" class="form-control">
+	                          <input type="text" name="kelompok_beta" class="form-control">
 	                        </div>
 	                      </div>
 		        		</div>

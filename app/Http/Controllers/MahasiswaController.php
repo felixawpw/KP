@@ -43,13 +43,39 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $nrp = $request->nrp;
-        $nama = $request->nama_lengkap;
-        $jurusan = $request->jurusan;
-        $angkatan = $request->angkatan;
+        $user = new User();
+        $user->NRP = $request->nrp;
+        $user->Nama = $request->nama_lengkap;
+        $user->Id_Jurusan = $request->jurusan;
+        $user->Angkatan = $request->angkatan;
+        $user->NRP = $request->nrp;
+
+        $mahasiswa = new \App\Mahasiswa();
+        $mahasiswa->NRP_Pengguna = $user->NRP;
+
         $alfa = $request->kelompok_alfa;
         $beta = $request->kelompok_beta;
-        $status = DB::update("exec spCreateMahasiswa '$nrp', null,'$nama', $jurusan, $angkatan, 0, 0, null"); //Buat SPnya
+
+        $mAlfa = new \App\Mhs_Maping;
+        $mAlfa->NRP_Mhs = $request->nrp;
+        $mAlfa->Kelompok = $request->kelompok_alfa;
+
+        $mBeta = new \App\Mhs_Maping;        
+        $mBeta->NRP_Mhs = $request->nrp;
+        $mBeta->Kelompok = $request->kelompok_beta;
+
+        DB::beginTransaction();
+        try {
+            $user->save();
+            $mahasiswa->save();
+            $mAlfa->save();
+            $mBeta->save();
+        } catch (\Exception $e) {
+            DB::rollback();
+            \App\Log::insertLog("Error", "160114001", null, null, $e->getMessage());
+        }
+        DB::commit();
+
         return redirect()->action('MahasiswaController@index');
     }
 
@@ -75,8 +101,11 @@ class MahasiswaController extends Controller
     public function edit($id)
     {
         $jurusans = \App\Jurusan::all();
-        $mahasiswa = new Resource(Mahasiswa::find($id));
-        return view('mahasiswa.edit', compact('jurusans', 'mahasiswa'));
+        $mahasiswa = new Resource(User::find($id));
+        $mahasiswa = $mahasiswa->toArray($this);
+        $recups = \App\Recup::orderBy('Nama')->get();
+
+        return view('mahasiswa.edit', compact('jurusans', 'mahasiswa', 'recups'));
     }
 
     /**
@@ -89,12 +118,38 @@ class MahasiswaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user = User::find($id);
+
         $nama = $request->nama;
         $jurusan = $request->jurusan;
         $angkatan = $request->angkatan;
         $alfa = $request->kelompok_alfa;
         $beta = $request->kelompok_beta;
-        $status = DB::update("exec spUpdateMahasiswa '$id', null,'$nama', $jurusan, $angkatan, 0, 0, null"); //Buat SPnya
+
+        $user->Nama = $nama;
+        $user->Id_Jurusan = $jurusan;
+        $user->Angkatan = $angkatan;
+        $user->Penyakit = $request->penyakit == "" ? null : $request->penyakit;
+
+        $res = new Resource(User::find($id));
+        $res = $res->toArray($this);
+
+        // $mAlfa = $user->mahasiswa->kelompoks()->where('Kelompok','=', $res['alfa'])->first();
+        // $mBeta = $user->mahasiswa->kelompoks()->where('Kelompok','=', $res['beta'])->first();
+        // $mAlfa->Kelompok = $alfa;
+        // $mBeta->Kelompok = $beta;
+        DB::beginTransaction();
+        try {
+            $user->save();
+
+            // $mAlfa->save();
+            // $mBeta->save();
+        } catch (\Exception $e) {
+            DB::rollback();
+            \App\Log::insertLog("Error", "160114001", $user->NRP, null, "Update Mahasiswa ($user->NRP): ".$e->getMessage());
+        }
+        DB::commit();
+
         return redirect()->action('MahasiswaController@index');
     }
 
@@ -106,7 +161,16 @@ class MahasiswaController extends Controller
      */
     public function destroy($id)
     {
-        $status = DB::update("exec spDeleteMahasiswa $id");
+        $status = 1;
+        DB::beginTransaction();
+        try {
+            $user->delete();
+        } catch (\Exception $e) {
+            DB::rollback();
+            \App\Log::insertLog("Error", "160114001", $user->NRP, null, "Delete Mahasiswa ($user->NRP): ".$e->getMessage());
+            $status = 0;
+        }
+        DB::commit();
         return redirect()->back()->with($status);
     }
 }

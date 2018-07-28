@@ -8,5 +8,5 @@ class Mhs_Maping extends Model
 {
     // //
     protected $table = 'Mhs_Maping';
-    // protected $timestamps = false;
+    public $timestamps = false;
 }

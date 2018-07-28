@@ -9,6 +9,7 @@ class Mahasiswa extends Model
     //
     protected $table = 'Mahasiswa';
     protected $primaryKey = "NRP_Pengguna";
+    public $timestamps = false;
 
     public function kelompoks()
     {
