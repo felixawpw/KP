@@ -20,16 +20,6 @@
 </head>
 
 <body class="">
-  @if ($errors->any())
-      <div class="alert alert-danger">
-          <ul>
-              @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-              @endforeach
-          </ul>
-      </div>
-  @endif
-
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('assets/img/sidebar-1.jpg')}}">
       <!--
@@ -150,6 +140,34 @@
       </nav>
       <!-- End Navbar -->
       <div class="content">
+      <!-- Modal -->
+      <div class="modal fade" id="modalWarning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header" 
+              @if (\Session::has('status') && explode(';', \Session::get('status'))[0] == "0")
+                style="background-color: #ff0033;"
+              @else
+                style="background-color: green;"
+
+              @endif>
+              <h3 class="modal-title" id="exampleModalLabel">PERHATIAN</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="warning_desc">
+              @if (\Session::has('status'))
+                 <p class="text-justify">{!! explode(';', \Session::get('status'))[1] !!}</p>
+              @endif
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
         @yield('content')
       </div>
       <footer class="footer">
@@ -170,17 +188,23 @@
   <script src="{{asset('assets/js/core/popper.min.js')}}" type="text/javascript"></script>
   <script src="{{asset('assets/js/core/bootstrap-material-design.min.js')}}" type="text/javascript"></script>
   <script src="{{asset('assets/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chartist JS -->
   <script src="{{asset('assets/js/plugins/chartist.min.js')}}"></script>
   <!--  Notifications Plugin    -->
   <script src="{{asset('assets/js/plugins/bootstrap-notify.js')}}"></script>
+  <script src="{{asset('js/bootstrap-table.js')}}"></script>
+
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{asset('assets/js/material-dashboard.min.js?v=2.1.0')}}" type="text/javascript"></script>
   <!-- BOOTSTRAP TABLE --> 
-  <script src="{{asset('js/bootstrap.min.js')}}"></script>
-  <script src="{{asset('js/bootstrap-table.js')}}"></script>
+
+  @if (\Session::has('status'))
+  <script type="text/javascript">
+      $(document).ready(function(){
+        $('#modalWarning').modal('show');
+      });
+  </script>
+  @endif
 
   <script type="text/javascript">
     Date.prototype.toDateInputValue = (function() {
@@ -197,8 +221,6 @@
   </script>
 
   @yield('scripts')
-
-
 </body>
 
 </html>

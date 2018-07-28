@@ -18,9 +18,9 @@ class Kelompok extends JsonResource
         return [
             'id_maping' => $this->NRP,
             'kelompok' => $this->Kelompok,
-            'maping' => $this->panitia->Nama,
-            'nama_jurusan' => $this->panitia->jurusan != null ? $this->panitia->jurusan->Nama : '-',
-            'nrp' => $this->panitia->NRP,
+            'maping' => $this->panitia->user->Nama,
+            'nama_jurusan' => $this->panitia->user->jurusan != null ? $this->panitia->user->jurusan->Nama : '-',
+            'nrp' => $this->panitia->NRP_Pengguna,
         ];
     }
 }

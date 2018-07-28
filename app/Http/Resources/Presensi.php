@@ -16,8 +16,8 @@ class Presensi extends JsonResource
     {
         return [
             'nrp' => $this->NRP_Mhs,
-            'nama' => $this->mahasiswa->Nama,
-            'panitia' => $this->panitia->Nama,
+            'nama' => $this->mahasiswa->user->Nama,
+            'panitia' => $this->panitia->user->Nama,
             'id_sesi' => $this->sesi->Id,
             'sesi' => $this->sesi->Nama,
         ];

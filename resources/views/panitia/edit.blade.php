@@ -43,6 +43,10 @@
 	                        <div class="form-group">
 	                          <label class="bmd-label-floating">Jurusan</label>
 	                          <select class="form-control" name="jurusan" id="comboJurusan">
+                          		<option value="" disable @if($panitia->Id_Jurusan == null) selected @endif>
+                          			-
+                          		</option>
+
 	                          	@foreach($jurusans as $j)
 	                          		<option value="{{$j->Id}}" @if($j->Id == $panitia->Id_Jurusan) selected @endif>
 	                          			{{$j->Nama}}
@@ -58,7 +62,7 @@
 	                          <label class="bmd-label-floating">Divisi</label>
 	                          <select class="form-control" name="divisi" id="comboDivisi">
 	                          	@foreach($divisis as $d)
-	                          		<option value="{{$d->Id}}" @if($d->Id == $panitia->Id_Divisi) selected @endif
+	                          		<option value="{{$d->Id}}" @if($d->Id == $panitia->panitia->Id_Divisi) selected @endif
 	                          			>{{$d->Nama}}
 	                          		</option>
 	                          	@endforeach

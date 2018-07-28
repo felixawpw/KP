@@ -64,6 +64,7 @@ class MahasiswaController extends Controller
         $mBeta->NRP_Mhs = $request->nrp;
         $mBeta->Kelompok = $request->kelompok_beta;
 
+        $status = "1;Tambah mahasiswa berhasil!";
         DB::beginTransaction();
         try {
             $user->save();
@@ -72,11 +73,12 @@ class MahasiswaController extends Controller
             $mBeta->save();
         } catch (\Exception $e) {
             DB::rollback();
-            \App\Log::insertLog("Error", "160114001", null, null, $e->getMessage());
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Tambah Mahasiswa :".$e->getMessage());
+            $status = "0;Tambah mahasiswa gagal. Pastikan data yang Anda masukkan benar.";
         }
         DB::commit();
 
-        return redirect()->action('MahasiswaController@index');
+        return redirect()->route('mahasiswa.index')->with('status', $status);
     }
 
     /**
@@ -138,6 +140,7 @@ class MahasiswaController extends Controller
         // $mBeta = $user->mahasiswa->kelompoks()->where('Kelompok','=', $res['beta'])->first();
         // $mAlfa->Kelompok = $alfa;
         // $mBeta->Kelompok = $beta;
+        $status = "1;Edit mahasiswa berhasil!";
         DB::beginTransaction();
         try {
             $user->save();
@@ -145,12 +148,13 @@ class MahasiswaController extends Controller
             // $mAlfa->save();
             // $mBeta->save();
         } catch (\Exception $e) {
+            $status = "0;Edit mahasiswa gagal. Pastikan data yang Anda masukkan benar.";
             DB::rollback();
-            \App\Log::insertLog("Error", "160114001", $user->NRP, null, "Update Mahasiswa ($user->NRP): ".$e->getMessage());
+            \App\Log::insertLog("Error", Auth::id(), $user->NRP, null, "Update Mahasiswa ($user->NRP): ".$e->getMessage());
         }
         DB::commit();
 
-        return redirect()->action('MahasiswaController@index');
+        return redirect()->action('MahasiswaController@index')->with('status', $status);
     }
 
     /**
@@ -161,16 +165,20 @@ class MahasiswaController extends Controller
      */
     public function destroy($id)
     {
-        $status = 1;
+        $status = "1;Delete mahasiswa berhasil!";
+        $user = User::find($id);
         DB::beginTransaction();
         try {
+            $user->mahasiswa->kelompoks()->delete();
+            $user->mahasiswa->delete();
             $user->delete();
         } catch (\Exception $e) {
             DB::rollback();
-            \App\Log::insertLog("Error", "160114001", $user->NRP, null, "Delete Mahasiswa ($user->NRP): ".$e->getMessage());
-            $status = 0;
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Delete Mahasiswa ($user->NRP): ".$e->getMessage());
+            $status = "0;Delete mahasiswa gagal. Contact ITD untuk mendelete mahasiswa dengan NRP $user->NRP.";
         }
+
         DB::commit();
-        return redirect()->back()->with($status);
+        return redirect()->back()->with('status', $status);
     }
 }

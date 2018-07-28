@@ -13,6 +13,7 @@ class Pengguna extends Authenticatable
     protected $table="Pengguna";
     protected $primaryKey = "NRP";
     public $timestamps = false;
+    public $incrementing = false;
 
     public function mahasiswa()
     {

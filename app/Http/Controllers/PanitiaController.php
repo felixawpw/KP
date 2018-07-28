@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Panitia;
+use App\User;
 use App\Http\Resources\Panitia as Resource;
 use DB;
 
@@ -13,7 +13,7 @@ class PanitiaController extends Controller
 
     public function json()
     {
-        return Resource::collection(Panitia::all());
+        return Resource::collection(User::whereHas('panitia')->get());
     }
     /**
      * Display a listing of the resource.
@@ -48,15 +48,34 @@ class PanitiaController extends Controller
     public function store(Request $request)
     {
         //
-        $nama = $request->nama_lengkap;
+        $user = new User;        
         $nrp = $request->nrp;
+        $nama = $request->nama_lengkap;
         $jurusan = $request->jurusan;
         $divisi = $request->divisi;
 
-        $password = "";
+        $user->NRP = $nrp;
+        $user->Nama = $nama;
+        $user->Id_Jurusan = $jurusan;
 
-        $status = DB::update("exec spCreatePanitia '$nrp', '$password', '$nama', $divisi, null, $jurusan, 2018");
-        return redirect()->action('PanitiaController@index');
+        $panitia = new \App\Panitia;
+        $panitia->NRP_Pengguna = $user->NRP;
+        $panitia->Tahun = 2018;
+        $panitia->Id_Divisi = $divisi;
+        $status = "1;Tambah panitia berhasil.";
+
+        DB::beginTransaction();
+        try {
+            $user->save();
+            $panitia->save();
+        } catch (\Exception $e) {
+            DB::rollback();
+            \App\Log::insertLog("Error", Auth::id(), null, null, "EdiTambah panitia ($user->NRP) :".$e->getMessage());
+            $status = "0;Tambah panitia gagal. Pastikan data yang Anda masukkan benar.";
+        }
+        DB::commit();
+        $password = "";
+        return redirect()->action('PanitiaController@index')->with('status', $status);
     }
 
     /**
@@ -83,7 +102,7 @@ class PanitiaController extends Controller
         //
         $divisis = \App\Divisi::all();
         $jurusans = \App\Jurusan::all();
-        $panitia = \App\Panitia::find($id);
+        $panitia = \App\User::find($id);
         return view('panitia.edit', compact('divisis', 'jurusans', 'panitia'));
 
     }
@@ -98,14 +117,30 @@ class PanitiaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user = User::find($id);
         $nama = $request->nama_lengkap;
         $jurusan = $request->jurusan;
         $divisi = $request->divisi;
 
-        $password = "";
+        $user->Nama = $nama;
+        $user->Id_Jurusan = $jurusan;
+        $user->panitia->Id_Divisi = $divisi;
         
-        $status = DB::update("exec spUpdatePanitia '$id', '$password', '$nama', $divisi, null, $jurusan, 2018");
-        return redirect()->action('PanitiaController@index');
+        $status = "1;Edit panitia berhasil!";
+        DB::beginTransaction();
+        try {
+            $user->panitia->save();
+            $user->save();
+        } catch (\Exception $e) {
+            DB::rollback();
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Edit pantia ($id) :".$e->getMessage());
+            $status = "0;Edit panitia gagal. Pastikan data yang Anda masukkan benar.";
+        }
+        DB::commit();
+
+
+
+        return redirect()->action('PanitiaController@index')->with('status', $status);
     }
 
     /**
@@ -117,7 +152,19 @@ class PanitiaController extends Controller
     public function destroy($id)
     {
         //
-        $status = DB::update("exec spDeletePanitia $id");
-        return redirect()->back();
+        $status = "1;Delete panitia berhasil!";
+
+        $user = User::find($id);
+        DB::beginTransaction();
+        try {
+            $user->panitia->delete();
+            $user->delete();
+        } catch (\Exception $e) {
+            DB::rollback();
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Delete pantia ($id) :".$e->getMessage());
+            $status = "0;Delete panitia gagal. Kontak ITD untuk menghapus panitia dengan NRP $id.";
+        }
+        DB::commit();
+        return redirect()->back()->with('status', $status);
     }
 }

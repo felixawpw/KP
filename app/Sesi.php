@@ -9,7 +9,7 @@ class Sesi extends Model
     //
     protected $table = 'Sesi';
     protected $primaryKey = 'Id';
-    // protected $timestamps = false;
+    public $timestamps = false;
 
     // public function pelanggarans()
     // {

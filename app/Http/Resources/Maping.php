@@ -16,9 +16,9 @@ class Maping extends JsonResource
     {
         $temp = $this->kelompok()->orderBy('Kelompok')->get();
         return [
-            'nrp' => $this->NRP,
-            'nama' => $this->Nama,
-            'nama_jurusan' => $this->jurusan != null ? $this->jurusan->Nama : "-",
+            'nrp' => $this->user->NRP,
+            'nama' => $this->user->Nama,
+            'nama_jurusan' => $this->user->jurusan != null ? $this->user->jurusan->Nama : "-",
             'alfa' => isset($temp[0]) ? $temp[0]->Kelompok : "-",
             'beta' => isset($temp[1]) ? $temp[1]->Kelompok : "-"
         ];

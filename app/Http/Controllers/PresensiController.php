@@ -32,7 +32,7 @@ class PresensiController extends Controller
     public function create()
     {
         //
-        $panitias = \App\Panitia::orderBy('Nama')->get();
+        $panitias = \App\User::whereHas('panitia')->orderBy('Nama')->get();
         $sesis = \App\Sesi::orderBy('Mulai')->get();
         return view('presensi.create', compact('panitias', 'sesis'));
     }
@@ -46,10 +46,22 @@ class PresensiController extends Controller
     public function store(Request $request)
     {
         //
-        $sesi = $request->sesi;
-        $panitia = $request->panitia;
-        $nrp = $request->nrp;
-        $status = DB::update("exec sp_Presensi $sesi, $panitia, $nrp");
+        $p = new Presensi;
+        $p->Id_sesi = $request->sesi;
+        $p->NRP_Panitia = $request->panitia;
+        $p->NRP_Mhs = $request->nrp;
+
+        $status = "1;Tambah presensi berhasil.";
+        try
+        {
+            $p->save();        
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Tambah presensi gagal. Mahasiswa sudah tercatat presensinya pada sesi tersebut.";
+            \App\Log::insertLog("Error", Auth::id(), $p->NRP_Mhs, $p->Id_Sesi, "Tambah Mhs_Presensi : ".$e->getMessage());
+        }
+
         return redirect()->action('PresensiController@index')->with($status);
     }
 
@@ -101,7 +113,17 @@ class PresensiController extends Controller
     public function destroy($nrp, $sesi)
     {
         //
-        $status = DB::update("exec sp_DeletePresensi $nrp, $sesi"); //uncomment
+        $presensi = Presensi::where("Id_Sesi",'=', $sesi)->where('NRP_Mhs', '=',$nrp)->first();
+        $status = "1;Hapus presensi berhasil.";
+        try
+        {
+            $presensi->delete();        
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Hapus presensi gagal.";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Hapus Mhs_Presensi ($nrp, $sesi): ".$e->getMessage());
+        }
         return redirect()->back()->with($status);
     }
 }

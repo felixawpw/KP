@@ -31,7 +31,7 @@ class KelompokController extends Controller
     public function create()
     {
         //
-        $panitias = \App\Panitia::orderBy('Nama')->get();
+        $panitias = \App\User::whereHas('panitia')->orderBy('Nama')->get();
         return view('kelompok.create', compact('panitias'));
     }
 
@@ -44,11 +44,21 @@ class KelompokController extends Controller
     public function store(Request $request)
     {
         //
-        $k = $request->kelompok;
-        $m = $request->maping;
-        //$status = DB::update("sp_InsertKelompok $k, $m"); //Uncomment
+        $kelompok = new Kelompok;
+        $kelompok->Kelompok = $request->kelompok;
+        $kelompok->NRP = $request->maping;
 
-        return redirect()->action('KelompokController@index');
+        $status = "1;Tambah Kelompok berhasil.";
+        try
+        {
+            $kelompok->save();
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Tambah Kelompok gagal. Pastikan data yang anda masukkan benar!";
+            \App\Log::insertLog("Error", Auth::id(), null, null, $e->getMessage());
+        }
+        return redirect()->action('KelompokController@index')->with('status', $status);
     }
 
     /**
@@ -71,7 +81,7 @@ class KelompokController extends Controller
     public function edit($id)
     {
         $kelompok = Kelompok::where('Kelompok', '=', $id)->first();
-        $panitias = \App\Panitia::orderBy('Nama')->get();
+        $panitias = \App\User::whereHas('panitia')->orderBy('Nama')->get();
 
         return view('kelompok.edit', compact('kelompok', 'panitias'));
     }
@@ -85,9 +95,20 @@ class KelompokController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $k = $request->kelompok;
-        $m = $request->maping;
-        //$status = DB::update("sp_UpdateKelompok $k, $m"); //Uncomment
+        $kelompok = Kelompok::where('Kelompok', '=', $id)->first();
+        $kelompok->NRP = $request->maping;
+
+        $status = "1;Edit Kelompok berhasil.";
+        try
+        {
+            $kelompok->save();
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Edit Kelompok gagal. Pastikan data yang anda masukkan benar!";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Edit Panitia_Maping ($id): ".$e->getMessage());
+        }
+
         return redirect()->action('KelompokController@index');
     }
 
@@ -99,6 +120,18 @@ class KelompokController extends Controller
      */
     public function destroy($kelompok)
     {
+        $kelompok = Kelompok::where('Kelompok', '=', $kelompok)->first();
+        $status = "1;Delete Kelompok berhasil.";
+
+        try
+        {
+            $kelompok->delete();
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Delete Kelompok gagal. Kontak ITD!";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Delete Panitia_Maping ($kelompok): ".$e->getMessage());
+        }
         //$status = DB::update("exec sp_DeleteKelompok $kelompok"); //Uncomment
         return redirect()->back();
     }

@@ -46,10 +46,25 @@ class PelanggaranController extends Controller
     public function store(Request $request)
     {
         //
+        $p = new Pelanggaran;
         $kat = $request->kategori;
         $nama = $request->nama;
-        $status = DB::update("exec spCreatePelanggaran $kat, '$nama', 0");
-        return redirect()->action('PelanggaranController@index');
+        $timpa = $request->poin_timpa;
+
+        $p->Id_Kategori = $kat;
+        $p->Nama = $nama;
+        $p->Poin_Timpa = $timpa;
+        $status = "1;Tambah Pelanggaran berhasil.";
+        try
+        {
+            $p->save();
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Tambah Pelanggaran gagal. Pastikan data yang anda masukkan benar!";
+            \App\Log::insertLog("Error", Auth::id(), null, null, $e->getMessage());
+        }
+        return redirect()->route('pelanggaran.index')->with('status', $status);
     }
 
     /**
@@ -88,12 +103,25 @@ class PelanggaranController extends Controller
     public function update(Request $request, $id)
     {
         //
-
+        $p = Pelanggaran::find($id);
         $kat = $request->kategori;
         $nama = $request->nama;
-        $poin = $request->poin;
-        $status = DB::update("exec spUpdatePelanggaran $id, $kat, '$nama', $poin");
-        return redirect()->action('PelanggaranController@index')->with($status);
+        $timpa = $request->poin;
+
+        $p->Id_Kategori = $kat;
+        $p->Nama = $nama;
+        $p->Poin_Timpa = $timpa;
+        $status = "1;Edit Pelanggaran berhasil.";
+        try
+        {
+            $p->save();
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Edit Pelanggaran gagal. Pastikan data yang anda masukkan benar!";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Edit Pelanggaran ($id) :".$e->getMessage());
+        }
+        return redirect()->action('PelanggaranController@index')->with('status',$status);
     }
 
     /**
@@ -104,8 +132,19 @@ class PelanggaranController extends Controller
      */
     public function destroy($id)
     {
-        //
-        $status = DB::update("exec spDeletePelanggaran $id");
-        return redirect()->back()->with($status);
+        //  
+        $status = "1;Hapus Pelanggaran berhasil.";
+
+        $p = Pelanggaran::find($id);
+        try
+        {
+            $p->delete();
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Hapus Pelanggaran gagal. Hubungi ITD.";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Delete Pelanggaran ($id) :".$e->getMessage());
+        }
+        return redirect()->back()->with('status',$status);
     }
 }

@@ -44,13 +44,25 @@ class JadwalController extends Controller
     public function store(Request $request)
     {
         //
-        $nama = $request->nama;
-        $mulai = $request->mulai;
-        $akhir = $request->akhir;
-        $kelompok = $request->kelompok;
+        $s = new Sesi;
 
-        //$status = DB::update("sp_InsertSesi $nama, $mulai, $akhir, $kelompok"); //Uncomment
-        return redirect()->action('JadwalController@index')->with('status');
+        $s->Nama = $request->nama;
+        $s->Mulai = $request->mulai;
+        $s->Akhir = $request->akhir;
+        $s->Kelompok = $request->kelompok;
+
+        $status = "1;Tambah sesi berhasil.";
+        try
+        {
+            $s->save();        
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Tambah sesi gagal.";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Tambah Sesi: ".$e->getMessage());
+        }
+
+        return redirect()->action('JadwalController@index')->with('status', $status);
     }
 
     /**
@@ -85,10 +97,23 @@ class JadwalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $nama = $request->nama;
-        $mulai = $request->mulai;
-        $akhir = $request->akhir;
-        $kelompok = $request->kelompok;
+        $s = Sesi::find($id);
+        $s->Nama = $request->nama;
+        $s->Mulai = $request->mulai;
+        $s->Akhir = $request->akhir;
+        $s->Kelompok = $request->kelompok;
+
+        $status = "1;Edit sesi berhasil.";
+        try
+        {
+            $s->save();        
+        }
+        catch(\Exception $e)
+        {            
+            return $e;
+            $status = "0;Edit sesi gagal.";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Edit Sesi ($id): ".$e->getMessage());
+        }
         //$status = DB::update("sp_UpdateSesi $id, $nama, $mulai, $akhir, $kelompok"); //Uncomment
         return redirect()->action('JadwalController@index');
     }
@@ -101,7 +126,18 @@ class JadwalController extends Controller
      */
     public function destroy($id)
     {
-        //$status = DB::update("sp_DeleteSesi $id"); //Uncomment
+        $s = Sesi::find($id);
+
+        $status = "1;Delete sesi berhasil.";
+        try
+        {
+            $s->delete();        
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Delete sesi gagal.";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Delete Sesi ($id): ".$e->getMessage());
+        }
         return redirect()->back();
     }
 }

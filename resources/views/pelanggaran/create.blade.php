@@ -38,6 +38,16 @@
 	                        </div>
 	                      </div>
 		        		</div>
+
+		        		<div class="row">
+	                      <div class="col-md-12">
+	                        <div class="form-group">
+	                          <label class="bmd-label-floating">Poin</label>
+	                          <input type="text" class="form-control" name="poin_timpa">
+	                        </div>
+	                      </div>
+		        		</div>
+
 	                    <button type="submit" class="btn btn-primary pull-right col-md-4">Submit</button>
 	                    <div class="clearfix"></div>
 		        	</form>

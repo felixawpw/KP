@@ -10,7 +10,7 @@ class Barang extends Model
 {
 	protected $table='Barang';
 	protected $primaryKey = 'Id';
-
+	public $timestamps = false;
 	public static function getById($id)
 	{
 		return new BarangResource(Barang::find($id));

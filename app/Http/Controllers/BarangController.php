@@ -42,11 +42,23 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $tanggal = $request->tanggal;
-        $nama = $request->nama_barang;
-        $poin = $request->poin;
-        $status = DB::update("exec spCreateBarang '$tanggal', '$nama', $poin");
-        return redirect()->action('BarangController@index')->with($status);
+        $barang = new Barang;
+        $barang->Tanggal = $request->tanggal;
+        $barang->Nama = $request->nama_barang;
+        $barang->Poin = $request->poin;
+
+        $status = "1;Tambah barang berhasil.";
+        try
+        {
+            $barang->save();
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Tambah barang gagal. Pastikan data yang anda masukkan benar!";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Edit Panitia_Maping ($id): ".$e->getMessage());
+        }
+
+        return redirect()->action('BarangController@index')->with('status', $status);
     }
 
     /**
@@ -83,11 +95,22 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tanggal = $request->tanggal;
-        $nama = $request->nama_barang;
-        $poin = $request->poin;
-        $status = DB::update("exec spUpdateBarang $id,'$tanggal', '$nama', $poin");
-        return redirect()->action('BarangController@index')->with('status');
+        $barang = Barang::find($id);
+        $barang->Tanggal = $request->tanggal;
+        $barang->Nama = $request->nama_barang;
+        $barang->Poin = $request->poin;
+
+        $status = "1;Edit barang berhasil.";
+        try
+        {
+            $barang->save();
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Edit barang gagal. Pastikan data yang anda masukkan benar!";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Edit Barang ($id): ".$e->getMessage());
+        }
+        return redirect()->action('BarangController@index')->with('status',$status);
     }
 
     /**
@@ -99,7 +122,19 @@ class BarangController extends Controller
     public function destroy($id)
     {
         //
-        $status = DB::update("exec spDeleteBarang $id");
-        return redirect()->back();
+        $barang = Barang::find($id);
+
+        $status = "1;Delete barang berhasil.";
+        try
+        {
+            $barang->delete();
+        }
+        catch(\Exception $e)
+        {            
+            $status = "0;Delete barang gagal. Kontak ITD!";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Delete Barang ($id): ".$e->getMessage());
+        }
+
+        return redirect()->back()->with('status', $status);
     }
 }

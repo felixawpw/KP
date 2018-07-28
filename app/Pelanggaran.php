@@ -9,7 +9,7 @@ class Pelanggaran extends Model
     //
     protected $table = 'Pelanggaran';
     protected $primaryKey = 'Id';
-    // protected $timestamps = false;
+    public $timestamps = false;
 
     public function mahasiswas()
     {
