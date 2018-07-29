@@ -17,6 +17,8 @@
 
 Route::get('/', 'ValidasiController@showLogin');
 Route::get('login', 'ValidasiController@showLogin')->name('login');
+Route::get('/admin', 'LoginController@show')->name('loginAdmin');
+Route::post('/admin/login', 'LoginController@login')->name('doLogin');
 Route::post('validasi/check', 'ValidasiController@check')->name('validasi.check');
 
 Route::middleware(['auth'])->group(function () {
@@ -27,18 +29,18 @@ Route::middleware(['auth'])->group(function () {
 Route::get('check', function(){
 	return Auth::check() ? "true" : "f";
 });
-
-Route::middleware(['auth'])->group(function () {
-	Route::resource('mahasiswa', 'MahasiswaController'); //X
-	Route::resource('barangbawaan', 'BarangBawaanController');
-	Route::resource('panitia', 'PanitiaController');
-	Route::resource('presensi', 'PresensiController');
-	Route::resource('pelanggaran', 'PelanggaranController');
-	Route::resource('kelompok', 'KelompokController');
-	Route::resource('jadwal', 'JadwalController');
-	Route::resource('maping', 'MapingController');
-	Route::resource('pelanggar', 'PelanggarController');
-	Route::resource('barang', 'BarangController');
+Route::get('/logout', 'LoginController@logout')->name('logout')->middleware('auth');
+Route::middleware(['admin'])->group(function () {
+	Route::resource('admin/mahasiswa', 'MahasiswaController'); //X
+	Route::resource('admin/barangbawaan', 'BarangBawaanController');
+	Route::resource('admin/panitia', 'PanitiaController');
+	Route::resource('admin/presensi', 'PresensiController');
+	Route::resource('admin/pelanggaran', 'PelanggaranController');
+	Route::resource('admin/kelompok', 'KelompokController');
+	Route::resource('admin/jadwal', 'JadwalController');
+	Route::resource('admin/maping', 'MapingController');
+	Route::resource('admin/pelanggar', 'PelanggarController');
+	Route::resource('admin/barang', 'BarangController');
 
 	// Route::get('test', function(){ return view('layouts.master'); });
 	// Route::get('json', 'BarangController@test');

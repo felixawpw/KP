@@ -40,6 +40,7 @@
               <p>Dashboard</p>
             </a>
           </li>
+          @if(Auth::check())
           <li class="nav-item " id="list">
               <a class="nav-link " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="material-icons">content_paste</i>
@@ -94,6 +95,13 @@
               <p>Sesi</p>
             </a>
           </li>
+          <li class="nav-item " id="jadwal">
+            <a class="nav-link" href="{{route('logout')}}">
+              <i class="material-icons">Logout</i>
+              <p>Logout</p>
+            </a>
+          </li>
+          @endif
           <!-- <li class="nav-item active-pro ">
                 <a class="nav-link" href="./upgrade.html">
                     <i class="material-icons">unarchive</i>
