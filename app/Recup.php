@@ -9,10 +9,10 @@ class Recup extends Model
     //
     protected $table = 'Recup';
     protected $primaryKey = 'Id';
-    // protected $timestamps = false;
+    public $timestamps = false;
 
-    // public function mahasiswas()
-    // {
-    // 	return $this->belongsToMany('App\Mahasiswa', 'mhs_recup', 'id_recup', 'nrp_mhs')->withPivot('prioritas', 'bukti', 'diterima');
-    // }
+    public function mahasiswas()
+    {
+    	return $this->belongsToMany('App\Mahasiswa', 'Mhs_Recup', 'Id_Recup', 'NRP_Mhs')->withPivot('Prioritas', 'Bukti', 'Diterima');
+    }
 }

@@ -32,16 +32,17 @@ Route::get('/logout', 'LoginController@logout')->name('logout')->middleware('aut
 
 Route::middleware(['admin'])->group(function () {
 	Route::get('/home', 'HomeController@index')->name('home');
-	Route::resource('admin/mahasiswa', 'MahasiswaController'); //X
-	Route::resource('admin/barangbawaan', 'BarangBawaanController');
-	Route::resource('admin/panitia', 'PanitiaController');
-	Route::resource('admin/presensi', 'PresensiController');
-	Route::resource('admin/pelanggaran', 'PelanggaranController');
-	Route::resource('admin/kelompok', 'KelompokController');
-	Route::resource('admin/jadwal', 'JadwalController');
-	Route::resource('admin/maping', 'MapingController');
-	Route::resource('admin/pelanggar', 'PelanggarController');
-	Route::resource('admin/barang', 'BarangController');
+	Route::resource('mahasiswa', 'MahasiswaController'); //X
+	Route::resource('barangbawaan', 'BarangBawaanController');
+	Route::resource('panitia', 'PanitiaController');
+	Route::resource('presensi', 'PresensiController');
+	Route::resource('pelanggaran', 'PelanggaranController');
+	Route::resource('kelompok', 'KelompokController');
+	Route::resource('jadwal', 'JadwalController');
+	Route::resource('maping', 'MapingController');
+	Route::resource('pelanggar', 'PelanggarController');
+	Route::resource('barang', 'BarangController');
+	Route::resource('recup', 'RecupController');
 
 	// Route::get('test', function(){ return view('layouts.master'); });
 	// Route::get('json', 'BarangController@test');
@@ -56,7 +57,8 @@ Route::middleware(['admin'])->group(function () {
 	Route::get('table/json/barangbawaan', 'BarangBawaanController@json');
 	Route::get('table/json/kelompok', 'KelompokController@json');
 	Route::get('table/json/sesi', 'JadwalController@json');
-
+	Route::get('table/json/recup', 'RecupController@json');
+	Route::get('table/json/recup/{id}', 'RecupController@jsonPeserta');
 
 	Route::get('pelanggar/edit/{nrp}/{panitia}/{sesi}/{pelanggaran}', 'PelanggarController@editOwn');
 	Route::get('pelanggar/delete/{nrp}/{panitia}/{sesi}/{pelanggaran}', 'PelanggarController@destroy');
@@ -67,4 +69,6 @@ Route::middleware(['admin'])->group(function () {
 
 	Route::get('kelompok/delete/{kelompok}/{maping}', 'KelompokController@destroy');
 	Route::get('presensi/delete/{nrp}/{sesi}', 'PresensiController@destroy');
+
+	Route::get('/convert/to/php', 'HomeController@convertToPhp');
 });

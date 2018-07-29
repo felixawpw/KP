@@ -74,6 +74,14 @@ Validasi Data
                                         </select>
                                     </div>
                                     <div class="form-group">
+                                        <label>Deskripsi cabang pilihan 1:</label>
+                                        <textarea class="form-control" rows="4" maxlength="500" id="cabang1" disabled >
+                                            
+                                        </textarea>                               
+                                    </div>
+
+
+                                    <div class="form-group">
                                         <label>Pilihan Bakat dan Minat prioritas kedua :</label>
                                         <select id="minat2" name="minat2" class="form-control" required style="height: 4rem;">
                                             <option disabled selected value="">Pilih salah satu!</option>
@@ -82,6 +90,13 @@ Validasi Data
                                             @endforeach
                                         </select>
                                     </div>
+                                    <div class="form-group">
+                                        <label>Deskripsi cabang pilihan 2:</label>
+                                        <textarea class="form-control" rows="4" maxlength="500" disabled id="cabang2">
+                                            
+                                        </textarea>                               
+                                    </div>
+
                                     <div class="form-group">
                                         <label>Upload bukti prestasi pada bidang tersebut (TIDAK WAJIB):</label>
                                         <input type="file" name="prestasi" accept="image/x-png,image/jpeg" id="fileToUpload"><br>
@@ -111,6 +126,8 @@ Validasi Data
 <script type="text/javascript">
     var prevMinat1 = 9;
     var prevMinat2 = 1;
+
+    var desc = {!! $recups !!}
     $('#reset').click(function(){
         $('#fillPenyakit').attr('disabled', true);                
         $('#descr').attr('hidden', true);
@@ -135,12 +152,24 @@ Validasi Data
             $("#minat2 option[value='" + prevMinat1 + "']").removeAttr("hidden");
             prevMinat1 = this.value;
             $("#minat2 option[value='" + this.value + "']").attr("hidden", true);
+            $('#cabang1').html(getDeskripsi(this.value));
         });
         $('#minat2').change(function(){
             $("#minat1 option[value='" + prevMinat2 + "']").removeAttr("hidden");
             prevMinat2 = this.value;
             $("#minat1 option[value='" + this.value + "']").attr("hidden", true);
+            $('#cabang2').html(getDeskripsi(this.value));
         });
     });
+
+    function getDeskripsi(id)
+    {
+        var deskripsi = "";
+        desc.forEach(function(entry) {
+            if (entry['Id'] == id)
+                deskripsi = entry['Deskripsi'];
+        });
+        return deskripsi;
+    }
 </script>
 @endsection

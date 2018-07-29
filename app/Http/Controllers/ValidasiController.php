@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Input;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Illuminate\Http\File;
-use Auth;
 
 class ValidasiController extends Controller
 {
