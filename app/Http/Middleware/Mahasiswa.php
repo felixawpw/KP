@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
-class Admin
+class Mahasiswa
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,9 @@ class Admin
     public function handle($request, Closure $next)
     {
         if (!Auth::check())
-            return redirect()->route('loginAdmin')->with('status', '0;Anda belum login');
-        else if(Auth::user()->panitia()->count() == 0)
-            return redirect()->route('loginAdmin')->with('status', '0;Anda belum login');
+            return redirect()->route('login')->with('status', '0;Anda belum login');
+        else if(Auth::user()->mahasiswa == "")
+            return redirect()->route('login')->with('status', '0;Anda tidak dapat login sebagai mahasiswa.');
         return $next($request);
     }
 }

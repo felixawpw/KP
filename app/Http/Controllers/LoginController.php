@@ -16,7 +16,7 @@ class LoginController extends Controller
 	{
         $pengguna = User::find($request->nrp);
         $password = $request->password;
-        $message = "";
+        $message = "1;Login berhasil.";
         if ($pengguna == null)
             $message = '0;Login gagal. NRP atau password yang Anda masukkan salah.';
         else if ($pengguna->NRP != $password)
@@ -28,12 +28,12 @@ class LoginController extends Controller
             Auth::loginUsingId($pengguna->NRP);
             return redirect()->route('home')->with('status', $message);
         }
-        return $message;
+        return redirect()->route('loginAdmin')->with('status', $message);
 	}
 
 	public function logout()
 	{
 		Auth::logout();
-		return redirect()->back()->with('status', 'Anda berhasil terlogout');
+		return redirect()->back()->with('status', '1;Anda berhasil terlogout');
 	}
 }

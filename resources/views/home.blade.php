@@ -8,14 +8,14 @@
                 <div class="card-header">Login</div>
 
                 <div class="card-body">
-                    @if(!Auth::check())
+                    @if(!Auth::check() || Auth::user()->panitia()->count() == 0)
                     <form method="post" action="{{route('doLogin')}}" class="">
                         {{csrf_field()}}
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group">
                               <label class="bmd-label-floating">NRP Panitia</label>
-                              <input type="text" class="form-control" name="nrp" placeholder="NRP Mahasiswa">
+                              <input type="text" class="form-control" name="nrp">
                             </div>
                           </div>
                         </div>

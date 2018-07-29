@@ -21,8 +21,7 @@ Route::get('/admin', 'LoginController@show')->name('loginAdmin');
 Route::post('/admin/login', 'LoginController@login')->name('doLogin');
 Route::post('validasi/check', 'ValidasiController@check')->name('validasi.check');
 
-Route::middleware(['auth'])->group(function () {
-	Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['mahasiswa'])->group(function () {
 	Route::resource('validasi', 'ValidasiController');
 });
 
@@ -30,7 +29,9 @@ Route::get('check', function(){
 	return Auth::check() ? "true" : "f";
 });
 Route::get('/logout', 'LoginController@logout')->name('logout')->middleware('auth');
+
 Route::middleware(['admin'])->group(function () {
+	Route::get('/home', 'HomeController@index')->name('home');
 	Route::resource('admin/mahasiswa', 'MahasiswaController'); //X
 	Route::resource('admin/barangbawaan', 'BarangBawaanController');
 	Route::resource('admin/panitia', 'PanitiaController');

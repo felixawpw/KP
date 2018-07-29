@@ -28,7 +28,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="{{route('loginAdmin')}}" class="simple-text logo-normal">
           MOB FT 2018
         </a>
       </div>
@@ -40,7 +40,7 @@
               <p>Dashboard</p>
             </a>
           </li>
-          @if(Auth::check())
+          @if(Auth::check() && Auth::user()->panitia()->count() != 0)
           <li class="nav-item " id="list">
               <a class="nav-link " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="material-icons">content_paste</i>
