@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Pelanggaran;
 use App\Http\Resources\Pelanggaran as Resource;
 use DB;
+use Auth;
 
 class PelanggaranController extends Controller
 {

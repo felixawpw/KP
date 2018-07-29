@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Presensi, DB;
 use App\Http\Resources\Presensi as Resource;
+use Auth;
 
 class PresensiController extends Controller
 {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Kelompok, DB;
 use App\Http\Resources\Kelompok as Resource;
+use Auth;
 
 class KelompokController extends Controller
 {

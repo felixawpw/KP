@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Maping, DB;
 use App\Http\Resources\Maping as Resource;
+use Auth;
 
 class MapingController extends Controller
 {

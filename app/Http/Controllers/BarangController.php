@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Barang, DB;
 use App\Http\Resources\Barang as Resource;
+use Auth;
 
 class BarangController extends Controller
 {

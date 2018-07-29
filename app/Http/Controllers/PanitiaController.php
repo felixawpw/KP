@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\Panitia as Resource;
 use DB;
+use Auth;
 
 
 class PanitiaController extends Controller

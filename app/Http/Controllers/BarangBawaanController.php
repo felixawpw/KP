@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\BarangBawaan;
 use App\Http\Resources\BarangBawaan as Resource;
 use DB;
-
+use Auth;
 
 class BarangBawaanController extends Controller
 {

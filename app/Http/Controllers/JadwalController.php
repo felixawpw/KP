@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Sesi, DB;
 use App\Http\Resources\Sesi as Resource;
+use Auth;
 
 class JadwalController extends Controller
 {

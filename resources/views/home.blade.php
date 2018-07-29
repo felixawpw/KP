@@ -27,7 +27,10 @@
                             </div>
                           </div>
                         </div>
-                        <button type="submit" class="btn btn-primary pull-right col-md-4">Submit</button>
+                        <div class="form-group">
+                          <div class="g-recaptcha" data-sitekey="6LcQ4GYUAAAAADLvcAlcvkhdCuIOy1c03WKYDFL-"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right col-md-12">Submit</button>
                         <div class="clearfix"></div>
                     </form>
                     @else
