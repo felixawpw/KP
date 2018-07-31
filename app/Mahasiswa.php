@@ -20,4 +20,25 @@ class Mahasiswa extends Model
     {
     	return $this->belongsTo('App\User', 'NRP_Pengguna', 'NRP');
     }
+
+    public function pelanggarans()
+    {
+        return $this->belongsToMany('App\Pelanggaran', 'Mhs_Pelanggaran', 'NRP_Mhs','Id_Pelanggaran')->withPivot('NRP_Panitia', 'Id_Sesi', 'Waktu');
+    }
+
+    public function ormawas()
+    {
+        return $this->belongsToMany('App\Ormawa', 'Mhs_Ormawa', 'NRP_Mhs','Id_Ormawa')->withPivot('prioritas');
+    }
+
+
+    public function presensis()
+    {
+        return $this->hasMany('App\Presensi', 'NRP_Mhs');
+    }
+
+    public function bawaans()
+    {
+        return $this->hasMany('App\BarangBawaan', 'NRP_Mhs');
+    }
 }

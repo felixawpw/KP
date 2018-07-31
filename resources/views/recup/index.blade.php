@@ -24,10 +24,10 @@
 	        <div class="card-body">
         		<div class="row">
 		          	<div class="table-responsive col-md-12">
-          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="/table/json/recup">
+          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="{!! route('jsonrecup') !!}">
 							<thead>
 								<tr class="warning">
-									<th data-sortable="true" data-field="Nama">Nama Pelaggaran</th>
+									<th data-sortable="true" data-field="Nama">Nama Cabang</th>
 									<th data-sortable="true" data-field="Deskripsi">Deskripsi</th>
 									<th data-field="Id" data-formatter="ShowFormatter">Show Pendaftar</th>
 									<th data-field="Id" data-formatter="EditFormatter">Edit</th>

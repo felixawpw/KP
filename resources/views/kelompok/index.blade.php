@@ -25,7 +25,7 @@
 	        <div class="card-body">
         		<div class="row">
 		          	<div class="table-responsive col-md-12">
-          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="/table/json/kelompok">
+          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="{!! route('jsonkelompok') !!}">
 							<thead>
 								<tr class="warning">
 									<th data-sortable="true" data-field="kelompok">Kelompok</th>

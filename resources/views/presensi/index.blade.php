@@ -41,7 +41,7 @@
 	        	</form>
         		<div class="row">
 		          	<div class="table-responsive col-md-12">
-          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="/table/json/absensi" id="tableAbsensi">
+          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="{!! route('jsonabsensi') !!}" id="tableAbsensi">
 							<thead>
 								<tr class="warning">
 									<th data-sortable="true" data-field="nrp">NRP</th>

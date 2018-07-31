@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Input;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Illuminate\Http\File;
-
+use App\Http\Resources\MahasiswaPelanggaran as ResourcePelanggaran;
+use App\Http\Resources\MahasiswaPresensi as ResourcePresensi;
+use App\Http\Resources\MahasiswaBarang as ResourceBarang;
+use DB;
 class ValidasiController extends Controller
 {
     public function showLogin()
@@ -27,14 +30,25 @@ class ValidasiController extends Controller
         //
     }
 
+    public function create()
+    {
+
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create1()
     {
-        //Read Auth
+        //Read Auth        
+        $pengguna = Auth::user();
+        if ($pengguna->recups()->get()->count() != 0)
+        {
+            $message = "0;Anda tercatat sudah pernah mengisi form validasi data kelengkapan Anda.Merasa tidak pernah mengisi data kelengkapan? Segera kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2017 melalui sosial media yang ada dengan memberitahukan bahwa Anda tidak dapat mengisi data kelengkapan MOB FT 2017 dengan mencantumkan: NAMA LENGKAP, NRP, JURUSAN. Kami juga merekomendasikan Anda melakukan screenshot sebagai lampiran. Informasi mengenai Official Account dapat dilihat pada Website MOB Ubaya .";
+            return redirect()->route('login')->with('message', $message);
+        }
+        
         $recups = \App\Recup::orderBy('Nama')->get();
         $kelompoks = Auth::user()->mahasiswa->kelompoks()->orderBy('Kelompok')->get();
 
@@ -43,13 +57,7 @@ class ValidasiController extends Controller
         return view('validasi.create', compact('a', 'b', 'recups'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store1(Request $request)
     {
         //
         $validatedData = $request->validate([
@@ -70,16 +78,98 @@ class ValidasiController extends Controller
             $link = $request->file('prestasi')->storeAs('bukti',$custom_file_name);
         }
 
-        $pengguna->recups()->attach($request->minat1, ['Prioritas'=>"True", 'Bukti'=>$link, 'Diterima'=>"False"]);
-        $pengguna->recups()->attach($request->minat2, ['Prioritas'=>"False", 'Bukti'=>null, 'Diterima'=>"False"]);
+        $pengguna->recups()->attach($request->minat1, ['Prioritas'=>1, 'Bukti'=>$link, 'Diterima'=>0]);
+        $pengguna->recups()->attach($request->minat2, ['Prioritas'=>0, 'Bukti'=>null, 'Diterima'=>0]);
         $pengguna->save();
-
-        Auth::logout();
-
+        
         $n1 = \App\Recup::find($request->minat1)->Nama;
         $n2 = \App\Recup::find($request->minat2)->Nama;
-        return redirect()->route('login')->with('message', "1;Validasi data berhasil!<br>Data yang ada masukkan adalah sebagai berikut:<br><br>Penyakit : $pengguna->Penyakit <br>Pilihan 1 : $n1<br>Pilihan 2 : $n2<br><br>Apabila terdapat kesalahan pada pengisian data, kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2018 melalui sosial media yang ada.");
+        return redirect()->route('login')->with('message', "1;Terima kasih, validasi data berhasil!<br>Data yang Anda masukkan adalah sebagai berikut:<br><br>Penyakit : $pengguna->Penyakit <br>Pilihan 1 : $n1<br>Pilihan 2 : $n2<br><br>Apabila terdapat kesalahan pada pengisian data, kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2018 melalui sosial media yang ada.");
     }
+
+    public function create2()
+    {
+        $pengguna = Auth::user()->mahasiswa;
+        if ($pengguna->ormawas()->get()->count() != 0)
+        {
+            $message = "0;Anda tercatat sudah pernah mengisi form validasi data kelengkapan Anda.Merasa tidak pernah mengisi data kelengkapan? Segera kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2017 melalui sosial media yang ada dengan memberitahukan bahwa Anda tidak dapat mengisi data kelengkapan MOB FT 2017 dengan mencantumkan: NAMA LENGKAP, NRP, JURUSAN. Kami juga merekomendasikan Anda melakukan screenshot sebagai lampiran. Informasi mengenai Official Account dapat dilihat pada Website MOB Ubaya .";
+            return redirect()->route('login')->with('message', $message);
+        }
+
+
+        $ormawas = \App\Ormawa::all();
+        return view('validasi.tahap2', compact('ormawas'));
+    }
+
+    public function store2(Request $request)
+    {
+        $validatedData = $request->validate([
+            'minat1' => 'required',
+            'minat2' => 'required',
+            'nomorhp' => 'required|min:10|max:13',
+            'idline' => ['required','regex:/^[a-zA-Z0-9\._@-]+$/u']
+        ]);
+
+        $mhs = Auth::user()->mahasiswa;
+        Auth::user()->Telepon = $validatedData['nomorhp'];
+        Auth::user()->Line = $validatedData['idline'];
+        
+        $status = "1;Terima kasih, validasi data berhasil!";
+
+        DB::beginTransaction();
+        try {
+            Auth::user()->save();
+            $mhs->ormawas()->attach($validatedData['minat1'], ['prioritas' => 1]);
+            $mhs->ormawas()->attach($validatedData['minat2'], ['prioritas' => 0]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            \App\Log::insertLog("Error", null, Auth::id(), null, "Validasi tahap 2 ($mhs->NRP) :".$e->getMessage());
+            $status = "0;Vadidasi gagal. Pastikan data yang Anda masukkan benar, atau hubungi Official Account MOB FT apabila masalah berlanjut.";
+        }
+        DB::commit();
+
+        return redirect()->route('login')->with('message', $status);
+    }
+
+    public function create3()
+    {
+        return view('validasi.tahap3');
+    }
+
+    public function pelanggaran()
+    {
+        return view('validasi.pelanggaran');
+    }
+    public function presensi()
+    {
+        return view('validasi.presensi');
+    }
+    public function barang()
+    {
+        return view('validasi.barang');
+    }
+
+    public function pelanggaranJson()
+    {
+        return ResourcePelanggaran::collection(Auth::user()->mahasiswa->pelanggarans);
+    }
+    public function presensiJson()
+    {
+        return ResourcePresensi::collection(Auth::user()->mahasiswa->presensis);
+    }
+    public function barangJson()
+    {
+        return ResourceBarang::collection(Auth::user()->mahasiswa->bawaans);
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
 
     public function check(Request $request)
     {
@@ -115,15 +205,15 @@ class ValidasiController extends Controller
             $message = '0;Login Gagal. NRP atau password yang Anda masukkan salah.';
 
         //Check sudah pernah isi validasi atau tidak
-        else if ($pengguna->recups()->get()->count() != 0)
-            $message = "0;Merasa tidak pernah mengisi data kelengkapan? Segera kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2017 melalui sosial media yang ada dengan memberitahukan bahwa Anda tidak dapat mengisi data kelengkapan MOB FT 2017 dengan mencantumkan: NAMA LENGKAP, NRP, JURUSAN. Kami juga merekomendasikan Anda melakukan screenshot sebagai lampiran. Informasi mengenai Official Account dapat dilihat pada Website MOB Ubaya .";
+        // else if ($pengguna->recups()->get()->count() != 0)
+        //     $message = "0;Merasa tidak pernah mengisi data kelengkapan? Segera kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2017 melalui sosial media yang ada dengan memberitahukan bahwa Anda tidak dapat mengisi data kelengkapan MOB FT 2017 dengan mencantumkan: NAMA LENGKAP, NRP, JURUSAN. Kami juga merekomendasikan Anda melakukan screenshot sebagai lampiran. Informasi mengenai Official Account dapat dilihat pada Website MOB Ubaya .";
         else if ($pengguna->mahasiswa == null)
             $message = "0;Anda bukan mahasiswa! Pada sistem, anda terdaftar sebagai panitia MOB FT 2018!";
         //Kalau berhasil, masukkan ke Auth
         else
         {
             Auth::loginUsingId($pengguna->NRP);
-            return redirect()->route('validasi.create')->with('message', '1;Login Berhasil');
+            return redirect()->route('login')->with('message', '1;Login Berhasil');
         }
         return redirect()->route('login')->with('message', $message);
     }

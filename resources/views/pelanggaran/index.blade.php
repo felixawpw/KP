@@ -24,7 +24,7 @@
 	        <div class="card-body">
         		<div class="row">
 		          	<div class="table-responsive col-md-12">
-          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="/table/json/pelanggaran">
+          				<table class="table table-striped" data-toggle="table" data-pagination="true" data-search="true" data-url="{!! route('jsonpelanggaran') !!}">
 							<thead>
 								<tr class="warning">
 									<th data-sortable="true" data-field="nama">Nama Pelaggaran</th>
