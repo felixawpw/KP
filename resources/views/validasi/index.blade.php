@@ -82,7 +82,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <img src='{!! asset("img/qr/".Auth::user()->NRP.".png") !!}' style="max-width: 100%;">
+                                <img src='{!! asset("img/".Auth::user()->NRP.".png") !!}' style="max-width: 100%;">
                             </div>
                         </div>
                     </form>
