@@ -41,4 +41,10 @@ class Mahasiswa extends Model
     {
         return $this->hasMany('App\BarangBawaan', 'NRP_Mhs');
     }
+
+    public function uls()
+    {
+        return $this->belongsToMany('App\Uls', 'Mhs_ULS', 'NRP_Mhs', 'Id_ULS')->withPivot('Nilai');
+    }
+
 }

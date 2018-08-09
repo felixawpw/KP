@@ -19,7 +19,8 @@ class ValidasiController extends Controller
 {
     public function showLogin()
     {
-        return view('validasi.index');
+        $uls = \App\Uls::all();
+        return view('validasi.index', compact('uls'));
     }
     /**
      * Display a listing of the resource.
@@ -172,7 +173,6 @@ class ValidasiController extends Controller
     {
         return ResourceBarang::collection(Auth::user()->mahasiswa->bawaans);
     }
-
 
     /**
      * Store a newly created resource in storage.
