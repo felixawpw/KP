@@ -18,10 +18,10 @@
 					<form method="post" action="{{route('validasi.check')}}">
                         {{csrf_field()}}
 						<div class="form-group">
-                          	<label class="bmd-label-floating" for="nrp">NRP Mahasiswa</label>
+                          	<label class="bmd-label-floating" for="nrp">sNRP Mahasiswa</label>
 							<input type="text" class="form-control" id="nrp" name="nrp" onkeypress="return isNumber(event)" required>
 						    <small id="nrpHelp" class="form-text text-muted">
-						    	Contoh NRP adalah 160118999 (Digit 1 & 2 adalah kode fakultas, digit 3 & 4 adalah kode jurusan, digit 5 & 6 adalah angkatan, digit 7&8&9 adalah kode unik mahasiswa).
+						    	Contoh sNRP adalah s160415020 (Digit 1 & 2 adalah kode fakultas, digit 3 & 4 adalah kode jurusan, digit 5 & 6 adalah angkatan, digit 7&8&9 adalah kode unik mahasiswa).
 						    </small>
 						</div>
                         <div class="row">
@@ -36,7 +36,7 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <div class="g-recaptcha" data-sitekey="6LcQ4GYUAAAAADLvcAlcvkhdCuIOy1c03WKYDFL-"></div>
+                        <div class="g-recaptcha" data-sitekey="6Lf_CmgUAAAAAHMc1OriC0HorAANcoQPhQrT8-Sb"></div>
                         </div>
                         <button type="submit" class="btn btn-primary pull-right col-md-12">Submit</button>
                         <div class="clearfix"></div>
@@ -100,10 +100,9 @@
 		{
 	        evt = (evt) ? evt : window.event;
 	        var charCode = (evt.which) ? evt.which : evt.keyCode;
-	        if ( (charCode > 31 && charCode < 48) || charCode > 57) {
-	            return false;
-	        }
-	        return true;
+            if (charCode == 115 || (charCode <= 57 && charCode >= 48))
+	            return true;
+            return false;
 	    }
 	</script>
 

@@ -55,7 +55,7 @@
 @section('scripts')
 <script type="text/javascript">
 	function DeleteFormatter(value, row, index) {
-		return '<a href="/barangbawaan/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'/' + row['id_barang'] + '">Delete</a>';
+		return '<a href="/mob/barangbawaan/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'/' + row['id_barang'] + '">Delete</a>';
 	}
 
 	$('#barangbawaan').addClass('active');

@@ -48,7 +48,7 @@
               <i class="material-icons">
                 done_all
               </i>
-              <p>Validasi Tahap 1</p>
+              <p>Validasi Rektor Cup (Tahap 1)</p>
             </a>
           </li>
           <li class="nav-item " id="pelanggaran">
@@ -56,7 +56,7 @@
               <i class="material-icons">
                 done_all
               </i>
-              <p>Validasi Tahap 2</p>
+              <p>Validasi OHO (Tahap 2)</p>
             </a>
           </li>
           <li class="nav-item " id="pelanggaran">
@@ -121,7 +121,7 @@
                 style="background-color: green;"
 
               @endif>
-              <h3 class="modal-title" id="exampleModalLabel">PERHATIAN</h3>
+              <h3 class="modal-title" id="exampleModalLabel">INFO</h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>

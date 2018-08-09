@@ -53,11 +53,11 @@
 @section('scripts')
 <script type="text/javascript">
 	function EditFormatter(value, row, index){
-		return '<a href="/jadwal/'+ row['id']+ '/edit">Edit</a>'
+		return '<a href="/mob/jadwal/'+ row['id']+ '/edit">Edit</a>'
 	}
 
 	function DeleteFormatter(value, row, index) {
-		return '<form method="post" action="/jadwal/'+ row['id'] + '">' +
+		return '<form method="post" action="/mob/jadwal/'+ row['id'] + '">' +
 				'{{csrf_field()}}' +
 				'@method("DELETE")' +
 					'<button type="submit" class="button_delete" onclick="confirm(' + "'Apakah anda yakin?'" +');">Delete</button>'+

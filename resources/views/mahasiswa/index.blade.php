@@ -61,11 +61,11 @@
 @section('scripts')
 <script type="text/javascript">
 	function EditFormatter(value, row, index){
-		return '<a href="/mahasiswa/'+ row['nrp']+ '/edit">Edit</a>'
+		return '<a href="/mob/mahasiswa/'+ row['nrp']+ '/edit">Edit</a>'
 	}
 
 	function DeleteFormatter(value, row, index) {
-		return '<form method="post" action="/mahasiswa/'+ row['nrp'] + '">' +
+		return '<form method="post" action="/mob/mahasiswa/'+ row['nrp'] + '">' +
 				'{{csrf_field()}}' +
 				'@method("DELETE")' +
 					'<button type="submit" class="button_delete" onclick="confirm(' + "'Apakah anda yakin?'" +');">Delete</button>'+

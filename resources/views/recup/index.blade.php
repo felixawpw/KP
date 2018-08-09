@@ -52,15 +52,15 @@
 @section('scripts')
 <script type="text/javascript">
 	function ShowFormatter(value, row, index){
-		return '<a href="/recup/'+ row['Id'] + '">Show</a>'
+		return '<a href="/mob/recup/'+ row['Id'] + '">Show</a>'
 	}
 
 	function EditFormatter(value, row, index){
-		return '<a href="/recup/'+ row['Id']+ '/edit">Edit</a>'
+		return '<a href="/mob/recup/'+ row['Id']+ '/edit">Edit</a>'
 	}
 
 	function DeleteFormatter(value, row, index) {
-		return '<form method="post" action="/recup/'+ row['Id'] + '">' +
+		return '<form method="post" action="/mob/recup/'+ row['Id'] + '">' +
 				'{{csrf_field()}}' +
 				'@method("DELETE")' +
 					'<button type="submit" class="button_delete" onclick="confirm(' + "'Apakah anda yakin?'" +');">Delete</button>'+

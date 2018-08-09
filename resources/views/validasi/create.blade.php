@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-10">
                       <h4 class="card-title ">Validasi Data Tahap 1</h4>
-                      <p class="card-category"></p>
+                      <p class="card-category"><p class="text-justify">Pengisian form hanya dapat dilakukan 1 kali, oleh sebab itu, berhati-hatilah dalam megisi form.</p>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">Deskripsi cabang pilihan 1:</label>
+                                    <label class="bmd-label-floating">Jangan lupa membawa barang berikut untuk pilihan pertama :</label>
                                     <textarea class="form-control" rows="4" maxlength="500" id="cabang1" disabled >
                                         
                                     </textarea>                               
@@ -134,7 +134,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">Pilihan Bakat dan Minat prioritas pertama :</label>
+                                    <label class="bmd-label-floating"><p><b>Catatan :</b> Pilihan kedua tidak boleh sama dengan pilihan pertama<br>Pilihan Bakat dan Minat prioritas kedua:</p></label>
                                     <select id="minat2" name="minat2" class="form-control" required>
                                         <option disabled selected value="">Pilih salah satu!</option>
                                         @foreach($recups as $r)
@@ -143,7 +143,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">Deskripsi cabang pilihan 2:</label>
+                                    <label class="bmd-label-floating">Jangan lupa membawa barang berikut untuk pilihan kedua :</label>
                                     <textarea class="form-control" rows="4" maxlength="500" id="cabang2" disabled >
                                         
                                     </textarea>                               
@@ -222,12 +222,16 @@
             prevMinat1 = this.value;
             $("#minat2 option[value='" + this.value + "']").attr("hidden", true);
             $('#cabang1').html(getDeskripsi(this.value));
+            if($('#cabang1').html() == "")
+                $('#cabang1').html("Tidak ada barang yang perlu dibawa");
         });
         $('#minat2').change(function(){
             $("#minat1 option[value='" + prevMinat2 + "']").removeAttr("hidden");
             prevMinat2 = this.value;
             $("#minat1 option[value='" + this.value + "']").attr("hidden", true);
             $('#cabang2').html(getDeskripsi(this.value));
+            if($('#cabang2').html() == "")
+                $('#cabang2').html("Tidak ada barang yang perlu dibawa");
         });
     });
 

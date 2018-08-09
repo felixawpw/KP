@@ -68,11 +68,11 @@
 @section('scripts')
 <script type="text/javascript">
 	function EditFormatter(value, row, index){
-		return '<a href="/pelanggar/edit/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'/'+ row['id_pelanggaran']+'">Edit</a>'
+		return '<a href="/mob/pelanggar/edit/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'/'+ row['id_pelanggaran']+'">Edit</a>'
 	}
 
 	function DeleteFormatter(value, row, index) {
-		return '<a href="/pelanggar/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'/'+row['id_pelanggaran']+'">Delete</a>'
+		return '<a href="/mob/pelanggar/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'/'+row['id_pelanggaran']+'">Delete</a>'
 	}
 
 

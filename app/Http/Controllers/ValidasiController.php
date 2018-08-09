@@ -14,6 +14,7 @@ use App\Http\Resources\MahasiswaPelanggaran as ResourcePelanggaran;
 use App\Http\Resources\MahasiswaPresensi as ResourcePresensi;
 use App\Http\Resources\MahasiswaBarang as ResourceBarang;
 use DB;
+use Adldap\Laravel\Facades\Adldap;
 class ValidasiController extends Controller
 {
     public function showLogin()
@@ -67,6 +68,8 @@ class ValidasiController extends Controller
             'penyangkalan' => 'required',
             'prestasi' => 'mimes:jpeg,png,jpg'
         ]);
+        if ($request->minat1 == $request->minat2)
+            return redirect()->back()->with('message', '0;Pilihan minat 1 dan 2 tidak boleh sama!');
 
         $pengguna = User::find(Auth::id());
         $pengguna->Penyakit = $request->penyakit == "Y" ? $request->penyakit_detail : null;
@@ -78,13 +81,21 @@ class ValidasiController extends Controller
             $link = $request->file('prestasi')->storeAs('bukti',$custom_file_name);
         }
 
-        $pengguna->recups()->attach($request->minat1, ['Prioritas'=>1, 'Bukti'=>$link, 'Diterima'=>0]);
-        $pengguna->recups()->attach($request->minat2, ['Prioritas'=>0, 'Bukti'=>null, 'Diterima'=>0]);
-        $pengguna->save();
-        
+        DB::beginTransaction();
+        try {
+            $pengguna->recups()->attach($request->minat1, ['Prioritas'=>1, 'Bukti'=> $link != null ? (isset(explode('/',$link)[1]) ? explode('/',$link)[1] : null ) : null, 'Diterima'=>null]);
+            $pengguna->recups()->attach($request->minat2, ['Prioritas'=>2, 'Bukti'=>null, 'Diterima'=>null]);
+            $pengguna->save();
+        } catch (\Exception $e) {
+            DB::rollback();
+            \App\Log::insertLog("Error", null, Auth::id(), null, "Validasi tahap 1 ($mhs->NRP) :".$e->getMessage());
+            $status = "0;Vadidasi gagal. Pastikan data yang Anda masukkan benar, atau hubungi Official Account MOB FT apabila masalah berlanjut.";
+        }
+        DB::commit();
+
         $n1 = \App\Recup::find($request->minat1)->Nama;
         $n2 = \App\Recup::find($request->minat2)->Nama;
-        return redirect()->route('login')->with('message', "1;Terima kasih, validasi data berhasil!<br>Data yang Anda masukkan adalah sebagai berikut:<br><br>Penyakit : $pengguna->Penyakit <br>Pilihan 1 : $n1<br>Pilihan 2 : $n2<br><br>Apabila terdapat kesalahan pada pengisian data, kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2018 melalui sosial media yang ada.");
+        return redirect()->route('login')->with('message', "1;Terima kasih, validasi data berhasil!<br>Data yang Anda masukkan adalah sebagai berikut:<br><br>Penyakit : $pengguna->Penyakit <br>Pilihan 1 : $n1<br>Pilihan 2 : $n2");
     }
 
     public function create2()
@@ -107,20 +118,20 @@ class ValidasiController extends Controller
             'minat1' => 'required',
             'minat2' => 'required',
             'nomorhp' => 'required|min:10|max:13',
-            'idline' => ['required','regex:/^[a-zA-Z0-9\._@-]+$/u']
+            'idline' => ['required','regex:/^[a-zA-Z0-9\._@-]+$/u', 'min:4', 'max:20']
         ]);
 
         $mhs = Auth::user()->mahasiswa;
         Auth::user()->Telepon = $validatedData['nomorhp'];
         Auth::user()->Line = $validatedData['idline'];
         
-        $status = "1;Terima kasih, validasi data berhasil!";
+        $status = "1;Terima kasih, validasi data berhasil!<br>Data yang Anda masukkan adalah sebagai berikut:<br><br>Ormawa 1 : ".\App\Ormawa::find($validatedData['minat1'])->Nama."<br>Ormawa 2 : ".\App\Ormawa::find($validatedData['minat2'])->Nama."<br>Nomor Telepon : ".$validatedData['nomorhp']."<br>ID Line : ".$validatedData['idline'];
 
         DB::beginTransaction();
         try {
             Auth::user()->save();
             $mhs->ormawas()->attach($validatedData['minat1'], ['prioritas' => 1]);
-            $mhs->ormawas()->attach($validatedData['minat2'], ['prioritas' => 0]);
+            $mhs->ormawas()->attach($validatedData['minat2'], ['prioritas' => 2]);
         } catch (\Exception $e) {
             DB::rollback();
             \App\Log::insertLog("Error", null, Auth::id(), null, "Validasi tahap 2 ($mhs->NRP) :".$e->getMessage());
@@ -177,42 +188,59 @@ class ValidasiController extends Controller
         // if ($recaptcha == null)
         //     return redirect()->back()->with('message', "0;Untuk memastikan Anda bukan robot, Anda harus klik kotak I'm not a robot!");
 
-        // $client = new Client([
-        //     'base_uri' => 'https://google.com/recaptcha/api/'
-        //     ]);
+        $client = new Client([
+            'base_uri' => 'https://google.com/recaptcha/api/'
+            ]);
 
-        // $response = $client->post(
-        //     'https://www.google.com/recaptcha/api/siteverify',
-        //     ['form_params'=>
-        //         [
-        //             'secret'=>env('6LcQ4GYUAAAAAHnY0mNrBsKAMAGu996OhqoY1F2t'),
-        //             'response'=>$recaptcha
-        //          ]
-        //     ]
-        // );
-        // $body = json_decode((string)$response->getBody());
-        // return json_encode($body);
+        $response = $client->post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            ['form_params'=>
+                [
+                    'secret'=>'6Lf_CmgUAAAAAGBDLzCl8x3N_zx4js6jZjQMqSU1',
+                    'response'=>$recaptcha
+                ]
+            ]
+        );
+        $body = json_decode((string)$response->getBody());
+        
+        if (!$body->success)
+            return redirect()->route('login')->with('message', "0;Captcha Error. Pastikan anda sudah mengisi captcha.");
 
-        $pengguna = User::find($request->nrp);
+        $username = $request->nrp;
         $password = $request->password;
-        $message = "";
+
+        $pengguna = User::find(substr($request->nrp, 1));
+        $message = "1;Selamat datang!";
+        $bindAsUser = true;
 
         //Check nrp ada atau tidak
-        if ($pengguna == null)
-            $message = '0;Merasa data Anda seharusnya ada? Segera kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2017 melalui sosial media yang ada dengan memberitahukan bahwa Anda tidak dapat mengisi data kelengkapan MOB FT 2017 dengan mencantumkan: NAMA LENGKAP, NRP, JURUSAN. Kami juga merekomendasikan Anda melakukan screenshot sebagai lampiran. Informasi mengenai Official Account dapat dilihat pada Website MOB Ubaya.';
+        if ($request->nrp[0] != 's')
+            $message = "0;Pastikan anda login menggunakan format sNRP (s kecil diikuti NRP).";
+        else if ($pengguna == null || $pengguna == "")
+        {
+            $message = '0;Anda belum terdaftar pada sistem';
+            \App\Log::insertLog("Error", null, null, null, "[Laravel Login] NRP not registered for ".$request->nrp);
+        }
         //Check autentikasi mahasiswa
-        else if ($pengguna->NRP != $password)
-            $message = '0;Login Gagal. NRP atau password yang Anda masukkan salah.';
-
+        else if (!Adldap::auth()->attempt($request->nrp, $password, $bindAsUser))
+        {
+            $message = "0;Login gagal. Password salah.";
+            \App\Log::insertLog("Warning", null, null, null, "[Laravel Login] Invalid credential for ".$request->nrp);
+        }
         //Check sudah pernah isi validasi atau tidak
         // else if ($pengguna->recups()->get()->count() != 0)
         //     $message = "0;Merasa tidak pernah mengisi data kelengkapan? Segera kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2017 melalui sosial media yang ada dengan memberitahukan bahwa Anda tidak dapat mengisi data kelengkapan MOB FT 2017 dengan mencantumkan: NAMA LENGKAP, NRP, JURUSAN. Kami juga merekomendasikan Anda melakukan screenshot sebagai lampiran. Informasi mengenai Official Account dapat dilihat pada Website MOB Ubaya .";
         else if ($pengguna->mahasiswa == null)
-            $message = "0;Anda bukan mahasiswa! Pada sistem, anda terdaftar sebagai panitia MOB FT 2018!";
-        //Kalau berhasil, masukkan ke Auth
+        { 
+            $message = "0;Anda bukan mahasiswa baru, Pada sistem, anda terdaftar sebagai panitia MOB FT 2018!";
+
+            \App\Log::insertLog("Error", null, null, null, "[Laravel Login] Invalid group for ".$request->nrp);
+        }
+            //Kalau berhasil, masukkan ke Auth
         else
         {
             Auth::loginUsingId($pengguna->NRP);
+            \App\Log::insertLog("Info", null, null, null, "[Laravel Login] Valid credential for ".substr($request->nrp, 1));
             return redirect()->route('login')->with('message', '1;Login Berhasil');
         }
         return redirect()->route('login')->with('message', $message);

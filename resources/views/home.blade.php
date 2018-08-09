@@ -28,13 +28,39 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <div class="g-recaptcha" data-sitekey="6LcQ4GYUAAAAADLvcAlcvkhdCuIOy1c03WKYDFL-"></div>
+                        <div class="g-recaptcha" data-sitekey="6Lf_CmgUAAAAAHMc1OriC0HorAANcoQPhQrT8-Sb"></div>
                         </div>
                         <button type="submit" class="btn btn-primary pull-right col-md-12">Submit</button>
                         <div class="clearfix"></div>
                     </form>
                     @else
-                    Login Berhasil!
+                    <form method="post" action="#">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">NRP Panitia</label>
+                                    <input type="text" class="form-control" disabled value="{!! Auth::user()->NRP !!}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Nama Panitia</label>
+                                    <input type="text" class="form-control" disabled value="{!! Auth::user()->Nama !!}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Jurusan</label>
+                                    <input type="text" class="form-control" disabled 
+                                    value="{!! Auth::user()->jurusan->Nama !!}">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     @endif
                 </div>
             </div>

@@ -69,7 +69,7 @@
 @section('scripts')
 <script type="text/javascript">
 	function DeleteFormatter(value, row, index) {
-		return '<a href="/presensi/delete/' + row["nrp"] +'/' + row['id_sesi'] + '">Delete</a>';
+		return '<a href="/mob/presensi/delete/' + row["nrp"] +'/' + row['id_sesi'] + '">Delete</a>';
 	}
 
 	function search()

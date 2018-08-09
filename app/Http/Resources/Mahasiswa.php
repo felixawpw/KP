@@ -24,9 +24,9 @@ class Mahasiswa extends JsonResource
             'alfa' => $kelompok != null && isset($kelompok[0]) ? $kelompok[0]->Kelompok : "-",
             'beta' => $kelompok != null && isset($kelompok[1]) ? $kelompok[1]->Kelompok : "-",
             'validasi' => $isValidated ? "Sudah" : "Belum",
-            'penyakit' => $isValidated ? $this->Penyakit : "-",
+            'penyakit' => $isValidated ? ($this->Penyakit == 'null' ? "-" : $this->Penyakit) : "-",
             'recup_1' => $isValidated ? $this->recups()->wherePivot('Prioritas', '=', 1)->first()->Nama : "-",
-            'recup_2' => $isValidated ? $this->recups()->wherePivot('Prioritas', '=', 0)->first()->Nama : "-"
+            'recup_2' => $isValidated ? $this->recups()->wherePivot('Prioritas', '=', 2)->first()->Nama : "-"
         ];
     }
 }
