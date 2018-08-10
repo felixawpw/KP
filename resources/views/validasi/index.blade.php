@@ -68,6 +68,24 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="row">
+                            @foreach($uls as $u)
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Nilai {!! $u->Keterangan !!}</label>
+                                    <input type="text" class="form-control" disabled 
+                                    @if (Auth::user()->mahasiswa->uls()->find($u->Id)['pivot']['Nilai'] == null)
+                                    value="-"
+                                    @else
+                                    value="{!!Auth::user()->mahasiswa->uls()->find($u->Id)['pivot']['Nilai']!!}"
+                                    @endif
+                                    >
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6 text-center">
                                 <div class="form-group">
@@ -80,19 +98,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            @foreach($uls as $u)
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">{!! $u->Keterangan !!}</label>
-                                    <input type="text" class="form-control" disabled 
-                                    value="{!! Auth::user()->mahasiswa->uls()->find($u->Id)->pivot('Nilai') !!}">
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 <img src='{!! asset("img/".Auth::user()->NRP.".png") !!}' style="max-width: 100%;">

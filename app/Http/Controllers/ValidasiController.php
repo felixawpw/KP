@@ -184,10 +184,11 @@ class ValidasiController extends Controller
 
     public function check(Request $request)
     {
-        $recaptcha = Input::get('g-recaptcha-response');
         // if ($recaptcha == null)
         //     return redirect()->back()->with('message', "0;Untuk memastikan Anda bukan robot, Anda harus klik kotak I'm not a robot!");
-
+        
+        /*UNCOMMENT TO DEPLOY
+        $recaptcha = Input::get('g-recaptcha-response');
         $client = new Client([
             'base_uri' => 'https://google.com/recaptcha/api/'
             ]);
@@ -206,12 +207,14 @@ class ValidasiController extends Controller
         if (!$body->success)
             return redirect()->route('login')->with('message', "0;Captcha Error. Pastikan anda sudah mengisi captcha.");
 
+        $bindAsUser = true;        
+        */
+
         $username = $request->nrp;
         $password = $request->password;
 
         $pengguna = User::find(substr($request->nrp, 1));
         $message = "1;Selamat datang!";
-        $bindAsUser = true;
 
         //Check nrp ada atau tidak
         if ($request->nrp[0] != 's')
@@ -222,18 +225,23 @@ class ValidasiController extends Controller
             \App\Log::insertLog("Error", null, null, null, "[Laravel Login] NRP not registered for ".$request->nrp);
         }
         //Check autentikasi mahasiswa
+
+
+        /* UNCOMMENT TO DEPLOY
         else if (!Adldap::auth()->attempt($request->nrp, $password, $bindAsUser))
         {
             $message = "0;Login gagal. Password salah.";
             \App\Log::insertLog("Warning", null, null, null, "[Laravel Login] Invalid credential for ".$request->nrp);
         }
+        */
+
+
         //Check sudah pernah isi validasi atau tidak
         // else if ($pengguna->recups()->get()->count() != 0)
         //     $message = "0;Merasa tidak pernah mengisi data kelengkapan? Segera kontak OFFICIAL ACCOUNT Masa Orientasi Bersama Fakultas Teknik 2017 melalui sosial media yang ada dengan memberitahukan bahwa Anda tidak dapat mengisi data kelengkapan MOB FT 2017 dengan mencantumkan: NAMA LENGKAP, NRP, JURUSAN. Kami juga merekomendasikan Anda melakukan screenshot sebagai lampiran. Informasi mengenai Official Account dapat dilihat pada Website MOB Ubaya .";
         else if ($pengguna->mahasiswa == null)
         { 
             $message = "0;Anda bukan mahasiswa baru, Pada sistem, anda terdaftar sebagai panitia MOB FT 2018!";
-
             \App\Log::insertLog("Error", null, null, null, "[Laravel Login] Invalid group for ".$request->nrp);
         }
             //Kalau berhasil, masukkan ke Auth
