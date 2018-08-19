@@ -14,6 +14,8 @@ class LoginController extends Controller
     //
     public function show()
     {
+        
+        
     	return view('home');
     }
 
@@ -25,8 +27,6 @@ class LoginController extends Controller
         ]);
 
         $recaptcha = Input::get('g-recaptcha-response');
-        // if ($recaptcha == null)
-        //     return redirect()->back()->with('message', "0;Untuk memastikan Anda bukan robot, Anda harus klik kotak I'm not a robot!");
 
         $client = new Client([
             'base_uri' => 'https://google.com/recaptcha/api/'
@@ -84,6 +84,7 @@ class LoginController extends Controller
                 \App\Log::insertLog("Warning", null, null, null, "[Laravel Login] Divisi restricted for ".$request->nrp);
                 return redirect()->route('loginAdmin')->with('status', $message);
             }
+
             return redirect()->route('home')->with('status', $message);
         }
         return redirect()->route('loginAdmin')->with('status', $message);

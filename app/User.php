@@ -29,4 +29,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Recup', 'Mhs_Recup', 'NRP_Mhs', 'Id_Recup')->withPivot('Prioritas', 'Bukti', 'Diterima');
     }
+    
+    public function isPanitia()
+    {
+        return 100;
+    }
+
+    public function isMahasiswa()
+    {
+        return $this->mahasiswa()->count() != 0;
+    }
+
 }

@@ -31,6 +31,10 @@ class Mahasiswa extends Model
         return $this->belongsToMany('App\Ormawa', 'Mhs_Ormawa', 'NRP_Mhs','Id_Ormawa')->withPivot('prioritas');
     }
 
+    public function recups()
+    {
+        return $this->belongsToMany('App\Recup', 'Mhs_Recup', 'NRP_Mhs', 'Id_Recup')->withPivot('Prioritas', 'Bukti', 'Diterima');
+    }
 
     public function presensis()
     {

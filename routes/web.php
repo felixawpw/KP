@@ -21,6 +21,11 @@ Route::get('/admin', 'LoginController@show')->name('loginAdmin');
 Route::post('/admin/login', 'LoginController@login')->name('doLogin');
 Route::post('validasi/check', 'ValidasiController@check')->name('validasi.check');
 
+Route::middleware(['auth'])->group(function(){
+	Route::get('profile', 'ProfileController@show')->name('profile.index');
+	Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
+	Route::post('profile/edit', 'ProfileController@update')->name('profile.update');
+});
 Route::middleware(['mahasiswa'])->group(function () {
 	Route::post('validasi/tahap1', 'ValidasiController@store1')->name('validasi1.store');
 	Route::post('validasi/tahap2', 'ValidasiController@store2')->name('validasi2.store');
@@ -82,3 +87,4 @@ Route::middleware(['admin'])->group(function () {
 
 	Route::get('/convert/to/php', 'HomeController@convertToPhp');
 });
+Route::get('report', 'HomeController@report');

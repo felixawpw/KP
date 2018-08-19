@@ -11,8 +11,9 @@ class Barang extends Model
 	protected $table='Barang';
 	protected $primaryKey = 'Id';
 	public $timestamps = false;
-	public static function getById($id)
+
+	public function mahasiswas()
 	{
-		return new BarangResource(Barang::find($id));
+        return $this->belongsToMany('App\Mahasiswa', 'Mhs_Barang', 'Id_Barang', 'NRP_Mhs')->withPivot('Id_Sesi');
 	}
 }
