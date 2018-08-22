@@ -55,15 +55,16 @@ class PelanggaranController extends Controller
         $p->Id_Kategori = $kat;
         $p->Nama = $nama;
         $p->Poin_Timpa = $timpa;
-        $status = "1;Tambah Pelanggaran berhasil.";
+        $status = "1;Tambah Pelanggaran berhasil;";
         try
         {
             $p->save();
+            \App\Log::insertLog("info", Auth::id(), null, null, "Tambah Pelanggaran ($p->Id): success");
         }
         catch(\Exception $e)
         {            
-            $status = "0;Tambah Pelanggaran gagal. Pastikan data yang anda masukkan benar!";
-            \App\Log::insertLog("Error", Auth::id(), null, null, $e->getMessage());
+            $status = "0;Tambah Pelanggaran gagal;Pastikan data yang anda masukkan benar!";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Tambah Pelanggaran ".$e->getMessage());
         }
         return redirect()->route('pelanggaran.index')->with('status', $status);
     }
@@ -112,14 +113,15 @@ class PelanggaranController extends Controller
         $p->Id_Kategori = $kat;
         $p->Nama = $nama;
         $p->Poin_Timpa = $timpa;
-        $status = "1;Edit Pelanggaran berhasil.";
+        $status = "1;Edit Pelanggaran berhasil;";
         try
         {
             $p->save();
+            \App\Log::insertLog("info", Auth::id(), null, null, "Edit Pelanggaran ($p->Id): success");
         }
         catch(\Exception $e)
         {            
-            $status = "0;Edit Pelanggaran gagal. Pastikan data yang anda masukkan benar!";
+            $status = "0;Edit Pelanggaran gagal;Pastikan data yang anda masukkan benar!";
             \App\Log::insertLog("Error", Auth::id(), null, null, "Edit Pelanggaran ($id) :".$e->getMessage());
         }
         return redirect()->action('PelanggaranController@index')->with('status',$status);
@@ -133,19 +135,19 @@ class PelanggaranController extends Controller
      */
     public function destroy($id)
     {
-        //  
-
+        //
         $p = Pelanggaran::find($id);
-        $status = "1;Delete Pelanggaran berhasil.";
+        $status = "1";
         try
         {
             $p->delete();
+            \App\Log::insertLog("info", Auth::id(), null, null, "Delete Pelanggaran ($p->Id): success");
         }
         catch(\Exception $e)
         {            
-            $status = "0;Delete Pelanggaran gagal. Hubungi ITD.";
+            $status = "0";
             \App\Log::insertLog("Error", Auth::id(), null, null, "Delete Pelanggaran ($id) :".$e->getMessage());
         }
-        return redirect()->back()->with('status',$status);
+        return $status;
     }
 }

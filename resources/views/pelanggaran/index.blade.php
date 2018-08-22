@@ -30,8 +30,7 @@
 									<th data-sortable="true" data-field="nama">Nama Pelaggaran</th>
 									<th data-sortable="true" data-field="kategori">Kategori</th>
 									<th data-sortable="true" data-field="poin">Poin</th>
-									<th data-field="id" data-formatter="EditFormatter">Edit</th>
-									<th data-field="id" data-formatter="DeleteFormatter">Delete</th>
+									<th data-field="id" data-formatter="ActionFormatter">Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -51,16 +50,13 @@
 
 @section('scripts')
 <script type="text/javascript">
-	function EditFormatter(value, row, index){
-		return '<a href="/mob/pelanggaran/'+ row['id']+ '/edit">Edit</a>'
-	}
+	function ActionFormatter(value, row, index) 
+	{
+		var link = '/pelanggaran/' + row['id'];
 
-	function DeleteFormatter(value, row, index) {
-		return '<form method="post" action="/mob/pelanggaran/'+ row['id'] + '">' +
-				'{{csrf_field()}}' +
-				'@method("DELETE")' +
-					'<button type="submit" class="button_delete" onclick="confirm(' + "'Apakah anda yakin?'" +');">Delete</button>'+
-			'</form>';
+		var edit = '<a href="' + link + '/edit" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">dvr</i></a>';
+		var del = '<button type="submit" class="btn btn-link btn-danger btn-just-icon remove" onclick="delete_confirmation(event, \'' + link + '\')"><i class="material-icons">close</i></button>';
+		return edit + del;
 	}
 
 	$('#pelanggaran').addClass('active');

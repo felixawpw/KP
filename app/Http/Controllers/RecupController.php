@@ -52,9 +52,17 @@ class RecupController extends Controller
         $recup = new Recup;
         $recup->Nama = $request->nama;
         $recup->Deskripsi = $request->deskripsi;
-        $recup->save();
-
-        return redirect()->route('recup.index')->with('status', '1;Tambah recup berhasil!');
+        $status = '1;Tambah recup berhasil;';
+        try{
+            $recup->save();
+            \App\Log::insertLog("info", Auth::id(), null, null, "Tambah Recup ($recup->Id): success");
+        }
+        catch(\Exception $e)
+        {
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Tambah Recup : ".$e->getMessage());
+            $status = "0;Tambah recup gagal; Pastikan data yang anda masukkan benar!";
+        }
+        return redirect()->route('recup.index')->with('status', $status );
     }
 
     /**
@@ -93,13 +101,19 @@ class RecupController extends Controller
     public function update(Request $request, $id)
     {
         //
-
         $recup = Recup::find($id);
         $recup->Nama = $request->nama;
         $recup->Deskripsi = $request->deskripsi;
-        $recup->save();
-
-        return redirect()->route('recup.index')->with('status', '1;Edit recup berhasil!');
+        $status = '1;Edit recup berhasil;';
+        try{
+            $recup->save();            
+            \App\Log::insertLog("info", Auth::id(), null, null, "Update Recup ($id): success");
+        }
+        catch(\Exception $e){
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Update Recup ($id): ".$e->getMessage());
+            $status = '1;Edit recup gagal;Pastikan data yang anda masukkan benar!';
+        }
+        return redirect()->route('recup.index')->with('status', $status);
     }
 
     /**
@@ -112,16 +126,17 @@ class RecupController extends Controller
     {
         //
         $recup = Recup::find($id);
-        $status = "1;Delete recup berhasil!";
+        $status = "1";
         try 
         {
             $recup->delete();
+            \App\Log::insertLog("info", Auth::id(), null, null, "Delete Recup ($id): success");
         } 
         catch(\Exception $e)
         {
             \App\Log::insertLog("Error", Auth::id(), null, null, "Delete Recup ($id): ".$e->getMessage());
-            $status = "0;Delete mahasiswa gagal. Contact ITD untuk mendelete Recup.";
+            $status = "0";
         }
-        return redirect()->route('recup.index')->with('status', $status);
+        return $status;
     }
 }

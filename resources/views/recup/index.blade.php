@@ -29,9 +29,7 @@
 								<tr class="warning">
 									<th data-sortable="true" data-field="Nama">Nama Cabang</th>
 									<th data-sortable="true" data-field="Deskripsi">Deskripsi</th>
-									<th data-field="Id" data-formatter="ShowFormatter">Show Pendaftar</th>
-									<th data-field="Id" data-formatter="EditFormatter">Edit</th>
-									<th data-field="Id" data-formatter="DeleteFormatter">Delete</th>
+									<th data-field="Id" data-formatter="ActionFormatter">Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -51,20 +49,17 @@
 
 @section('scripts')
 <script type="text/javascript">
+	function ActionFormatter(value, row, index) 
+	{
+		var link = '/recup/' + row['Id'];
+		var show = '<a href="' + link + '" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">favorite</i></a>';
+		var edit = '<a href="' + link + '/edit" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">dvr</i></a>';
+		var del = '<button type="submit" class="btn btn-link btn-danger btn-just-icon remove" onclick="delete_confirmation(event, \'' + link + '\')"><i class="material-icons">close</i></button>';
+		return show + edit + del;
+	}
+
 	function ShowFormatter(value, row, index){
 		return '<a href="/mob/recup/'+ row['Id'] + '">Show</a>'
-	}
-
-	function EditFormatter(value, row, index){
-		return '<a href="/mob/recup/'+ row['Id']+ '/edit">Edit</a>'
-	}
-
-	function DeleteFormatter(value, row, index) {
-		return '<form method="post" action="/mob/recup/'+ row['Id'] + '">' +
-				'{{csrf_field()}}' +
-				'@method("DELETE")' +
-					'<button type="submit" class="button_delete" onclick="confirm(' + "'Apakah anda yakin?'" +');">Delete</button>'+
-			'</form>';
 	}
 
 	$('#recup').addClass('active');

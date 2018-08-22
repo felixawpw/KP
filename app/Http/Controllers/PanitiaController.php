@@ -63,16 +63,17 @@ class PanitiaController extends Controller
         $panitia->NRP_Pengguna = $user->NRP;
         $panitia->Tahun = 2018;
         $panitia->Id_Divisi = $divisi;
-        $status = "1;Tambah panitia berhasil.";
+        $status = "1;Tambah panitia berhasil;";
 
         DB::beginTransaction();
         try {
             $user->save();
             $panitia->save();
+            \App\Log::insertLog("info", Auth::id(), null, null, "Tambah panitia ($user->NRP) : success");
         } catch (\Exception $e) {
             DB::rollback();
-            \App\Log::insertLog("Error", Auth::id(), null, null, "EdiTambah panitia ($user->NRP) :".$e->getMessage());
-            $status = "0;Tambah panitia gagal. Pastikan data yang Anda masukkan benar.";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Tambah panitia ($user->NRP) :".$e->getMessage());
+            $status = "0;Tambah panitia gagal;Pastikan data yang Anda masukkan benar.";
         }
         DB::commit();
         $password = "";
@@ -127,19 +128,18 @@ class PanitiaController extends Controller
         $user->Id_Jurusan = $jurusan;
         $user->panitia->Id_Divisi = $divisi;
         
-        $status = "1;Edit panitia berhasil!";
+        $status = "1;Edit panitia berhasil;";
         DB::beginTransaction();
         try {
             $user->panitia->save();
             $user->save();
+            \App\Log::insertLog("info", Auth::id(), null, null, "Edit panitia ($id) : success");
         } catch (\Exception $e) {
             DB::rollback();
-            \App\Log::insertLog("Error", Auth::id(), null, null, "Edit pantia ($id) :".$e->getMessage());
-            $status = "0;Edit panitia gagal. Pastikan data yang Anda masukkan benar.";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Edit panitia ($id) :".$e->getMessage());
+            $status = "0;Edit panitia gagal;Pastikan data yang Anda masukkan benar.";
         }
         DB::commit();
-
-
 
         return redirect()->action('PanitiaController@index')->with('status', $status);
     }
@@ -153,19 +153,20 @@ class PanitiaController extends Controller
     public function destroy($id)
     {
         //
-        $status = "1;Delete panitia berhasil!";
+        $status = "1";
 
         $user = User::find($id);
         DB::beginTransaction();
         try {
             $user->panitia->delete();
             $user->delete();
+            \App\Log::insertLog("info", Auth::id(), null, null, "Delete panitia ($id) : success");
         } catch (\Exception $e) {
             DB::rollback();
-            \App\Log::insertLog("Error", Auth::id(), null, null, "Delete pantia ($id) :".$e->getMessage());
-            $status = "0;Delete panitia gagal. Kontak ITD untuk menghapus panitia dengan NRP $id.";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Delete panitia ($id) :".$e->getMessage());
+            $status = "0";
         }
         DB::commit();
-        return redirect()->back()->with('status', $status);
+        return $status;
     }
 }

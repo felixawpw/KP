@@ -54,6 +54,9 @@
 
 @section('scripts')
 <script type="text/javascript">
+
+	var link = "/barangbawaan/delete/";
+
 	function DeleteFormatter(value, row, index) {
 		return '<a href="/mob/barangbawaan/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'/' + row['id_barang'] + '">Delete</a>';
 	}

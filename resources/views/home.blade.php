@@ -477,7 +477,7 @@
     data.addColumn('string', 'Nama Ormawa');
     data.addColumn('number', 'Jumlah');
     data.addRows([
-      @foreach ($ormawas as $o)
+      @foreach ($ormawas->sortByDesc('total') as $o)
         [ {!! "'$o->Nama',".$o->total !!} ],
       @endforeach
     ]);
@@ -486,7 +486,7 @@
     data1.addColumn('string', 'Nama Ormawa');
     data1.addColumn('number', 'Jumlah');
     data1.addRows([
-      @foreach ($ormawas as $o)
+      @foreach ($ormawas->sortByDesc('p1') as $o)
         [ {!! "'$o->Nama',".$o->p1 !!} ],
       @endforeach
     ]);
@@ -495,7 +495,7 @@
     data2.addColumn('string', 'Nama Ormawa');
     data2.addColumn('number', 'Jumlah');
     data2.addRows([
-      @foreach ($ormawas as $o)
+      @foreach ($ormawas->sortByDesc('p2') as $o)
         [ {!! "'$o->Nama',".$o->p2 !!} ],
       @endforeach
     ]);

@@ -8,6 +8,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/apple-icon.png')}}">
   <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>
     MOB FT 2018
   </title>
@@ -119,7 +120,7 @@
               <li class="nav-item " id="barang">
                 <a class="nav-link" href="{{route('barang.index')}}">
                   <i class="material-icons">content_paste</i>
-                  <p>Barang</p>
+                  <p>Barang Bawaan</p>
                 </a>
               </li>
 
@@ -204,7 +205,7 @@
             <li class="nav-item " id="barang">
               <a class="nav-link" href="{{route('validasi.barang')}}">
                 <i class="material-icons">card_travel</i>
-                <p>Barang</p>
+                <p>Barang Bawaan Tidak Dibawa</p>
               </a>
             </li>
             <li class="nav-item " id="logout">
@@ -309,6 +310,52 @@
   <script src="{{asset('js/bootstrap-table.js')}}"></script>
   <!-- BOOTSTRAP TABLE --> 
 
+  <script type="text/javascript">
+    function delete_confirmation(e, link)
+    {
+      console.log(link);
+      e.preventDefault();
+      swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result) {
+          delete_ajax(link);
+        }
+      });
+  }
+
+  function delete_ajax(link)
+  {
+    $.ajax({
+      type:'DELETE',
+      url: link,
+      success:function(data){
+        if (data == 1)
+        {
+            swal(
+            'Deleted!',
+            'Data berhasil didelete.',
+            'success'
+          );
+          location.reload();
+        }
+        else
+          swal(
+            'Oops...',
+            'Data tersebut tidak dapat didelete!',
+            'error'
+          );
+      }
+    });
+  }
+  
+  </script>
   @if (\Session::has('status'))
   <script type="text/javascript">
       $(document).ready(function(){
@@ -326,7 +373,23 @@
 
     $(document).ready(function(){
       $('.button_delete').click(function(){
-        confirm('Apakah anda yakin?');
+        swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.value) {
+            swal(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+          }
+        });
       });
       
       @if(\Session::has('status'))

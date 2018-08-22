@@ -89,7 +89,7 @@ class LoginController extends Controller
 
 	public function logout()
 	{
-        if(Auth::user()->panitia == null || Auth::user()->panitia == "")
+        if(Auth::user()->panitia != null || Auth::user()->panitia != "")
             $route = "loginAdmin";
         else
             $route = 'login';

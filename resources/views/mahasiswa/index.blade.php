@@ -38,8 +38,7 @@
 									<th data-sortable="true" data-field="penyakit">Penyakit</th>
 									<th data-sortable="true" data-field="recup_1">Recup 1</th>
 									<th data-sortable="true" data-field="recup_2">Recup 2</th>
-									<th data-field="nrp" data-formatter="EditFormatter">Edit</th>
-									<th data-field="nrp" data-formatter="DeleteFormatter">Delete</th>
+									<th data-field="nrp" data-formatter="ActionFormatter">Action</th>
 								</tr>
 							</thead>
 
@@ -59,17 +58,15 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript">
-	function EditFormatter(value, row, index){
-		return '<a href="/mob/mahasiswa/'+ row['nrp']+ '/edit">Edit</a>'
-	}
 
-	function DeleteFormatter(value, row, index) {
-		return '<form method="post" action="/mob/mahasiswa/'+ row['nrp'] + '">' +
-				'{{csrf_field()}}' +
-				'@method("DELETE")' +
-					'<button type="submit" class="button_delete" onclick="confirm(' + "'Apakah anda yakin?'" +');">Delete</button>'+
-			'</form>';
+<script type="text/javascript">
+	function ActionFormatter(value, row, index) 
+	{
+		var link = '/mahasiswa/' + row['nrp'];
+
+		var edit = '<a href="' + link + '/edit" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">dvr</i></a>';
+		var del = '<button type="submit" class="btn btn-link btn-danger btn-just-icon remove" onclick="delete_confirmation(event, \'' + link + '\')"><i class="material-icons">close</i></button>';
+		return edit + del;
 	}
 
 	$('#list').addClass('active');

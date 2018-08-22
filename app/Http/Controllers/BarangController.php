@@ -48,15 +48,16 @@ class BarangController extends Controller
         $barang->Nama = $request->nama_barang;
         $barang->Poin = $request->poin;
 
-        $status = "1;Tambah barang berhasil.";
+        $status = "1;Tambah barang berhasil;";
         try
         {
             $barang->save();
+            \App\Log::insertLog("info", Auth::id(), null, null, "Barang Bawaan - ADD ($barang->Nama)");
         }
         catch(\Exception $e)
         {            
-            $status = "0;Tambah barang gagal. Pastikan data yang anda masukkan benar!";
-            \App\Log::insertLog("Error", Auth::id(), null, null, "Edit Panitia_Maping ($id): ".$e->getMessage());
+            $status = "0;Tambah barang gagal;Pastikan data yang anda masukkan benar!";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Barang Bawaan - ADD ($barang->Nama): ".$e->getMessage());
         }
 
         return redirect()->action('BarangController@index')->with('status', $status);
@@ -101,15 +102,16 @@ class BarangController extends Controller
         $barang->Nama = $request->nama_barang;
         $barang->Poin = $request->poin;
 
-        $status = "1;Edit barang berhasil.";
+        $status = "1;Edit barang berhasil;";
         try
         {
             $barang->save();
+            \App\Log::insertLog("info", Auth::id(), null, null, "Barang Bawaan - Edit ($barang->Nama)");
         }
         catch(\Exception $e)
         {            
-            $status = "0;Edit barang gagal. Pastikan data yang anda masukkan benar!";
-            \App\Log::insertLog("Error", Auth::id(), null, null, "Edit Barang ($id): ".$e->getMessage());
+            $status = "0;Edit barang gagal;Pastikan data yang anda masukkan benar!";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Barang Bawaan - Edit ($id): ".$e->getMessage());
         }
         return redirect()->action('BarangController@index')->with('status',$status);
     }
@@ -124,18 +126,18 @@ class BarangController extends Controller
     {
         //
         $barang = Barang::find($id);
-
-        $status = "1;Delete barang berhasil.";
+    
+        $status = "1";
         try
         {
             $barang->delete();
+            \App\Log::insertLog("info", Auth::id(), null, null, "Barang Bawaan - Delete ($barang->Nama)");
         }
         catch(\Exception $e)
         {            
-            $status = "0;Delete barang gagal. Kontak ITD!";
-            \App\Log::insertLog("Error", Auth::id(), null, null, "Delete Barang ($id): ".$e->getMessage());
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Barang Bawaan - Delete ($barang->Nama): ".$e->getMessage());
+            $status = "0";
         }
-
-        return redirect()->back()->with('status', $status);
+        return $status;
     }
 }

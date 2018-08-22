@@ -46,22 +46,24 @@ class JadwalController extends Controller
     {
         //
         $s = new Sesi;
+        $m = explode('T', $request->mulai);
+        $a = explode('T', $request->akhir);
 
         $s->Nama = $request->nama;
-        $s->Mulai = $request->mulai;
-        $s->Akhir = $request->akhir;
+        $s->Mulai = "$m[0] $m[1]";
+        $s->Akhir = "$a[0] $a[1]";
         $s->Kelompok = $request->kelompok;
 
-        return $s->Mulai;
-        $status = "1;Tambah sesi berhasil.";
+        $status = "1;Tambah sesi berhasil;";
         try
         {
-            $s->save();        
+            $s->save();     
+            \App\Log::insertLog("info", Auth::id(), null, null, "Tambah Sesi($s->Id): success");
         }
         catch(\Exception $e)
         {            
-            $status = "0;Tambah sesi gagal.";
-            \App\Log::insertLog("Error", Auth::id(), null, null, "Tambah Sesi: ".$e->getMessage());
+            $status = "0;Tambah sesi gagal; Pastikan data yang anda masukkan benar!";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Tambah Sesi($s->Id): ".$e->getMessage());
         }
 
         return redirect()->action('JadwalController@index')->with('status', $status);
@@ -107,15 +109,15 @@ class JadwalController extends Controller
         $s->Mulai = "$m[0] $m[1]";
         $s->Akhir = "$a[0] $a[1]";
         $s->Kelompok = $request->kelompok;
-        $status = "1;Edit sesi berhasil.";
+        $status = "1;Edit sesi berhasil;";
         try
         {
             $s->save();        
+            \App\Log::insertLog("info", Auth::id(), null, null, "Edit Sesi($id): success");
         }
         catch(\Exception $e)
         {            
-            return $e;
-            $status = "0;Edit sesi gagal.";
+            $status = "0;Edit sesi gagal;";
             \App\Log::insertLog("Error", Auth::id(), null, null, "Edit Sesi ($id): ".$e->getMessage());
         }
         //$status = DB::update("sp_UpdateSesi $id, $nama, $mulai, $akhir, $kelompok"); //Uncomment
@@ -132,16 +134,17 @@ class JadwalController extends Controller
     {
         $s = Sesi::find($id);
 
-        $status = "1;Delete sesi berhasil.";
+        $status = "1";
         try
         {
-            $s->delete();        
+            $s->delete();  
+            \App\Log::insertLog("info", Auth::id(), null, null, "Delete Sesi($s->Nama): success");
         }
         catch(\Exception $e)
         {            
-            $status = "0;Delete sesi gagal.";
-            \App\Log::insertLog("Error", Auth::id(), null, null, "Delete Sesi ($id): ".$e->getMessage());
+            $status = "0";
+            \App\Log::insertLog("Error", Auth::id(), null, null, "Delete Sesi ($s->Nama): ".$e->getMessage());
         }
-        return redirect()->back()->with('status', $status);
+        return $status;
     }
 }
