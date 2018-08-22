@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('title')
 @endsection
@@ -45,6 +45,6 @@
 
 @section('scripts')
 <script type="text/javascript">
-	$('#pelanggar').addClass('active');
+	$('#pelanggaran').addClass('active');
 </script>
 @endsection

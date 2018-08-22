@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 <div class="container-fluid">
@@ -189,7 +189,7 @@
 @section('scripts')
 <script type="text/javascript">
 
-    $('#list').addClass('active');
+    $('#validasi_rc').addClass('active');
 </script>
 
 <script type="text/javascript">

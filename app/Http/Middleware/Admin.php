@@ -16,9 +16,9 @@ class Admin
     public function handle($request, Closure $next)
     {
         if (!Auth::check())
-            return redirect()->route('loginAdmin')->with('status', '0;Anda belum login');
+            return redirect()->route('loginAdmin')->with('status', '0;Akses Website Gagal;Anda belum login');
         else if(Auth::user()->panitia()->count() == 0)
-            return redirect()->route('loginAdmin')->with('status', '0;Anda belum login');
+            return redirect()->route('loginAdmin')->with('status', '0;Akses Website Gagal;Anda belum login');
         return $next($request);
     }
 }

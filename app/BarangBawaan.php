@@ -15,7 +15,7 @@ class BarangBawaan extends Model
 
     public function mahasiswa()
     {
-    	return $this->belongsTo('App\Mahasiswa', 'NRP_Mhs');
+        return $this->belongsTo('App\Mahasiswa', 'NRP_Mhs');
     }
 
     public function panitia()

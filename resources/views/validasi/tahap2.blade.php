@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 <div class="container-fluid">
@@ -9,8 +9,7 @@
                 <div class="row">
                     <div class="col-md-10">
                       <h4 class="card-title ">Validasi Data Tahap 2</h4>
-                      <p class="card-category"><p class="text-justify">Pengisian form hanya dapat dilakukan 1 kali, oleh sebab itu, berhati-hatilah dalam megisi form.</p>
-</p>
+                      <p class="card-category text-justify">Pengisian form hanya dapat dilakukan 1 kali, oleh sebab itu, berhati-hatilah dalam megisi form.</p>
                     </div>
                 </div>
             </div>
@@ -102,7 +101,7 @@
 @section('scripts')
 <script type="text/javascript">
 
-    $('#list').addClass('active');
+    $('#validasi_oho').addClass('active');
 </script>
 
 <script type="text/javascript">     

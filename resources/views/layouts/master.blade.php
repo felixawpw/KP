@@ -75,109 +75,154 @@
         </div>
         @endif
         <ul class="nav">
-          <li class="nav-item" id="dashboard">
-            <a class="nav-link" href="{{route('home')}}">
-              <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          @if(Auth::check() && Auth::user()->panitia()->count() != 0)
-          <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#sideBarMaharu" id="dropdownMenuLink">
-                <i class="material-icons">person</i>
-                <p>
-                  Mahasiswa Baru
-                  <b class="caret"></b>
-                </p>
-              </a>
-              <div class="collapse" id="sideBarMaharu">
-                  <ul class="nav">
-                      <li class="nav-item ">
-                          <a class="nav-link" href="{!! route('mahasiswa.index') !!}">
-                              <i class="material-icons">list</i>
-                              <span class="sidebar-normal"> Tampilkan Semua </span>
-                          </a>
-                      </li>
-                      <li class="nav-item ">
-                          <a class="nav-link" href="{!! route('presensi.index') !!}">
-                              <i class="material-icons">library_books</i>
-                              <span class="sidebar-normal"> Presensi Mahasiswa </span>
-                          </a>
-                      </li>
-                      <li class="nav-item ">
-                          <a class="nav-link" href="{!! route('barangbawaan.index') !!}">
-                              <i class="material-icons">person</i>
-                              <span class="sidebar-normal"> List Barang Tidak Dibawa </span>
-                          </a>
-                      </li>
-                  </ul>
-              </div>
-          </li>
-
-          <li class="nav-item " id="barang">
-            <a class="nav-link" href="{{route('barang.index')}}">
-              <i class="material-icons">content_paste</i>
-              <p>Barang</p>
-            </a>
-          </li>
-
-          <li class="nav-item " id="maping">
-            <a class="nav-link" href="{{route('maping.index')}}">
-              <i class="material-icons">group</i>
-              <p>Maping</p>
-            </a>
-          </li>
-
-          <li class="nav-item " id="panitia">
-            <a class="nav-link" href="{{route('panitia.index')}}">
-              <i class="material-icons">person_outline</i>
-              <p>Panitia</p>
-            </a>
-          </li>
-
-          <li class="nav-item " id="pelanggaran">
-            <a class="nav-link" href="{{route('pelanggaran.index')}}">
-              <i class="material-icons">warning</i>
-              <p>Pelanggaran</p>
-            </a>
-          </li>
-
-          <li class="nav-item " id="recup">
-            <a class="nav-link" href="{{route('recup.index')}}">
-              <i class="material-icons">calendar_today</i>
-              <p>Rektor Cup</p>
-            </a>
-          </li>
-
-
-          <li class="nav-item " id="jadwal">
-            <a class="nav-link" href="{{route('jadwal.index')}}">
-              <i class="material-icons">access_time</i>
-              <p>Sesi</p>
-            </a>
-          </li>
-
-          <li class="nav-item " id="logout">
-            <a class="nav-link" href="{{route('logout')}}">
-              <i class="material-icons">exit_to_app</i>
-              <p>Logout</p>
-            </a>
-          </li>
-          @endif
-          <!-- <li class="nav-item active-pro ">
-                <a class="nav-link" href="./upgrade.html">
-                    <i class="material-icons">unarchive</i>
-                    <p>Upgrade to PRO</p>
+          @if(Auth::check())
+            @if(Auth::user()->panitia()->count() != 0)
+              <li class="nav-item" id="dashboard">
+                <a class="nav-link" href="{{route('home')}}">
+                  <i class="material-icons">dashboard</i>
+                  <p>Dashboard</p>
                 </a>
-            </li> -->
+              </li>
+
+              <li class="nav-item">
+                  <a class="nav-link" data-toggle="collapse" href="#sideBarMaharu" id="dropdownMenuLink">
+                    <i class="material-icons">person</i>
+                    <p>
+                      Mahasiswa Baru
+                      <b class="caret"></b>
+                    </p>
+                  </a>
+                  <div class="collapse" id="sideBarMaharu">
+                      <ul class="nav">
+                          <li class="nav-item ">
+                              <a class="nav-link" href="{!! route('mahasiswa.index') !!}">
+                                  <i class="material-icons">list</i>
+                                  <span class="sidebar-normal"> Tampilkan Semua </span>
+                              </a>
+                          </li>
+                          <li class="nav-item ">
+                              <a class="nav-link" href="{!! route('presensi.index') !!}">
+                                  <i class="material-icons">library_books</i>
+                                  <span class="sidebar-normal"> Presensi Mahasiswa </span>
+                              </a>
+                          </li>
+                          <li class="nav-item ">
+                              <a class="nav-link" href="{!! route('barangbawaan.index') !!}">
+                                  <i class="material-icons">person</i>
+                                  <span class="sidebar-normal"> List Barang Tidak Dibawa </span>
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
+              </li>
+
+              <li class="nav-item " id="barang">
+                <a class="nav-link" href="{{route('barang.index')}}">
+                  <i class="material-icons">content_paste</i>
+                  <p>Barang</p>
+                </a>
+              </li>
+
+              <li class="nav-item " id="maping">
+                <a class="nav-link" href="{{route('maping.index')}}">
+                  <i class="material-icons">group</i>
+                  <p>Maping</p>
+                </a>
+              </li>
+
+              <li class="nav-item " id="panitia">
+                <a class="nav-link" href="{{route('panitia.index')}}">
+                  <i class="material-icons">person_outline</i>
+                  <p>Panitia</p>
+                </a>
+              </li>
+
+              <li class="nav-item " id="pelanggaran">
+                <a class="nav-link" href="{{route('pelanggaran.index')}}">
+                  <i class="material-icons">warning</i>
+                  <p>Pelanggaran</p>
+                </a>
+              </li>
+
+              <li class="nav-item " id="recup">
+                <a class="nav-link" href="{{route('recup.index')}}">
+                  <i class="material-icons">calendar_today</i>
+                  <p>Rektor Cup</p>
+                </a>
+              </li>
+
+
+              <li class="nav-item " id="jadwal">
+                <a class="nav-link" href="{{route('jadwal.index')}}">
+                  <i class="material-icons">access_time</i>
+                  <p>Sesi</p>
+                </a>
+              </li>
+
+              <li class="nav-item " id="logout">
+                <a class="nav-link" href="{{route('logout')}}">
+                  <i class="material-icons">exit_to_app</i>
+                  <p>Logout</p>
+                </a>
+              </li>
+            @elseif(Auth::user()->mahasiswa()->count() != 0)
+            <li class="nav-item" id="dashboard">
+              <a class="nav-link" href="{{route('login')}}">
+                <i class="material-icons">dashboard</i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+
+            <li class="nav-item " id="validasi_rc">
+              <a class="nav-link" href="{{route('validasi1')}}">
+                <i class="material-icons">
+                  done_all
+                </i>
+                <p>Validasi Rektor Cup (Tahap 1)</p>
+              </a>
+            </li>
+            <li class="nav-item " id="validasi_oho">
+              <a class="nav-link" href="{{route('validasi2')}}">
+                <i class="material-icons">
+                  done_all
+                </i>
+                <p>Validasi OHO (Tahap 2)</p>
+              </a>
+            </li>
+            <li class="nav-item " id="pelanggaran">
+              <a class="nav-link" href="{{route('validasi.pelanggaran')}}">
+                <i class="material-icons">warning</i>
+                <p>Pelanggaran</p>
+              </a>
+            </li>
+            <li class="nav-item " id="presensi">
+              <a class="nav-link" href="{{route('validasi.presensi')}}">
+                <i class="material-icons">event_available</i>
+                <p>Presensi</p>
+              </a>
+            </li>
+            <li class="nav-item " id="barang">
+              <a class="nav-link" href="{{route('validasi.barang')}}">
+                <i class="material-icons">card_travel</i>
+                <p>Barang</p>
+              </a>
+            </li>
+            <li class="nav-item " id="logout">
+              <a class="nav-link" href="{{route('logout')}}">
+                <i class="material-icons">exit_to_app</i>
+                <p>Logout</p>
+              </a>
+            </li>
+            @endif
+          @endif
         </ul>
       </div>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+          <div class="container-fluid">
+            <div class="navbar-wrapper">
               <div class="navbar-minimize">
                   <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">
                       <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>
@@ -191,45 +236,17 @@
                       Login
                   @endif
               </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="navbar-toggler-icon icon-bar"></span>
+              <span class="navbar-toggler-icon icon-bar"></span>
+              <span class="navbar-toggler-icon icon-bar"></span>
+            </button>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
-        </div>
-      </nav>
+        </nav>
       <!-- End Navbar -->
       <div class="content">
-      <!-- Modal -->
-      <div class="modal fade" id="modalWarning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div id="modHeader" class="modal-header" 
-              @if (\Session::has('status') && explode(';', \Session::get('status'))[0] == "0")
-                style="background-color: #ff0033;"
-              @else
-                style="background-color: green;"
-
-              @endif>
-              <h3 class="modal-title" id="exampleModalLabel">PERHATIAN</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body" id="modBody">
-              @if (\Session::has('status'))
-                 <p class="text-justify">{!! explode(';', \Session::get('status'))[1] !!}</p>
-              @endif
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
         @yield('content')
       </div>
       <footer class="footer">
@@ -311,6 +328,18 @@
       $('.button_delete').click(function(){
         confirm('Apakah anda yakin?');
       });
+      
+      @if(\Session::has('status'))
+      swal({
+        @if (\Session::has('status') && explode(';', \Session::get('status'))[0] == "0")
+          type: 'error',
+        @else
+          type: 'success',
+        @endif
+        title: '{!! explode(";", \Session::get("status"))[1] !!}',
+        text: '{!! explode(";", \Session::get("status"))[2] !!}',
+      });
+      @endif
     });
   </script>
 

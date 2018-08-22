@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 <div class="container">
@@ -87,6 +87,61 @@
                         </div>
 
                         <div class="row">
+                        <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Pilihan Rektor Cup Prioritas 1</label>
+                                    <input type="text" class="form-control" disabled 
+                                        @if(Auth::user()->mahasiswa->recups()->count() == 0)
+                                            value="-"
+                                        @else
+                                            value="{!! Auth::user()->mahasiswa->recups()->wherePivot('Prioritas', '=', 1)->first()->Nama !!}"
+                                        @endif
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Pilihan Rektor Cup Prioritas 2</label>
+                                    <input type="text" class="form-control" disabled 
+                                        @if(Auth::user()->mahasiswa->recups()->count() == 0)
+                                            value="-"
+                                        @else
+                                            value="{!! Auth::user()->mahasiswa->recups()->wherePivot('Prioritas', '=', 2)->first()->Nama !!}"
+                                        @endif
+                                    >
+                                </div>
+                            </div>
+                        </div>                        
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Pilihan Ormawa Prioritas 1</label>
+                                        <input type="text" class="form-control" disabled 
+                                            @if(Auth::user()->mahasiswa->ormawas()->count() == 0)
+                                                value="-"
+                                            @else
+                                                value="{!! Auth::user()->mahasiswa->ormawas()->wherePivot('Prioritas', '=', 1)->first()->Nama !!}"
+                                            @endif
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Pilihan Ormawa Prioritas 2</label>
+                                        <input type="text" class="form-control" disabled 
+                                            @if(Auth::user()->mahasiswa->ormawas()->count() == 0)
+                                                value="-"
+                                            @else
+                                                value="{!! Auth::user()->mahasiswa->ormawas()->wherePivot('Prioritas', '=', 2)->first()->Nama !!}"
+                                            @endif
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-6 text-center">
                                 <div class="form-group">
                                     <label class="bmd-label-floating"><h2>Alfa : {!! Auth::user()->mahasiswa->kelompoks()->orderBy('Kelompok')->get()[0]->Kelompok!!}</h2></label>
@@ -113,7 +168,12 @@
 @endsection
 
 @section('scripts')
-	<script type="text/javascript">     
+    
+	<script type="text/javascript">
+        $('#dashboard').addClass('active');
+	</script>
+	
+    <script type="text/javascript">     
 		function isNumber(evt) 
 		{
 	        evt = (evt) ? evt : window.event;
@@ -123,5 +183,4 @@
             return false;
 	    }
 	</script>
-
 @endsection
