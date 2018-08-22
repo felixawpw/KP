@@ -38,8 +38,7 @@
 		        		<div class="row">
 	                      <div class="col-md-12">
 	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Jurusan</label>
-	                          <select class="form-control" name="jurusan" id="comboJurusan">
+														<select class="form-control selectpicker" data-style="select-with-transition" title="Pilih Jurusan" data-size="7" name="jurusan" id="comboJurusan">
 	                          	@foreach($jurusans as $j)
 	                          		<option value="{!!$j->Id!!}" @if($j->Nama == $mahasiswa['nama_jurusan']) selected @endif>
 	                          			{!!$j->Nama!!}
@@ -87,6 +86,7 @@
 
 @section('scripts')
 <script type="text/javascript">
-	$('#list').addClass('active');
+	$('#maharu').addClass('active');
+	$('#list_maharu').addClass('active');
 </script>
 @endsection

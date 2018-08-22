@@ -61,6 +61,6 @@
 		return edit + del;
 	}
 
-	$('#list').addClass('active');
+	$('#panitia').addClass('active');
 </script>
 @endsection

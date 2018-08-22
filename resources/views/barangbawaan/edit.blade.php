@@ -74,6 +74,7 @@
 
 @section('scripts')
 <script type="text/javascript">
+	$('#maharu').addClass('active');
 	$('#barangbawaan').addClass('active');
 </script>
 @endsection

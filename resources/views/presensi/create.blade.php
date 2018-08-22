@@ -64,7 +64,7 @@
 
 @section('scripts')
 <script type="text/javascript">
-
+	$('#maharu').addClass('active');
 	$('#presensi').addClass('active');
 </script>
 @endsection

@@ -21,31 +21,31 @@
 		        		@method('PUT')
 		        		{{csrf_field()}}
 		        		<div class="row">
-	                      <div class="col-md-12">
-	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Tanggal</label>
-	                          <input type="date" class="form-control" name="tanggal" id="tanggal" value="{{$barang->Tanggal}}">
-	                        </div>
-	                      </div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="bmd-label-floating">Tanggal</label>
+											<input type="text" class="form-control" name="tanggal" id="tanggal" value="{{$barang->Tanggal}}">
+										</div>
+									</div>
 		        		</div>
 		        		<div class="row">
-	                      <div class="col-md-12">
-	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Nama Barang</label>
-  	                          <input type="text" class="form-control" name="nama_barang" value="{{$barang->Nama}}">
-	                        </div>
-	                      </div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="bmd-label-floating">Nama Barang</label>
+												<input type="text" class="form-control" name="nama_barang" value="{{$barang->Nama}}">
+										</div>
+									</div>
 		        		</div>
 		        		<div class="row">
-	                      <div class="col-md-12">
-	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Poin</label>
-	                          <input type="number" class="form-control" name="poin" value="{{$barang->Poin}}">
-	                        </div>
-	                      </div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="bmd-label-floating">Poin</label>
+											<input type="number" class="form-control" name="poin" value="{{$barang->Poin}}">
+										</div>
+									</div>
 		        		</div>
-	                    <button type="submit" class="btn btn-primary pull-right col-md-4">Submit</button>
-	                    <div class="clearfix"></div>
+								<button type="submit" class="btn btn-primary pull-right col-md-4">Submit</button>
+								<div class="clearfix"></div>
 		        	</form>
 	        	</div>
 		    </div>
@@ -58,6 +58,15 @@
 
 @section('scripts')
 <script type="text/javascript">
+$(document).ready(function() {
+	var now = {!! $barang->Tanggal !!};			
+	var day = {!! explode('-', $barang->Tanggal)[2] !!};
+	var month = {!! explode('-', $barang->Tanggal)[1] !!};
+	var year = {!! explode('-', $barang->Tanggal)[0] !!};
+	var today = month + "/" + day + "/" + year;
+	$('#tanggal').val(today);
+	md.initFormExtendedDatetimepickers();
 	$('#barang').addClass('active');
+});
 </script>
 @endsection

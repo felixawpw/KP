@@ -65,6 +65,6 @@
 			'</form>';
 	}
 
-	$('#list').addClass('active');
+	$('#maping').addClass('active');
 </script>
 @endsection

@@ -83,7 +83,7 @@
 		var text = $('#comboSesi').val();
 		$('#tableAbsensi').bootstrapTable('resetSearch', "");
 	}
-
-	$('#absensi').addClass('active');
+	$('#maharu').addClass('active');
+	$('#presensi').addClass('active');
 </script>
 @endsection

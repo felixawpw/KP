@@ -66,7 +66,7 @@
 
 @section('scripts')
 <script type="text/javascript">
-
-	$('#absensi').addClass('active');
+	$('#maharu').addClass('active');
+	$('#presensi').addClass('active');
 </script>
 @endsection

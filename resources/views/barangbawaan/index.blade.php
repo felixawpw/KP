@@ -61,6 +61,7 @@
 		return '<a href="/mob/barangbawaan/delete/' + row["nrp"] +'/' + row['id_panitia']+ '/'+ row['id_sesi'] +'/' + row['id_barang'] + '">Delete</a>';
 	}
 
+	$('#maharu').addClass('active');
 	$('#barangbawaan').addClass('active');
 </script>
 @endsection

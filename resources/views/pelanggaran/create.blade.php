@@ -19,33 +19,33 @@
 		        	<form method="post" action="{{route('pelanggaran.store')}}" class="">
 		        		{{csrf_field()}}
 		        		<div class="row">
-	                      <div class="col-md-12">
-	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Nama Pelanggaran</label>
-	                          <input type="text" class="form-control" name="nama">
-	                        </div>
-	                      </div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="bmd-label-floating">Nama Pelanggaran</label>
+											<input required type="text" class="form-control" name="nama">
+										</div>
+									</div>
 		        		</div>
 		        		<div class="row">
-	                      <div class="col-md-12">
-	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Kategori Pelanggaran</label>
-	                          <select class="form-control" name="kategori">
-	                          	@foreach($kategories as $k)
-	                          		<option value="{{$k->Id}}">{{$k->Nama}}</option>
-	                          	@endforeach
-	                          </select>
-	                        </div>
-	                      </div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="bmd-label-floating">Kategori Pelanggaran</label>
+											<select required class="form-control selectpicker" data-style="select-with-transition" title="Pilih Kategori" data-size="7" name="kategori" id="comboKategori">
+												@foreach($kategories as $k)
+													<option value="{{$k->Id}}">{{$k->Nama}}</option>
+												@endforeach
+											</select>
+										</div>
+									</div>
 		        		</div>
 
 		        		<div class="row">
-	                      <div class="col-md-12">
-	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Poin</label>
-	                          <input type="text" class="form-control" name="poin_timpa">
-	                        </div>
-	                      </div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="bmd-label-floating">Poin</label>
+											<input required type="text" class="form-control" name="poin_timpa">
+										</div>
+									</div>
 		        		</div>
 
 	                    <button type="submit" class="btn btn-primary pull-right col-md-4">Submit</button>

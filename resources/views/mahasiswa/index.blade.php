@@ -69,6 +69,7 @@
 		return edit + del;
 	}
 
-	$('#list').addClass('active');
+	$('#maharu').addClass('active');
+	$('#list_maharu').addClass('active');
 </script>
 @endsection

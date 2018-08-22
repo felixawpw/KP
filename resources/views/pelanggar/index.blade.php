@@ -74,6 +74,7 @@
 	}
 
 
+	$('#maharu').addClass('active');
 	$('#pelanggar').addClass('active');
 </script>
 @endsection

@@ -75,6 +75,7 @@
 @section('scripts')
 <script type="text/javascript">
 
+	$('#maharu').addClass('active');
 	$('#pelanggar').addClass('active');
 </script>
 @endsection

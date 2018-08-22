@@ -33,7 +33,7 @@
           <a href="#" class="simple-text logo-mini">
             FT
           </a>
-          <a href="@if(!Auth::check()) {{route('login')}} @elseif(Auth::user()->panitia != null || Auth::user()->panitia != '') {{route('loginAdmin')}} @endif " class="simple-text logo-normal">
+          <a href="@if(!Auth::check()) {{route('login')}} @elseif(Auth::user()->panitia != null || Auth::user()->panitia != '') {{route('home')}} @endif " class="simple-text logo-normal">
             MOB FT 2018
           </a>
       </div>
@@ -85,7 +85,7 @@
                 </a>
               </li>
 
-              <li class="nav-item">
+              <li class="nav-item" id="maharu">
                   <a class="nav-link" data-toggle="collapse" href="#sideBarMaharu" id="dropdownMenuLink">
                     <i class="material-icons">person</i>
                     <p>
@@ -95,22 +95,28 @@
                   </a>
                   <div class="collapse" id="sideBarMaharu">
                       <ul class="nav">
-                          <li class="nav-item ">
+                          <li class="nav-item " id="list_maharu">
                               <a class="nav-link" href="{!! route('mahasiswa.index') !!}">
                                   <i class="material-icons">list</i>
                                   <span class="sidebar-normal"> Tampilkan Semua </span>
                               </a>
                           </li>
-                          <li class="nav-item ">
+                          <li class="nav-item " id="presensi">
                               <a class="nav-link" href="{!! route('presensi.index') !!}">
                                   <i class="material-icons">library_books</i>
                                   <span class="sidebar-normal"> Presensi Mahasiswa </span>
                               </a>
                           </li>
-                          <li class="nav-item ">
+                          <li class="nav-item " id="barangbawaan">
                               <a class="nav-link" href="{!! route('barangbawaan.index') !!}">
                                   <i class="material-icons">person</i>
                                   <span class="sidebar-normal"> List Barang Tidak Dibawa </span>
+                              </a>
+                          </li>
+                          <li class="nav-item " id="pelanggar">
+                              <a class="nav-link" href="{!! route('pelanggar.index') !!}">
+                                  <i class="material-icons">warning</i>
+                                  <span class="sidebar-normal"> Pelanggaran </span>
                               </a>
                           </li>
                       </ul>

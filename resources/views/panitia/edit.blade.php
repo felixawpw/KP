@@ -39,36 +39,36 @@
 	                      </div>
 		        		</div>
 		        		<div class="row">
-	                      <div class="col-md-12">
-	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Jurusan</label>
-	                          <select class="form-control" name="jurusan" id="comboJurusan">
-                          		<option value="" disable @if($panitia->Id_Jurusan == null) selected @endif>
-                          			-
-                          		</option>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="bmd-label-floating">Jurusan</label>
+											<select class="form-control selectpicker" data-style="select-with-transition" title="Pilih Jurusan" data-size="7" name="jurusan" id="comboJurusan">
+												<option value="" disable @if($panitia->Id_Jurusan == null) selected @endif>
+													-
+												</option>
 
-	                          	@foreach($jurusans as $j)
-	                          		<option value="{{$j->Id}}" @if($j->Id == $panitia->Id_Jurusan) selected @endif>
-	                          			{{$j->Nama}}
-	                          		</option>
-	                          	@endforeach
-	                          </select>
-	                        </div>
-	                      </div>
+												@foreach($jurusans as $j)
+													<option value="{{$j->Id}}" @if($j->Id == $panitia->Id_Jurusan) selected @endif>
+														{{$j->Nama}}
+													</option>
+												@endforeach
+											</select>
+										</div>
+									</div>
 		        		</div>
 	        			<div class="row">
-	                      <div class="col-md-6">
-	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Divisi</label>
-	                          <select class="form-control" name="divisi" id="comboDivisi">
-	                          	@foreach($divisis as $d)
-	                          		<option value="{{$d->Id}}" @if($d->Id == $panitia->panitia->Id_Divisi) selected @endif
-	                          			>{{$d->Nama}}
-	                          		</option>
-	                          	@endforeach
-	                          </select>
-	                        </div>
-	                      </div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="bmd-label-floating">Divisi</label>
+											<select class="form-control selectpicker" data-style="select-with-transition" title="Pilih Divisi" data-size="7" name="divisi" id="comboDivisi">
+												@foreach($divisis as $d)
+													<option value="{{$d->Id}}" @if($d->Id == $panitia->panitia->Id_Divisi) selected @endif
+														>{{$d->Nama}}
+													</option>
+												@endforeach
+											</select>
+										</div>
+									</div>
 		        		</div>
 	                    <button type="submit" class="btn btn-primary pull-right col-md-4">Submit</button>
 	                    <div class="clearfix"></div>
@@ -84,6 +84,6 @@
 
 @section('scripts')
 <script type="text/javascript">
-	$('#list').addClass('active');
+	$('#panitia').addClass('active');
 </script>
 @endsection

@@ -19,20 +19,20 @@
 		        	<form method="post" action="{{route('barang.store')}}" class="">
 		        		{{csrf_field()}}
 		        		<div class="row">
-	                      <div class="col-md-12">
-	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Tanggal</label>
-	                          <input type="date" class="form-control" name="tanggal" id="tanggal">
-	                        </div>
-	                      </div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="bmd-label-floating">Tanggal</label>
+									<input type="text" class="form-control datepicker" name="tanggal" id="tanggal" value="01/01/1970">
+								</div>
+							</div>
 		        		</div>
 		        		<div class="row">
-	                      <div class="col-md-12">
-	                        <div class="form-group">
-	                          <label class="bmd-label-floating">Nama Barang</label>
-  	                          <input type="text" class="form-control" name="nama_barang">
-	                        </div>
-	                      </div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="bmd-label-floating">Nama Barang</label>
+												<input type="text" class="form-control" name="nama_barang">
+										</div>
+									</div>
 		        		</div>
 		        		<div class="row">
 	                      <div class="col-md-12">
@@ -56,7 +56,15 @@
 
 @section('scripts')
 <script type="text/javascript">
-	$('#barang').addClass('active');
-	document.getElementById('tanggal').value = new Date().toDateInputValue();
+    $(document).ready(function() {
+			var now = new Date;			
+			var day = ("0" + now.getDate()).slice(-2);
+			var month = ("0" + (now.getMonth() + 1)).slice(-2);
+			var today = month + "/" + day + "/" + now.getFullYear();
+
+			$('#tanggal').val(today);
+			md.initFormExtendedDatetimepickers();
+			$('#barang').addClass('active');
+		});
 </script>
 @endsection
