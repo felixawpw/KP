@@ -85,6 +85,13 @@ Route::middleware(['admin'])->group(function () {
 	Route::get('kelompok/delete/{kelompok}/{maping}', 'KelompokController@destroy');
 	Route::get('presensi/delete/{nrp}/{sesi}', 'PresensiController@destroy');
 
-	Route::get('/convert/to/php', 'HomeController@convertToPhp');
+	Route::get('convert/to/php', 'HomeController@convertToPhp');
+
+
+	Route::get('manual/presensi', 'ManualController@show_presensi')->name('maping.show_presensi');
+	Route::post('manual/presensi', 'ManualController@store_presensi')->name('maping.store_presensi');
+
+	Route::get('manual/barangbawaan', 'ManualController@show_bawaan')->name('maping.show_bawaan');
+	Route::post('manual/barangbawaan', 'ManualController@store_bawaaan')->name('maping.store_bawaan');
 });
 Route::get('report', 'HomeController@report');

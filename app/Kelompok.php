@@ -15,4 +15,9 @@ class Kelompok extends Model
     {
     	return $this->belongsTo('App\Panitia', 'NRP', 'NRP_Pengguna');
     }
+
+    public function mahasiswas()
+    {
+    	return $this->belongsToMany('App\Mahasiswa', 'Mhs_Maping', 'Kelompok', 'NRP_Mhs');
+    }
 }

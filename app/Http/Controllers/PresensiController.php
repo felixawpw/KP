@@ -11,7 +11,11 @@ class PresensiController extends Controller
 {
     public function json()
     {
-        return Resource::collection(Presensi::all());
+        if(Auth::user()->panitia->Id_Divisi == 10)
+            $presensi = Presensi::where('NRP_Panitia', '=', Auth::id())->get();
+        else
+            $presensi = Presensi::all();
+        return Resource::collection($presensi);
     }
     /**
      * Display a listing of the resource.

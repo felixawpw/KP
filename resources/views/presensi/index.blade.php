@@ -15,9 +15,15 @@
 			          <p class="card-category">Mahasiswa Baru Universitas Surabaya Fakultas Teknik 2018</p>
 	        		</div>
 	        		<div class="col-md-2">
+	        			@if(Auth::user()->panitia->Id_Divisi != 10)
 		            	<a href="{{route('presensi.create')}}">
 		            		<i class="material-icons" style="font-size: 48px; color: lightblue;">add_circle</i>
 		            	</a>
+		            	@else
+		            	<a href="{{route('maping.show_presensi')}}">
+		            		<i class="material-icons" style="font-size: 48px; color: lightblue;">add_circle</i>
+		            	</a>
+		            	@endif
 	        		</div>
 	      		</div>
 	        </div>

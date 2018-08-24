@@ -70,7 +70,11 @@ class LoginController extends Controller
         }
         else 
         {
-            if ($pengguna->panitia->Id_Divisi == 5 || $pengguna->panitia->Id_Divisi == 9 || $pengguna->panitia->Id_Divisi == 2)   
+            if ($pengguna->panitia->Id_Divisi == 2 || 
+                $pengguna->panitia->Id_Divisi == 5 || 
+                $pengguna->panitia->Id_Divisi == 8 ||
+                $pengguna->panitia->Id_Divisi == 9 ||
+                $pengguna->panitia->Id_Divisi == 10)   
             {
                 $message = "1;Login Berhasil; Selamat datang di website MOB FT UBAYA!";
                 Auth::loginUsingId($pengguna->NRP);

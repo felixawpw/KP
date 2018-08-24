@@ -41,6 +41,11 @@ class Mahasiswa extends Model
         return $this->hasMany('App\Presensi', 'NRP_Mhs');
     }
 
+    public function presensi()
+    {
+        return $this->belongsToMany('App\Sesi', 'Mhs_Presensi', 'NRP_Mhs', 'Id_Sesi')->withPivot('NRP_Panitia');
+    }
+
     public function bawaans()
     {
         return $this->hasMany('App\BarangBawaan', 'NRP_Mhs');

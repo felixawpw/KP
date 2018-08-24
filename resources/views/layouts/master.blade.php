@@ -85,6 +85,10 @@
                 </a>
               </li>
 
+              <!-- 2 = BPH, 5 = AD, 9 = ITD -->
+              @if(Auth::user()->panitia->Id_Divisi == 2 ||
+                  Auth::user()->panitia->Id_Divisi == 5 ||
+                  Auth::user()->panitia->Id_Divisi == 9)
               <li class="nav-item" id="maharu">
                   <a class="nav-link" data-toggle="collapse" href="#sideBarMaharu" id="dropdownMenuLink">
                     <i class="material-icons">person</i>
@@ -158,7 +162,6 @@
                 </a>
               </li>
 
-
               <li class="nav-item " id="jadwal">
                 <a class="nav-link" href="{{route('jadwal.index')}}">
                   <i class="material-icons">access_time</i>
@@ -172,6 +175,30 @@
                   <p>Logout</p>
                 </a>
               </li>
+
+              <!-- Authorization Maping -->
+              @elseif(Auth::user()->panitia->Id_Divisi == 10)
+              <li class="nav-item " id="presensi">
+                <a class="nav-link" href="{{route('presensi.index')}}">
+                  <i class="material-icons">library_books</i>
+                  <p>Presensi</p>
+                </a>
+              </li>
+              <li class="nav-item " id="barangbawaan">
+                <a class="nav-link" href="{!! route('maping.show_bawaan') !!}">
+                  <i class="material-icons">person</i>
+                  <span class="sidebar-normal"> List Barang Tidak Dibawa </span>
+                </a>
+              </li>
+              <li class="nav-item " id="logout">
+                <a class="nav-link" href="{{route('logout')}}">
+                  <i class="material-icons">exit_to_app</i>
+                  <p>Logout</p>
+                </a>
+              </li>
+              @endif
+
+
             @elseif(Auth::user()->mahasiswa()->count() != 0)
             <li class="nav-item" id="dashboard">
               <a class="nav-link" href="{{route('login')}}">
